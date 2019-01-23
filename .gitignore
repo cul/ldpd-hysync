@@ -32,3 +32,6 @@
 
 # Ignore config files with sensitive data
 /config/database.yml
+/config/hysync.yml
+/config/hyacinth.yml
+/config/voyager.yml
