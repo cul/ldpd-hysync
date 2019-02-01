@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_restriction_on_access
         end
 
-        def add_restriction_on_access(marc_record, mapping_ruleset)
+        def add_restriction_on_access(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['restriction_on_access'] ||= []
           dynamic_field_data['restriction_on_access'] << {
             'restriction_on_access_value' => extract_restriction_on_access(marc_record, mapping_ruleset),

@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_marc_005_last_modified
         end
 
-        def add_marc_005_last_modified(marc_record, mapping_ruleset)
+        def add_marc_005_last_modified(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['marc_005_last_modified'] ||= []
           dynamic_field_data['marc_005_last_modified'] << {
             'marc_005_last_modified_value' => marc_record['005'].value

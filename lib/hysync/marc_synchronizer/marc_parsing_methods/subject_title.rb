@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_subject_title
         end
 
-        def add_subject_title(marc_record, mapping_ruleset)
+        def add_subject_title(marc_record, holdings_marc_records, mapping_ruleset)
           return if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
 
           dynamic_field_data['subject_title'] ||= []

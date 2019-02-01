@@ -19,7 +19,6 @@ module Hysync
           add_collection_if_773_w_clio_id_present!(base_digital_object_data, marc_record)
 
           create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
-          #break # TODO: Remove this after testing, since it stops the process after only one record
         end
       end
 
@@ -43,6 +42,8 @@ module Hysync
             return unless collection_marc_record
             # Return if this MARC record isn't a collection-level record.
             return unless collection_marc_record.leader[7] == 'c'
+            # Raise error if the marc 001 field of this record doesn't actually match the value in collection_clio_id
+            raise 'Mismatch between collection_clio_id and retrieved record 001 value' if collection_clio_id != collection_marc_record['001'].value
             # Create this term because it does not exist
             term = @hyacinth_client.create_controlled_term({
               'controlled_vocabulary_string_key' => 'collection',
@@ -72,7 +73,11 @@ module Hysync
       end
 
       def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
-        marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, base_digital_object_data)
+        holdings_marc_records = []
+        @voyager_client.holdings_for_bib_id(marc_record['001'].value) do |holdings_marc_record, i, num_results|
+          holdings_marc_records << holdings_marc_record
+        end
+        marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, holdings_marc_records, base_digital_object_data)
         marc_hyacinth_record.errors << 'Missing CLIO ID for marc_hyacinth_record' if marc_hyacinth_record.clio_id.nil?
 
         # TODO: If this becomes a resque job later, do something more than just logging this error

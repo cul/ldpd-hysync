@@ -12,7 +12,7 @@ module Hysync
           '965TBM' => 'TBM'
         }.freeze
 
-        def add_project(marc_record, mapping_ruleset)
+        def add_project(marc_record, holdings_marc_records, mapping_ruleset)
           # TODO: In Hyacinth 3, support multiple project associations
           raise 'This record already has a project.' if digital_object_data['project']
 

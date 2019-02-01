@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_date
         end
 
-        def add_date(marc_record, mapping_ruleset)
+        def add_date(marc_record, holdings_marc_records, mapping_ruleset)
           date_type = extract_date_type(marc_record, mapping_ruleset)
           date1, date2 = extract_date1_and_date2(marc_record)
           add_appropriate_date_fields(date_type, date1, date2, marc_record, mapping_ruleset)

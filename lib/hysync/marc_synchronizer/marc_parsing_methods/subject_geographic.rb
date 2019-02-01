@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_subject_geographic
         end
 
-        def add_subject_geographic(marc_record, mapping_ruleset)
+        def add_subject_geographic(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['subject_geographic'] ||= []
           extract_subject_geographic_terms(marc_record, mapping_ruleset).each do |subject_geographic_term|
             dynamic_field_data['subject_geographic'] << {

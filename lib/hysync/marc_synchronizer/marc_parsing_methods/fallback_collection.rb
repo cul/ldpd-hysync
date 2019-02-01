@@ -10,7 +10,7 @@ module Hysync
           register_parsing_method :add_fallback_collection
         end
 
-        def add_fallback_collection(marc_record, mapping_ruleset)
+        def add_fallback_collection(marc_record, holdings_marc_records, mapping_ruleset)
           return unless dynamic_field_data['collection'].nil?
           dynamic_field_data['collection'] ||= []
           dynamic_field_data['collection'] << {

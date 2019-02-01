@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_provenance
         end
 
-        def add_provenance(marc_record, mapping_ruleset)
+        def add_provenance(marc_record, holdings_marc_records, mapping_ruleset)
           return if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
 
           dynamic_field_data['note'] ||= []

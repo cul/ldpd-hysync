@@ -34,7 +34,7 @@ gem 'zoom', '0.5.0'
 # For MARC parsing
 gem 'marc', '~> 1.0'
 # For oracle connections
-#gem 'ruby-oci8', '~> 2.2.7'
+gem 'ruby-oci8', '~> 2.2.7'
 # For HTTP Requests
 gem 'rest-client', '~> 2.0'
 

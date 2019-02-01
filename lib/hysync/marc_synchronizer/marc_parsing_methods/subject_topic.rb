@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_subject_topic
         end
 
-        def add_subject_topic(marc_record, mapping_ruleset)
+        def add_subject_topic(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['subject_topic'] ||= []
           extract_subject_topic_terms(marc_record, mapping_ruleset).each do |subject_topic_term|
             dynamic_field_data['subject_topic'] << {

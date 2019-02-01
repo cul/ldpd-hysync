@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_genre
         end
 
-        def add_genre(marc_record, mapping_ruleset)
+        def add_genre(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['genre'] ||= []
           extract_genre_terms(marc_record, mapping_ruleset).each do |genre_term|
             dynamic_field_data['genre'] << {

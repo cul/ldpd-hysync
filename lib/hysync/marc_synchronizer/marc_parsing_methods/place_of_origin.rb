@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_place_of_origin
         end
 
-        def add_place_of_origin(marc_record, mapping_ruleset)
+        def add_place_of_origin(marc_record, holdings_marc_records, mapping_ruleset)
           return if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
 
           dynamic_field_data['place_of_origin'] ||= []
