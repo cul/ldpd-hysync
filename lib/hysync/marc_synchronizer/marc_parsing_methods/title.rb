@@ -26,12 +26,12 @@ module Hysync
           title = field['a']
           case mapping_ruleset
           when 'carnegie_scrapbooks_and_ledgers', 'oral_history'
-            title += ', ' + field['f'] if field['f']
+            title += ' ' + field['f'] if field['f']
           else
-            title += ', ' + field['b'] if field['b']
-            title += ', ' + field['f'] if field['f']
-            title += ', ' + field['n'] if field['n']
-            title += ', ' + field['p'] if field['p']
+            title += ' ' + field['b'] if field['b']
+            title += ' ' + field['f'] if field['f']
+            title += ' ' + field['n'] if field['n']
+            title += ' ' + field['p'] if field['p']
           end
 
           # remove trailing period or comma if present
