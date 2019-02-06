@@ -55,7 +55,11 @@ module Voyager
     end
 
     def clear_search_cache(query_type, query_field, query_value)
-      FileUtils.rm_rf(search_cache_path(query_type, query_field, query_value))
+      path = search_cache_path(query_type, query_field, query_value)
+      FileUtils.rm_rf(path)
+      if File.exists?(path)
+        Rails.logger.error "Tried to delete search cache at #{path}, but it still exists! Maybe an NFS lock issue?"
+      end
     end
 
     def search_cache_exists?(query_type, query_field, query_value)
@@ -112,8 +116,12 @@ module Voyager
         next unless entry.ends_with?('.marc')
         marc_file = File.join(cache_path, entry)
         begin
-          # Need to process the file with MARC-8 external encoding in order to get correctly formatted utf-8 characters
-          marc_record = MARC::Reader.new(marc_file, :external_encoding => 'MARC-8').first
+          # Note 1: Need to process the file with MARC-8 external encoding in
+          # order to get correctly formatted utf-8 characters
+          # Note 2: Marc::Reader is sometimes bad about closing files, and this
+          # causes problems with NFS locks on NFS volumes, so we'll
+          # read in the file and pass the content in as a StringIO.
+          marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file)), :external_encoding => 'MARC-8').first
           yield marc_record, result_counter, num_results
         rescue Encoding::InvalidByteSequenceError => e
           if @z3950_config['raise_error_when_marc_decode_fails']

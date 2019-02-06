@@ -22,8 +22,12 @@ module Voyager
         end
 
         begin
-          # Need to process the file with MARC-8 external encoding in order to get correctly formatted utf-8 characters
-          bib_marc_record = MARC::Reader.new(cache_path, :external_encoding => 'MARC-8').first
+          # Note 1: Need to process the file with MARC-8 external encoding in
+          # order to get correctly formatted utf-8 characters
+          # Note 2: Marc::Reader is sometimes bad about closing files, and this
+          # causes problems with NFS locks on NFS volumes, so we'll
+          # read in the file and pass the content in as a StringIO.
+          bib_marc_record = MARC::Reader.new(StringIO.new(File.read(cache_path)), :external_encoding => 'MARC-8').first
           return bib_marc_record
         rescue Encoding::InvalidByteSequenceError => e
           if @z3950_config['raise_error_when_marc_decode_fails']
@@ -39,7 +43,11 @@ module Voyager
       end
 
       def clear_bib_cache(bib_id)
-        FileUtils.rm_rf(bib_cache_path(bib_id))
+        path = bib_cache_path(bib_id)
+        FileUtils.rm_rf(path)
+        if File.exists?(path)
+          Rails.logger.error "Tried to delete bib cache at #{path}, but it still exists! Maybe an NFS lock issue?"
+        end
       end
 
       def bib_cache_exists?(bib_id)
