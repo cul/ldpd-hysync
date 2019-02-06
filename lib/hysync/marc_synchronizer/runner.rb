@@ -5,9 +5,13 @@ module Hysync
         @hyacinth_client = Hyacinth::Client.new(hyacinth_config)
         @voyager_client = Voyager::Client.new(voyager_config)
         @collection_clio_ids_to_uris = @hyacinth_client.generate_collection_clio_ids_to_uris_map
+        @errors = []
       end
 
+      # Runs the synchronization action.
+      # @return [Boolean] success, [Array] errors
       def run(force_update = false)
+        @errors = [] # clear errors
         @voyager_client.search_by_965_value('965hyacinth') do |marc_record, i, num_results|
           Rails.logger.debug "#{i+1} of #{num_results}: (clio id = #{marc_record['001'].value}) #{marc_record['245']}"
 
@@ -20,6 +24,8 @@ module Hysync
 
           create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
         end
+
+        [@errors.blank?, @errors]
       end
 
       # Adds a collection term to the given base_digital_object_data if
@@ -78,11 +84,18 @@ module Hysync
           holdings_marc_records << holdings_marc_record
         end
         marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, holdings_marc_records, base_digital_object_data)
-        marc_hyacinth_record.errors << 'Missing CLIO ID for marc_hyacinth_record' if marc_hyacinth_record.clio_id.nil?
+        if marc_hyacinth_record.clio_id.nil?
+          msg = 'Missing CLIO ID for marc_hyacinth_record'
+          @errors << msg
+          Rails.logger.error msg
+          return
+        end
 
-        # TODO: If this becomes a resque job later, do something more than just logging this error
         if marc_hyacinth_record.errors.present?
-          Rails.logger.warn "Warning: #{marc_hyacinth_record.clio_id} has the following errors: \n\t#{marc_hyacinth_record.errors.join("\n\t")}"
+          msg = "CLIO record #{marc_hyacinth_record.clio_id} has the following errors: \n\t#{marc_hyacinth_record.errors.join("\n\t")}"
+          @errors << msg
+          Rails.logger.error msg
+          return
         end
 
         # Use clio identifier to determine whether Item exists
@@ -93,7 +106,9 @@ module Hysync
           if response.success?
             Rails.logger.debug "Created new record (clio id = #{marc_hyacinth_record.clio_id})"
           else
-            Rails.logger.error "Error creating new record (clio id = #{marc_hyacinth_record.clio_id}). Errors:\n\t#{response.errors.join("\n\t")}"
+            msg = "Error creating new record (clio id = #{marc_hyacinth_record.clio_id}). Errors:\n\t#{response.errors.join("\n\t")}"
+            @errors << msg
+            Rails.logger.error msg
           end
         elsif results.length == 1
           pid = results.first['pid']
@@ -118,14 +133,18 @@ module Hysync
             if response.success?
               Rails.logger.debug "Updated existing record (clio id = #{marc_hyacinth_record.clio_id})"
             else
-              Rails.logger.error "Error updating existing record (clio id = #{marc_hyacinth_record.clio_id}). Errors:\n\t#{response.errors.join("\n\t")}"
+              msg = "Error updating existing record (clio id = #{marc_hyacinth_record.clio_id}). Errors:\n\t#{response.errors.join("\n\t")}"
+              @errors << msg
+              Rails.logger.error msg
             end
           else
             Rails.logger.debug "Skipping update. Record has not changed. (clio id = #{marc_hyacinth_record.clio_id})"
           end
         else
-          Rails.logger.error "Skipped record due to errors (clio id = #{marc_hyacinth_record.clio_id})." +
+          msg = "Skipped record due to errors (clio id = #{marc_hyacinth_record.clio_id})." +
             "Found more than one Hyacinth record with identifier #{hyacinth_record_identifier}, but only expected to find one. This needs to be corrected."
+          @errors << msg
+          Rails.logger.error msg
         end
       end
     end

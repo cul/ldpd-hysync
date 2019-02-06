@@ -44,6 +44,9 @@ set :linked_files, fetch(:linked_files, []).push(
   'config/voyager.yml'
 )
 
+# Whenever gem
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
 namespace :deploy do
   desc "Report the environment"
   task :report do
