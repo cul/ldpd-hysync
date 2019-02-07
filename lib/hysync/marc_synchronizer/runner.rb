@@ -102,7 +102,7 @@ module Hysync
         results = find_items_by_clio_id(marc_hyacinth_record.clio_id)
         if results.length == 0
           # Create new Item
-          response = @hyacinth_client.create_new_record(marc_hyacinth_record.digital_object_data)
+          response = @hyacinth_client.create_new_record(marc_hyacinth_record.digital_object_data, true)
           if response.success?
             Rails.logger.debug "Created new record (clio id = #{marc_hyacinth_record.clio_id})"
           else
@@ -129,7 +129,7 @@ module Hysync
 
           # If current marc_005_last_modified is equal to marc record value, skip update because MARC source data has not changed.
           if marc_005_last_modified.nil? || marc_005_last_modified != marc_hyacinth_record.marc_005_last_modified
-            response = @hyacinth_client.update_existing_record(pid, marc_hyacinth_record.digital_object_data)
+            response = @hyacinth_client.update_existing_record(pid, marc_hyacinth_record.digital_object_data, true)
             if response.success?
               Rails.logger.debug "Updated existing record (clio id = #{marc_hyacinth_record.clio_id})"
             else

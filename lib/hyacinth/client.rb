@@ -48,14 +48,14 @@ module Hyacinth
       results['results'].map{|result| JSON.parse(result['digital_object_data_ts'])}
     end
 
-    def create_new_record(digital_object_data)
+    def create_new_record(digital_object_data, publish = false)
       response = Hyacinth::Client::Response.new
       begin
         json_response = JSON.parse(RestClient::Request.execute(
           method: :post,
           url: "#{@config['url']}/digital_objects.json",
           timeout: 60,
-          payload: {'digital_object_data_json' => JSON.generate(digital_object_data)},
+          payload: {'digital_object_data_json' => JSON.generate(digital_object_data.merge({publish: publish}))},
           headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
         ).body)
         if json_response['success'] != true
@@ -68,14 +68,14 @@ module Hyacinth
       response
     end
 
-    def update_existing_record(pid, digital_object_data)
+    def update_existing_record(pid, digital_object_data, publish = false)
       response = Hyacinth::Client::Response.new
       begin
         json_response = JSON.parse(RestClient::Request.execute(
           method: :put,
           url: "#{@config['url']}/digital_objects/#{pid}.json",
           timeout: 60,
-          payload: {'digital_object_data_json' => JSON.generate(digital_object_data)},
+          payload: {'digital_object_data_json' => JSON.generate(digital_object_data.merge({publish: publish}))},
           headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
         ).body)
         # TODO: Eventually use response code instead of checking for success value
