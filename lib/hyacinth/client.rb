@@ -75,7 +75,7 @@ module Hyacinth
           method: :put,
           url: "#{@config['url']}/digital_objects/#{pid}.json",
           timeout: 60,
-          payload: {'digital_object_data_json' => JSON.generate(digital_object_data.merge({publish: publish}))},
+          payload: {'digital_object_data_json' => JSON.generate(digital_object_data.merge({publish: publish.to_s}))},
           headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
         ).body)
         # TODO: Eventually use response code instead of checking for success value

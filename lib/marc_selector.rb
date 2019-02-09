@@ -1,4 +1,3 @@
-
 module MarcSelector
   # Selects the first marc field that matchest the given parameters.
   # See `all` method for usage details.

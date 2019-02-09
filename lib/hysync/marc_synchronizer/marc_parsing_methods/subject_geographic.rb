@@ -23,7 +23,7 @@ module Hysync
             val += '--' + field['y'] if field['y']
             val += '--' + field['z'] if field['z']
             {
-              'value' => val,
+              'value' => StringCleaner.trailing_punctuation(val),
               'authority' => 'lcsh' # always use lcsh because we're only selecting fields where indicator 2 is 0, which means authority lcsh
             }
           end

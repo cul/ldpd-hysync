@@ -34,7 +34,7 @@ module Hysync
             val += ' ' + field['q'] if field['q']
             val += ' ' + field['x'] if field['x']
             name_terms << {
-              'value' => val,
+              'value' => StringCleaner.trailing_punctuation(val),
               'name_type' => 'personal'
             }
           end
@@ -50,7 +50,7 @@ module Hysync
             val += ' ' + field['d'] if field['d']
             val += ' ' + field['x'] if field['x']
             name_terms << {
-              'value' => val,
+              'value' => StringCleaner.trailing_punctuation(val),
               'name_type' => 'corporate'
             }
           end
@@ -59,7 +59,7 @@ module Hysync
             val += ' ' + field['b'] if field['b']
             val += ' ' + field['x'] if field['x']
             name_terms << {
-              'value' => val,
+              'value' => StringCleaner.trailing_punctuation(val),
               'name_type' => 'corporate'
             }
           end
@@ -77,7 +77,7 @@ module Hysync
             val += ' ' + field['n'] if field['n']
             val += ' ' + field['x'] if field['x']
             name_terms << {
-              'value' => val,
+              'value' => StringCleaner.trailing_punctuation(val),
               'name_type' => 'conference'
             }
           end

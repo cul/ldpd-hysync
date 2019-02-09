@@ -36,12 +36,12 @@ module Hysync
             val += ' ' + field['q'] if field['q']
             return {
               'name_term' => {
-                'value' => clean_name(val),
+                'value' => StringCleaner.trailing_comma(val),
                 'name_type' => 'personal'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => clean_name_role(field['e'])
+                  'value' => StringCleaner.trailing_punctuation(field['e'])
                   #'code' => field['4']
                 }
               }],
@@ -59,12 +59,12 @@ module Hysync
             val += ' ' + field['n'] if field['n']
             return {
               'name_term' => {
-                'value' => clean_name(val),
+                'value' => StringCleaner.trailing_comma(val),
                 'name_type' => 'corporate'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => clean_name_role(field['e'])
+                  'value' => StringCleaner.trailing_punctuation(field['e'])
                   #'code' => field['4']
                 }
               }],
@@ -82,12 +82,12 @@ module Hysync
             val += ' ' + field['q'] if field['q']
             return {
               'name_term' => {
-                'value' => clean_name(val),
+                'value' => StringCleaner.trailing_comma(val),
                 'name_type' => 'conference'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => clean_name_role(field['j'])
+                  'value' => StringCleaner.trailing_punctuation(field['j'])
                 }
               }],
               'name_usage_primary' => true
@@ -107,12 +107,12 @@ module Hysync
             val += ' ' + field['q'] if field['q']
             names << {
               'name_term' => {
-                'value' => clean_name(val),
+                'value' => StringCleaner.trailing_comma(val),
                 'name_type' => 'personal'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => clean_name_role(field['e'])
+                  'value' => StringCleaner.trailing_punctuation(field['e'])
                   #'code' => field['4']
                 }
               }]
@@ -135,12 +135,12 @@ module Hysync
             val += ' ' + field['n'] if field['n']
             names << {
               'name_term' => {
-                'value' => clean_name(val),
+                'value' => StringCleaner.trailing_comma(val),
                 'name_type' => 'corporate'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => clean_name_role(field['e'])
+                  'value' => StringCleaner.trailing_punctuation(field['e'])
                   #'code' => field['4']
                 }
               }]
@@ -161,27 +161,17 @@ module Hysync
             val += ' ' + field['q'] if field['q']
             names << {
               'name_term' => {
-                'value' => clean_name(val),
+                'value' => StringCleaner.trailing_comma(val),
                 'name_type' => 'conference'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => clean_name_role(field['j'])
+                  'value' => StringCleaner.trailing_punctuation(field['j'])
                 }
               }]
             }
           end
           names
-        end
-
-        def clean_name_role(name_role)
-          return nil if name_role.nil?
-          name_role.sub(/[.,]$/, '') # remove trailing period or comma if present
-        end
-
-        def clean_name(name)
-          return nil if name.nil?
-          name.sub(/,$/, '') # remove trailing comma if present
         end
       end
     end

@@ -50,19 +50,17 @@ module Hysync
         end
 
         def extract_textual_date(marc_record, mapping_ruleset)
-
-
           case mapping_ruleset
           when 'oral_history', 'carnegie_scrapbooks_and_ledgers'
             field = MarcSelector.first(marc_record, 245, f: true)
-            return field['f'] unless field.nil?
+            return StringCleaner.trailing_punctuation(field['f']) unless field.nil?
           else
             field = MarcSelector.first(marc_record, 260, c: true)
-            return field['c'] unless field.nil?
+            return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
             field = MarcSelector.first(marc_record, 264, indicator2: 1, c: true) if field.nil?
-            return field['c'] unless field.nil?
+            return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
             field = MarcSelector.first(marc_record, 245, f: true)
-            return field['f'] unless field.nil?
+            return StringCleaner.trailing_punctuation(field['f']) unless field.nil?
           end
           nil
         end
