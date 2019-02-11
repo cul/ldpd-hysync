@@ -13,7 +13,8 @@ module Hysync
           dynamic_field_data['note'] ||= []
           extract_biographical_notes(marc_record, mapping_ruleset).each do |biographical_note|
             dynamic_field_data['note'] << {
-              'note_value' => biographical_note
+              'note_value' => biographical_note,
+              'note_type' => 'Biographical'
             }
           end
         end
