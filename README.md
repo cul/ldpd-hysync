@@ -20,8 +20,7 @@ tbd
 tbd
 
 * How to run the test suite
-todo: install rspec
-todo: implement test suite
+todo: implement rspec suite
 todo: configure CI
 
 * Services (job queues, cache servers, search engines, etc.)
