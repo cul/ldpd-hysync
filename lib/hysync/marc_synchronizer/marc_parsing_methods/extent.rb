@@ -15,20 +15,15 @@ module Hysync
         end
 
         def extract_extent(marc_record, mapping_ruleset)
-          case mapping_ruleset
-          when 'carnegie_scrapbooks_and_ledgers', 'oral_history'
-            return
-          else
-            field = MarcSelector.first(marc_record, 300, a: true)
-            unless field.nil?
-              val = field['a']
-              val += ' ' + field['b'] if field['b']
-              val += ' ' + field['c'] if field['c']
-              val += ' ' + field['f'] if field['f']
-              return val
-            end
+          values = []
+          MarcSelector.all(marc_record, 300, a: true).each do |field|
+            val = field['a']
+            val += ' ' + field['b'] if field['b']
+            val += ' ' + field['c'] if field['c']
+            val += ' ' + field['f'] if field['f']
+            values << StringCleaner.trailing_punctuation(val)
           end
-          nil
+          values.join('; ')
         end
       end
     end

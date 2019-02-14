@@ -31,8 +31,11 @@ module Hysync
               'url' => 'http://id.library.columbia.edu/term/cd34331d-899b-444a-85c4-211e045fc2ea'
             }
           else
-            MarcSelector.all(marc_record, 852, a: b).map do |field|
-              location_terms << clio_code_to_location_term(field['b'])
+            holdings_marc_records.each do |holdings_marc_record|
+              MarcSelector.all(holdings_marc_record, 852, b: true).map do |field|
+                location_term = clio_code_to_location_term(field['b'])
+                location_terms << location_term unless location_term.nil?
+              end
             end
           end
           location_terms

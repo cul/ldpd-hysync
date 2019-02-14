@@ -69,6 +69,7 @@ module Hysync
                 hsh[clio_code] = location_term if clio_code.is_a?(String)
               end
             end
+            hsh
           end.freeze
 
           CLIO_REGEX_CODE_PATTERNS_TO_LOCATION_TERMS = begin
@@ -78,11 +79,12 @@ module Hysync
                 hsh[clio_code] = location_term if clio_code.is_a?(Regexp)
               end
             end
+            hsh
           end.freeze
 
           def clio_code_to_location_term(clio_code)
             # First, try matching against an exact code, since that's faster
-            term = CLIO_CODES_TO_LOCATION_TERMS[clio_code]
+            term = CLIO_EXACT_CODES_TO_LOCATION_TERMS[clio_code]
             return term unless term.nil?
             # Next, try matching against regular expression code patterns
             CLIO_REGEX_CODE_PATTERNS_TO_LOCATION_TERMS.each do |code_regexp, location_term|
