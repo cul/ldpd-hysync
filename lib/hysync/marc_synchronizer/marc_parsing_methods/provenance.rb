@@ -31,7 +31,7 @@ module Hysync
 
           {
             'note_value' => value,
-            'note_type' => 'Provenance'
+            'note_type' => 'provenance'
           }
         end
       end
