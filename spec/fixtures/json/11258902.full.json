@@ -1,0 +1,155 @@
+{
+  "pid": "cul:vx0k6djhcn",
+  "data_file_path": "\/ifs\/cul\/ldpd\/hyacinth\/digital_object_data\/ad\/1f\/5c\/2a\/19\/3f\/ad1f5c2a-193f-4b52-985a-9097608dcb43\/ad1f5c2a-193f-4b52-985a-9097608dcb43.json",
+  "uuid": "ad1f5c2a-193f-4b52-985a-9097608dcb43",
+  "created": "2015-02-02T14:55:17Z",
+  "modified": "2019-01-03T22:59:34Z",
+  "first_published": "2019-01-03T22:22:19Z",
+  "created_by": "Durst Service Account",
+  "modified_by": "Admin User",
+  "identifiers": [
+    "cul:vx0k6djhcn",
+    "ad1f5c2a-193f-4b52-985a-9097608dcb43"
+  ],
+  "title": "150th anniversary celebration, 1786, July 4, 1936. The Society of Tammany, or Columbian Order in the great wigwam, Union Square, New York",
+  "state": "A",
+  "dc_type": "InteractiveResource",
+  "project": {
+    "pid": "cul:7h44j0zpcs",
+    "uri": null,
+    "display_label": "Seymour B. Durst Old York Library",
+    "short_label": "Seymour B. Durst Old York Library",
+    "string_key": "durst"
+  },
+  "publish_targets": [
+    {
+      "pid": "cul:ttdz08kq42",
+      "display_label": "DLC Catalog [Staging]",
+      "string_key": "dlc_catalog_staging"
+    },
+    {
+      "pid": "cul:sqv9s4mwg3",
+      "display_label": "Seymour B. Durst Old York Library",
+      "string_key": "durst"
+    }
+  ],
+  "digital_object_type": {
+    "string_key": "item",
+    "display_label": "Item"
+  },
+  "dynamic_field_data": {
+    "dims_identifier": [
+      {
+        "dims_identifier_value": "DIM0"
+      }
+    ],
+    "clio_identifier": [
+      {
+        "clio_identifier_value": "10509505",
+        "clio_identifier_type": "print"
+      },
+      {
+        "clio_identifier_value": "11258902",
+        "clio_identifier_type": "electronic",
+        "clio_identifier_omit_from_mods": true
+      }
+    ],
+    "collection": [
+      {
+        "collection_term": {
+          "uri": "http:\/\/id.library.columbia.edu\/term\/79de0ce6-55d5-4665-925a-11adfa425bf7",
+          "value": "Seymour B. Durst Old York Library Collection",
+          "type": "local",
+          "vocabulary_string_key": "collection",
+          "internal_id": 53
+        }
+      }
+    ],
+    "record_content_source": [
+      {
+        "record_content_source_value": "NNC"
+      }
+    ],
+    "marc_005_last_modified": [
+      {
+        "marc_005_last_modified_value": "20150713190008.0"
+      }
+    ],
+    "title": [
+      {
+        "title_sort_portion": "150th anniversary celebration, 1786, July 4, 1936. The Society of Tammany, or Columbian Order in the great wigwam, Union Square, New York"
+      }
+    ],
+    "extent": [
+      {
+        "extent_value": "137 p. front., ill. (incl. facsims., ports.) 24 cm."
+      }
+    ],
+    "type_of_resource": [
+      {
+        "type_of_resource_value": "text"
+      }
+    ],
+    "name": [
+      {
+        "name_term": {
+          "uri": "temp:143e90a962fdfe262fe2c3a7050d1a330ceec3e431fdc6da33f803cf8624e385",
+          "value": "Tammany Society, or Columbian Order (N.Y.)",
+          "type": "temporary",
+          "vocabulary_string_key": "name",
+          "internal_id": 66560,
+          "name_type": "corporate"
+        },
+        "name_usage_primary": true
+      }
+    ],
+    "form": [
+      {
+        "form_term": {
+          "uri": "http:\/\/id.loc.gov\/vocabulary\/graphicMaterials\/tgm001221",
+          "value": "books",
+          "type": "external",
+          "authority": "aat",
+          "vocabulary_string_key": "form",
+          "internal_id": 3
+        }
+      }
+    ],
+    "date_other_textual": [
+      {
+        "date_other_textual_value": "1936]"
+      }
+    ],
+    "place_of_origin": [
+      {
+        "place_of_origin_value": "[New York"
+      }
+    ],
+    "date_issued": [
+      {
+        "date_issued_start_value": "1936",
+        "date_issued_key_date": true
+      }
+    ],
+    "url": [
+      {
+        "url_value": "http:\/\/www.columbia.edu\/cgi-bin\/cul\/resolve?clio11258902"
+      }
+    ],
+    "archive_org_identifier": [
+      {
+        "archive_org_identifier_value": "150thanniversary00tamm"
+      }
+    ]
+  },
+  "ordered_child_digital_objects": [
+    
+  ],
+  "parent_digital_objects": [
+    
+  ],
+  "doi": "doi:10.7916\/d8-mk9n-hm21",
+  "assignments": [
+    
+  ]
+}

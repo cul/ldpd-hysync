@@ -8,56 +8,67 @@ module Hysync
             {
               'value' => 'Art Properties, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/067ebe3c-c669-44df-929b-9e24cbaec902',
+              'authority' => 'marcorg',
               'code' => 'NyNyCAP'
             } => ['avap'],
             {
               'value' => 'Augustus C. Long Health Sciences Library, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/ad20ac6d-4507-4995-82d0-5618e27aa890',
+              'authority' => 'marcorg',
               'code' => 'NNC-M'
             } => [/^hsl.*/, /^hsx.*/],
             {
               'value' => 'Avery Architectural & Fine Arts Library, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/12c8f9a0-9a61-4cce-a09a-ceeb7ddf4f06',
+              'authority' => 'marcorg',
               'code' => 'NNC-A'
             } => ['avda', 'ave', 'ave,anx2', 'ave,mura', 'ave,ps', 'ave,ref', 'ave,res', 'avelc ', 'avelc,ref', 'avr ', 'avr,cage', 'avr,rrm', 'avr,stor', 'faa', 'far', 'far,cage', 'far,rrm', 'far,stor', 'fax', 'fax,anx2', 'fax,ps', 'fax,ref', 'fax,res', 'faxlc', 'faxlc,ref', 'off,avda', 'off,ave', 'off,avr', 'war', 'war,anx2', 'war,ref', 'war,res'],
             {
               'value' => 'Barnard College Library',
               'uri' => 'http://id.library.columbia.edu/term/4ff8bec8-6d8c-460c-8d77-006805e98778',
+              'authority' => 'marcorg',
               'code' => 'NNBa'
             } => [/^bar.*/],
             {
               'value' => 'Burke Library at Union Theological Seminary, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/4f175cc6-1394-49b9-a411-2fe143265d43',
+              'authority' => 'marcorg',
               'code' => 'NyNyCBL'
             } => ['off,unr', 'off,uta', 'off,utmrl', 'off,utn', 'off,utp', 'off,uts', 'uts', 'uts,arc', 'uts,aud', 'uts,essxx1', 'uts,essxx2', 'uts,essxx3', 'uts,fic', 'uts,fil', 'uts,gil', 'uts,kit', 'uts,loc ', 'uts,locxxf', 'uts,mac', 'uts,macxfp', 'uts,macxxf ', 'uts,macxxp', 'uts,map', 'uts,mrld', 'uts,mrldr', 'uts,mrldxf', 'uts,mrlo', 'uts,mrlor', 'uts,mrloxf', 'uts,mrls', 'uts,mrlxxp', 'uts,mss', 'uts,per', 'uts,perr', 'uts,perrxf', 'uts,perxxf', 'uts,prs', 'uts,ref', 'uts,refr', 'uts,refx3a', 'uts,refxs1', 'uts,refxs2', 'uts,refxxa', 'uts,reled', 'uts,res', 'uts,review', 'uts,tms ', 'uts,twr', 'uts,twrxxf', 'uts,unn', ' uts,unnr', 'uts,unnrxf', 'uts,unnrxp', 'uts,unnxxf', 'uts,unnxxp', 'uts,vid'],
             {
               'value' => 'Butler Library, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/4fbd48a4-130b-4a5c-9949-0e8dc864af94',
+              'authority' => 'marcorg',
               'code' => 'NNC'
             } => ['glx', 'glx,anx', 'glx,anx2', 'glx,fol', 'glx,rare', 'glxn', 'off,glx', 'ref', 'ref,ac10', 'ref,atl', 'ref,book', 'ref,case', 'ref,col', 'ref,dic', 'ref,ets', 'ref,ind', 'ref,mez', 'ref,off', 'ref,over', 'site', 'sls,cage', 'mil,anx2', 'mil,over', 'mil,stdy', 'morl', 'mrr', 'mrr,anx', 'said', 'sasi', 'ushi', 'afst', 'comp', 'euro', 'islm', 'manc', 'manc,dic'],
             {
               'value' => 'Columbia Center for Oral History, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/cd34331d-899b-444a-85c4-211e045fc2ea',
+              'authority' => 'marcorg',
               'code' => 'NyNyCOH'
             } => ['oral', 'oral,dgtl', 'off,oral'],
             {
               'value' => 'C.V. Starr East Asian Library, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/d0642664-03aa-4dc4-8579-a9b04b23960f',
+              'authority' => 'marcorg',
               'code' => 'NNC-EA'
             } => ['pren,eal', 'pren,eax', 'eal', 'off,eal', 'eal,anx', 'eal,anx2', 'eal,cage', 'eal,fol', 'eal,kres', 'eal,rare', 'eal,ref', 'eal,res', 'eal,sky', 'eal,spec', 'ean', 'ear', 'eax', 'eax,anx', 'eax,anx2', 'eax,cage', 'eax,fol', 'eax,hsl', 'eax,kres', 'eax,leh', 'eax,rare', 'eax,ref', 'eax,ref2', 'eax,res', 'eax,sem', 'eax,sky', 'eax,spec', 'eax,tib', 'off,ean', 'off,ear', 'off,eax'],
             {
               'value' => 'Gabe M. Wiener Music & Arts Library, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/7e0df318-f285-4ec2-9cdd-67ecd049e416',
+              'authority' => 'marcorg',
               'code' => 'NyNyCMA'
             } => ['msc', 'msc,anx', 'msc,anx2', 'msc,case', 'msc,fol', 'msc,rare', 'msc,ref', 'msc,resc', 'msc,resp', 'msr', 'msr,anx2', 'msr,case', 'mus', 'mus,anx', 'mus,anx2', 'mus,case', 'mus,fol', 'mus,lib', 'mus,ref', 'mus,resp', 'off,msc', 'off,msr', 'off,mus'],
             {
               'value' => 'Rare Book & Manuscript Library, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/d2142d01-deaa-4a39-8dbd-72c4f148353f',
+              'authority' => 'marcorg',
               'code' => 'NNC-RB'
             } => ['gax', 'rbi', 'rbms', 'rbx', 'off,rbms', 'off,rbx'],
             {
               'value' => 'University Archives, Columbia University',
               'uri' => 'http://id.library.columbia.edu/term/993db1bc-2347-4b0d-ab1c-d5714ec82683',
+              'authority' => 'marcorg',
               'code' => 'NNC-UA'
             } => ['clm']
           }.freeze

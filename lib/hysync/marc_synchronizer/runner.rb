@@ -9,6 +9,7 @@ module Hysync
       end
 
       # Runs the synchronization action.
+      # @param force_update [Boolean] update records regardless of modification date (005) 
       # @return [Boolean] success, [Array] errors
       def run(force_update = false)
         @errors = [] # clear errors
@@ -30,6 +31,8 @@ module Hysync
 
       # Adds a collection term to the given base_digital_object_data if
       # collection info is available from the given marc_record.
+      # @param digital_object_data [Hash] Hyacinth digital object properties
+      # @param marc_record [MARC::Reader] ruby-marc record object
       def add_collection_if_773_w_clio_id_present!(digital_object_data, marc_record)
         # If this marc record has a collection clio id, create or retrieve the
         # controlled term associated with that ID. This collection clio id, if present,
@@ -74,10 +77,14 @@ module Hysync
         end
       end
 
+      # @param clio_id [String]
       def find_items_by_clio_id(clio_id)
         @hyacinth_client.find_by_identifier(clio_id, { f: { digital_object_type_display_label_sim: ['Item'] } })
       end
 
+      # @param marc_record [MARC::Reader] ruby-marc record object
+      # @param base_digital_object_data [Hash] Hyacinth digital object properties
+      # @param force_update [Boolean] update records regardless of modification date (005) 
       def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
         holdings_marc_records = []
         @voyager_client.holdings_for_bib_id(marc_record['001'].value) do |holdings_marc_record, i, num_results|

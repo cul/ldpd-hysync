@@ -59,3 +59,30 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+def deep_compact!(obj)
+  case obj
+  when Hash
+    obj.delete_if do |k, v|
+      deep_compact!(v)
+      deep_blank?(v)
+    end
+  when Array
+    obj.delete_if do |v|
+      deep_compact!(v)
+      deep_blank?(v)
+    end
+  end
+end
+def deep_blank?(obj)
+  return true if obj.nil?
+  case obj
+  when Array
+    return obj.empty? || !obj.detect {|m| !deep_blank?(m)}
+  when String
+    return obj.empty?
+  when Hash
+    return obj.empty? || !obj.detect {|k,v| !deep_blank?(v)}
+  else
+    return false
+  end
+end
