@@ -3,10 +3,10 @@ module Hysync
     class MarcHyacinthRecord
       include Hysync::MarcSynchronizer::MarcParsingMethods
       include Hysync::MarcSynchronizer::MarcParsingMethods::ClioIdentifier
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Collection
       include Hysync::MarcSynchronizer::MarcParsingMethods::Marc005LastModified
       include Hysync::MarcSynchronizer::MarcParsingMethods::Project
       include Hysync::MarcSynchronizer::MarcParsingMethods::Abstract
-      include Hysync::MarcSynchronizer::MarcParsingMethods::FallbackCollection
       include Hysync::MarcSynchronizer::MarcParsingMethods::CopyrightNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Date
       include Hysync::MarcSynchronizer::MarcParsingMethods::Extent

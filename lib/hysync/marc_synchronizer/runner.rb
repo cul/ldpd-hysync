@@ -21,8 +21,6 @@ module Hysync
             'dynamic_field_data' => {}
           }
 
-          add_collection_if_773_w_clio_id_present!(base_digital_object_data, marc_record)
-
           create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
         end
 
@@ -33,18 +31,15 @@ module Hysync
       # collection info is available from the given marc_record.
       # @param digital_object_data [Hash] Hyacinth digital object properties
       # @param marc_record [MARC::Reader] ruby-marc record object
-      def add_collection_if_773_w_clio_id_present!(digital_object_data, marc_record)
+      def add_collection_if_collection_clio_id_present!(digital_object_data, marc_record)
         # If this marc record has a collection clio id, create or retrieve the
         # controlled term associated with that ID. This collection clio id, if present,
         # will be in 773 $w and will be a 7 or 8 digit number that's optionally prefixed
         #  with "(NNC)".  The referenced clio record must also be a collection-level record,
         # as indicated by MARC leader byte 7 having a value of'c'.
-        collection_field_773 = MarcSelector.first(marc_record, 773, w: true)
-        if collection_field_773
-          match = collection_field_773['w'].match(/^(\(NNC\))*(\d{7,8})$/)
-          # If 773 $w doesn't match our record, this isn't a valid CLIO id reference
-          return unless match
-          collection_clio_id = match[2] # retrieve numeric portion of ID
+        digital_object_data['dynamic_field_data'].fetch("collection", []).each do |collection_term|
+          collection_clio_id = collection_term["clio_id"]
+          next unless collection_clio_id
           unless @collection_clio_ids_to_uris.key?(collection_clio_id)
             collection_marc_record = @voyager_client.find_by_bib_id(collection_clio_id)
             # Return if a marc record wasn't found for the given clio id
@@ -65,15 +60,7 @@ module Hysync
           end
 
           # Assign collection term to base digital object data hash
-          if @collection_clio_ids_to_uris.key?(collection_clio_id)
-            digital_object_data['dynamic_field_data']['collection'] = [
-              {
-                'collection_term' => {
-                  'uri' => @collection_clio_ids_to_uris[collection_clio_id]
-                }
-              }
-            ]
-          end
+          collection_term['uri'] = @collection_clio_ids_to_uris[collection_clio_id]
         end
       end
 
@@ -91,6 +78,8 @@ module Hysync
           holdings_marc_records << holdings_marc_record
         end
         marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, holdings_marc_records, base_digital_object_data)
+        add_collection_if_773_w_clio_id_present!(base_digital_object_data, marc_record)
+
         if marc_hyacinth_record.clio_id.nil?
           msg = 'Missing CLIO ID for marc_hyacinth_record'
           @errors << msg

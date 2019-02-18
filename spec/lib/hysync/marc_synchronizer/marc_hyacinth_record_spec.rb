@@ -10,7 +10,6 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
   end
 	subject { described_class.new(marc_record) }
   it "produces the expected dynamic field data" do
-    pending("fixture cleanup, hash compacting, and expectation docs")
     actual = subject.digital_object_data['dynamic_field_data']
     deep_compact!(actual)
     expected = json_record['dynamic_field_data']
