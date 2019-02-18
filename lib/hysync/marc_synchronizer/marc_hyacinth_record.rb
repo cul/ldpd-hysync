@@ -3,6 +3,7 @@ module Hysync
     class MarcHyacinthRecord
       include Hysync::MarcSynchronizer::MarcParsingMethods
       include Hysync::MarcSynchronizer::MarcParsingMethods::ClioIdentifier
+      include Hysync::MarcSynchronizer::MarcParsingMethods::ArchiveOrgIdentifier
       include Hysync::MarcSynchronizer::MarcParsingMethods::Collection
       include Hysync::MarcSynchronizer::MarcParsingMethods::Marc005LastModified
       include Hysync::MarcSynchronizer::MarcParsingMethods::Project
@@ -38,8 +39,8 @@ module Hysync
       def initialize(marc_record = nil, holdings_marc_records = [], default_digital_object_data = {})
         @errors = []
         @digital_object_data = default_digital_object_data
-        @mapping_ruleset = MarcSelector.first(marc_record, 965, {a: '965hyacinth'})['b']
-
+        hyacinth_flag = MarcSelector.first(marc_record, 965, {a: '965hyacinth'})
+        @mapping_ruleset = hyacinth_flag['b'] if hyacinth_flag
         # ensure that dynamic_field_data key is present, because later code depends on it
         @digital_object_data['dynamic_field_data'] ||= {}
 
