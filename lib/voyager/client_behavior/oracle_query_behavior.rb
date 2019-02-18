@@ -22,7 +22,7 @@ module Voyager
         Retriable.retriable on: [Timeout::Error], tries: 2, base_interval: 1 do
           begin
             Timeout.timeout(ORACLE_WAIT_TIMEOUT) do
-              return execute_select_command(full_query)
+              return execute_select_command(query)
             end
           rescue Timeout::Error => e
             # Try to cleanup the interrupted OCI connection

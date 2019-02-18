@@ -39,6 +39,8 @@ gem 'ruby-oci8', '~> 2.2.7'
 gem 'rest-client', '~> 2.0'
 # For cron tasks
 gem 'whenever', require: false
+# For retrying after raised errors
+gem 'retriable', '~> 3.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

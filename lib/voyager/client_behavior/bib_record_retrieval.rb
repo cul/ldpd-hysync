@@ -59,7 +59,7 @@ module Voyager
       end
 
       def retrieve_bib_marc(bib_id)
-        results = execute_select_command(fill_in_query_placeholders("select RECORD_SEGMENT from bib_data where bib_id = ~bibid~ order by seqnum", bibid: bib_id))
+        results = execute_select_command_with_retry(fill_in_query_placeholders("select RECORD_SEGMENT from bib_data where bib_id = ~bibid~ order by seqnum", bibid: bib_id))
         bib_marc = ''
         results.each do |result|
           bib_marc += result['RECORD_SEGMENT']
