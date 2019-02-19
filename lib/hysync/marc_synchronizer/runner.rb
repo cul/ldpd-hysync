@@ -42,10 +42,11 @@ module Hysync
           next unless collection_clio_id
           unless @collection_clio_ids_to_uris.key?(collection_clio_id)
             collection_marc_record = @voyager_client.find_by_bib_id(collection_clio_id)
-            # Return if a marc record wasn't found for the given clio id
-            return unless collection_marc_record
-            # Return if this MARC record isn't a collection-level record.
-            return unless collection_marc_record.leader[7] == 'c'
+            # Return if a collection-level marc record wasn't found for the given clio id
+            unless collection_marc_record && collection_marc_record.leader[7] == 'c'
+              @errors << "For bib record #{marc_record['001'].value}, could not resolve collection clio id #{collection_clio_id} to a collection-level marc record."
+              return
+            end
             # Raise error if the marc 001 field of this record doesn't actually match the value in collection_clio_id
             raise 'Mismatch between collection_clio_id and retrieved record 001 value' if collection_clio_id != collection_marc_record['001'].value
             # Create this term because it does not exist
@@ -78,7 +79,7 @@ module Hysync
           holdings_marc_records << holdings_marc_record
         end
         marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, holdings_marc_records, base_digital_object_data)
-        add_collection_if_773_w_clio_id_present!(base_digital_object_data, marc_record)
+        add_collection_if_collection_clio_id_present!(base_digital_object_data, marc_record)
 
         if marc_hyacinth_record.clio_id.nil?
           msg = 'Missing CLIO ID for marc_hyacinth_record'
