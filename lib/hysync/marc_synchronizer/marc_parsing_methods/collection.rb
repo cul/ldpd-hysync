@@ -22,9 +22,7 @@ module Hysync
         # If this marc record has a collection clio id, extract it.
         # This collection clio id, if present, will be in 773 $w and
         # will be a 7 or 8 digit number that's optionally prefixed
-        # with "(NNC)".  The referenced clio record must also be a
-        # collection-level record, as indicated by MARC leader byte 7
-        # having a value of'c'.
+        # with "(NNC)".
         def extract_collection_clio_ids(marc_record, mapping_ruleset)
           clio_ids = []
           collection_field_773 = MarcSelector.first(marc_record, 773, w: true)
