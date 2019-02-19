@@ -24,7 +24,7 @@ module Hysync
             location_terms << {
               'value' => 'Rare Book & Manuscript Library, Columbia University',
               'authority' => 'marcorg',
-              "code"=>"NNC-RB",
+              'code' => 'NNC-RB',
               'url' => 'http://id.library.columbia.edu/term/d2142d01-deaa-4a39-8dbd-72c4f148353f'
             }
           when 'oral_history'
