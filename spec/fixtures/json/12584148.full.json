@@ -114,16 +114,6 @@
         }
       }
     ],
-    "subject_place": [
-      {
-        "subject_place_term": [
-          {
-            "value": "New York (N.Y.)",
-            "authority": "lcsh"
-          }
-        ]
-      }
-    ],
     "subject_geographic": [
       {
         "subject_geographic_term": {
