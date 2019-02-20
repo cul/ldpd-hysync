@@ -80,7 +80,7 @@ module Hyacinth
         ).body)
         # TODO: Eventually use response code instead of checking for success value
         if json_response['success'] != true
-          response.errors << "Error updating record #{pid}. Details: #{json_response['errors'].inspect}"
+          response.errors << "Error updating record #{pid}. Details: #{json_response['errors'].join(';').inspect}"
         end
       rescue RestClient::ExceptionWithResponse => err
         response.errors << "Error: Received response '#{err.message}' for Hyacinth record update request for #{pid}"

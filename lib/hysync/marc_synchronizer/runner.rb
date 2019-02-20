@@ -9,7 +9,7 @@ module Hysync
       end
 
       # Runs the synchronization action.
-      # @param force_update [Boolean] update records regardless of modification date (005) 
+      # @param force_update [Boolean] update records regardless of modification date (005)
       # @return [Boolean] success, [Array] errors
       def run(force_update = false)
         @errors = [] # clear errors
@@ -38,7 +38,8 @@ module Hysync
         #  with "(NNC)".  The referenced clio record must also be a collection-level record,
         # as indicated by MARC leader byte 7 having a value of'c'.
         digital_object_data['dynamic_field_data'].fetch("collection", []).each do |collection_term|
-          collection_clio_id = collection_term["clio_id"]
+          collection_term = collection_term['collection_term']
+          collection_clio_id = collection_term['clio_id']
           next unless collection_clio_id
           unless @collection_clio_ids_to_uris.key?(collection_clio_id)
             collection_marc_record = @voyager_client.find_by_bib_id(collection_clio_id)
@@ -72,7 +73,7 @@ module Hysync
 
       # @param marc_record [MARC::Reader] ruby-marc record object
       # @param base_digital_object_data [Hash] Hyacinth digital object properties
-      # @param force_update [Boolean] update records regardless of modification date (005) 
+      # @param force_update [Boolean] update records regardless of modification date (005)
       def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
         holdings_marc_records = []
         @voyager_client.holdings_for_bib_id(marc_record['001'].value) do |holdings_marc_record, i, num_results|
