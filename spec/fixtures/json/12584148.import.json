@@ -1,0 +1,117 @@
+{
+  "project": {
+    "string_key": "carnegie_dpf"
+  },
+  "dynamic_field_data": {
+    "collection": [
+      {
+        "collection_term": {
+          "clio_id": "4079753"
+        }
+      }
+    ],
+    "clio_identifier": [
+      {
+        "clio_identifier_value": "12584148"
+      }
+    ],
+    "marc_005_last_modified": [
+      {
+        "marc_005_last_modified_value": "20190122155950.0"
+      }
+    ],
+    "form": [
+      {
+        "form_term": {
+          "uri": "http:\/\/id.loc.gov\/vocabulary\/graphicMaterials\/tgm001221"
+        }
+      }
+    ],
+    "title": [
+      {
+        "title_sort_portion": "Carnegie Corporation Applications No. 1, Carnegie Corporation, 1912"
+      }
+    ],
+    "type_of_resource": [
+      {
+        "type_of_resource_value": "text",
+        "type_of_resource_is_collection": false
+      }
+    ],
+    "restriction_on_access": [
+      {
+        "restriction_on_access_value": "Digital version available with no restrictions"
+      }
+    ],
+    "date_created": [
+      {
+        "date_created_start_value": "1912",
+        "date_created_key_date": true
+      }
+    ],
+    "date_created_textual": [
+      {
+        "date_created_textual_value": "1912"
+      }
+    ],
+    "genre": [
+      {
+        "genre_term": {
+          "value": "Ledgers (account books)",
+          "authority": "aat"
+        }
+      }
+    ],
+    "language": [
+      {
+        "language_term": {
+          "uri": "http:\/\/id.loc.gov\/vocabulary\/iso639-2\/eng",
+          "value": "English",
+          "authority": "iso639-2b"
+        }
+      }
+    ],
+    "subject_geographic": [
+      {
+        "subject_geographic_term": {
+          "value": "New York (N.Y.)",
+          "authority": "lcsh"
+        }
+      }
+    ],
+    "subject_topic": [
+      {
+        "subject_topic_term": {
+          "value": "Philanthropists",
+          "authority": "lcsh"
+        }
+      },
+      {
+        "subject_topic_term": {
+          "value": "Charitable uses, trusts, and foundations",
+          "authority": "lcsh"
+        }
+      }
+    ],
+    "location": [
+      {
+        "location_term": {
+          "value": "Rare Book & Manuscript Library, Columbia University",
+          "authority": "marcorg",
+          "code": "NNC-RB",
+          "url": "http:\/\/id.library.columbia.edu\/term\/d2142d01-deaa-4a39-8dbd-72c4f148353f"
+        }
+      }
+    ],
+    "extent": [
+      {
+        "extent_value": "1 online resource"
+      }
+    ],
+    "archive_org_identifier": [
+      {
+        "archive_org_identifier_value": "ldpd_12584148_000"
+      }
+    ]
+  }
+}

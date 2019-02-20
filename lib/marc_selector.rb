@@ -5,6 +5,9 @@ module MarcSelector
     all(marc_record, field_number, filters).first
   end
 
+  def self.each(marc_record, field_number, filters = {}, &block)
+    all(marc_record, field_number, filters).each &block
+  end
   # Selects all marc fields that match the given parameters.
   # @param marc_record [MARC::Record] marc record object
   # @param field_number [String] Marc field number to select.

@@ -1,0 +1,181 @@
+{
+  "pid": "cul:jq2bvq851s",
+  "data_file_path": "\/ifs\/cul\/ldpd\/hyacinth\/digital_object_data\/5a\/25\/45\/0d\/0e\/d3\/5a25450d-0ed3-48a6-8a96-17a8aaaa3dc6\/5a25450d-0ed3-48a6-8a96-17a8aaaa3dc6.json",
+  "uuid": "5a25450d-0ed3-48a6-8a96-17a8aaaa3dc6",
+  "created": "2019-01-26T04:06:25Z",
+  "modified": "2019-02-14T21:33:44Z",
+  "first_published": null,
+  "created_by": "Admin User",
+  "modified_by": "Admin User",
+  "identifiers": [
+    "cul:jq2bvq851s",
+    "5a25450d-0ed3-48a6-8a96-17a8aaaa3dc6",
+    "clio12584148"
+  ],
+  "title": "Carnegie Corporation Applications No. 1, Carnegie Corporation, 1912",
+  "state": "A",
+  "dc_type": "InteractiveResource",
+  "project": {
+    "pid": "cul:gf1vhhmhbv",
+    "uri": null,
+    "display_label": "Carnegie Digital Past and Future",
+    "short_label": "Carnegie Digital Past and Future",
+    "string_key": "carnegie_dpf"
+  },
+  "publish_targets": [
+    
+  ],
+  "digital_object_type": {
+    "string_key": "item",
+    "display_label": "Item"
+  },
+  "dynamic_field_data": {
+    "collection": [
+      {
+        "collection_term": {
+          "uri": "http:\/\/id.library.columbia.edu\/term\/72fcfd07-f7db-4a18-bdb2-beb0abce071c",
+          "value": "Carnegie Corporation of New York Records",
+          "type": "local",
+          "vocabulary_string_key": "collection",
+          "internal_id": 78,
+          "clio_id": "4079753"
+        }
+      }
+    ],
+    "clio_identifier": [
+      {
+        "clio_identifier_value": "12584148"
+      }
+    ],
+    "marc_005_last_modified": [
+      {
+        "marc_005_last_modified_value": "20190122155950.0"
+      }
+    ],
+    "form": [
+      {
+        "form_term": {
+          "uri": "http:\/\/id.loc.gov\/vocabulary\/graphicMaterials\/tgm001221",
+          "value": "books",
+          "type": "external",
+          "authority": "aat",
+          "vocabulary_string_key": "form",
+          "internal_id": 3
+        }
+      }
+    ],
+    "title": [
+      {
+        "title_sort_portion": "Carnegie Corporation Applications No. 1, Carnegie Corporation, 1912"
+      }
+    ],
+    "type_of_resource": [
+      {
+        "type_of_resource_value": "text"
+      }
+    ],
+    "restriction_on_access": [
+      {
+        "restriction_on_access_value": "Digital version available with no restrictions"
+      }
+    ],
+    "date_created": [
+      {
+        "date_created_start_value": "1912",
+        "date_created_key_date": true
+      }
+    ],
+    "date_created_textual": [
+      {
+        "date_created_textual_value": "1912"
+      }
+    ],
+    "genre": [
+      {
+        "genre_term": {
+          "uri": "temp:2f330fc39fa00bf2bfd3e1fdf511290bffe27ca108e7bb0002067eda7eedc910",
+          "value": "Ledgers (account books)",
+          "type": "temporary",
+          "authority": "aat",
+          "vocabulary_string_key": "genre",
+          "internal_id": 997748
+        }
+      }
+    ],
+    "language": [
+      {
+        "language_term": {
+          "uri": "http:\/\/id.loc.gov\/vocabulary\/iso639-2\/eng",
+          "value": "English",
+          "type": "external",
+          "authority": "iso639-2b",
+          "vocabulary_string_key": "language",
+          "internal_id": 195449
+        }
+      }
+    ],
+    "subject_geographic": [
+      {
+        "subject_geographic_term": {
+          "uri": "temp:c4348649df4f5ff5cec336478d52617941de4365dbed8135ec938a720d8c54da",
+          "value": "New York (N.Y.)",
+          "type": "temporary",
+          "authority": "lcsh",
+          "vocabulary_string_key": "subject_geographic",
+          "internal_id": 1394
+        }
+      }
+    ],
+    "subject_topic": [
+      {
+        "subject_topic_term": {
+          "uri": "temp:b08e6f7ed1ce5ecf091b07897d7d7156433857ed0d8303bcd3c22ba2f9bda7f4",
+          "value": "Philanthropists",
+          "type": "temporary",
+          "authority": "lcsh",
+          "vocabulary_string_key": "subject_topic",
+          "internal_id": 999204
+        }
+      },
+      {
+        "subject_topic_term": {
+          "uri": "temp:7998d9f60d6bacc574ecf19183cc314c255a848cc81e3e264312beaf1bf012af",
+          "value": "Charitable uses, trusts, and foundations",
+          "type": "temporary",
+          "authority": "lcsh",
+          "vocabulary_string_key": "subject_topic",
+          "internal_id": 1038811
+        }
+      }
+    ],
+    "location": [
+      {
+        "location_term": {
+          "uri": "temp:64f479eac9ffa245bcd1b0b2953874bba0639e66bd48e5bde95daccfb53d2fd9",
+          "value": "Rare Book & Manuscript Library, Columbia University",
+          "type": "temporary",
+          "authority": "marcorg",
+          "vocabulary_string_key": "location",
+          "internal_id": 364029,
+          "code": "NNC-RB",
+          "url": "http:\/\/id.library.columbia.edu\/term\/d2142d01-deaa-4a39-8dbd-72c4f148353f"
+        }
+      }
+    ],
+    "extent": [
+      {
+        "extent_value": "1 online resource"
+      }
+    ]
+  },
+  "ordered_child_digital_objects": [
+    
+  ],
+  "parent_digital_objects": [
+    
+  ],
+  "doi": "doi:10.7916\/d8-nfd2-zc36",
+  "assignments": [
+    
+  ]
+}
