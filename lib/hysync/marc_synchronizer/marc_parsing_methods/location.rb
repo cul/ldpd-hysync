@@ -25,14 +25,14 @@ module Hysync
               'value' => 'Rare Book & Manuscript Library, Columbia University',
               'authority' => 'marcorg',
               'code' => 'NNC-RB',
-              'url' => 'http://id.library.columbia.edu/term/d2142d01-deaa-4a39-8dbd-72c4f148353f'
+              'uri' => 'http://id.library.columbia.edu/term/d2142d01-deaa-4a39-8dbd-72c4f148353f'
             }
           when 'oral_history'
             location_terms << {
               'value' => 'Columbia Center for Oral History, Columbia University',
               'authority' => 'marcorg',
               'code' => 'NyNyCOH',
-              'url' => 'http://id.library.columbia.edu/term/cd34331d-899b-444a-85c4-211e045fc2ea'
+              'uri' => 'http://id.library.columbia.edu/term/cd34331d-899b-444a-85c4-211e045fc2ea'
             }
           else
             holdings_marc_records.each do |holdings_marc_record|
