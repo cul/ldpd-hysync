@@ -32,11 +32,11 @@ module Voyager
         rescue Encoding::InvalidByteSequenceError => e
           if @z3950_config['raise_error_when_marc_decode_fails']
             # Re-raise error, appending a bit of extra info
-            raise e, "Problem decoding characters for record in marc file #{marc_file}. Error message: #{$!}", $!.backtrace
+            raise e, "Problem decoding characters for record in marc file #{bib_id}. Error message: #{$!}", $!.backtrace
             # To troubleshoot this error further, it can be useful to examine the record's text around the
             # byte range location given in the encoding error. Smart quotes are a common cause of problems.
           else
-            Rails.logger.warn "Skipping marc file #{marc_file} because of a decoding error."
+            Rails.logger.warn "Skipping marc file #{bib_id} because of a decoding error."
           end
         end
         nil
