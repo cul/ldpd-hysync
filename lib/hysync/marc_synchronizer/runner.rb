@@ -27,17 +27,10 @@ module Hysync
         [@errors.blank?, @errors]
       end
 
-      # Adds a collection term to the given base_digital_object_data if
-      # collection info is available from the given marc_record.
-      # @param digital_object_data [Hash] Hyacinth digital object properties
-      # @param marc_record [MARC::Reader] ruby-marc record object
-      def add_collection_if_collection_clio_id_present!(digital_object_data, marc_record)
-        # If this marc record has a collection clio id, create or retrieve the
-        # controlled term associated with that ID. This collection clio id, if present,
-        # will be in 773 $w and will be a 7 or 8 digit number that's optionally prefixed
-        #  with "(NNC)".  The referenced clio record must also be a collection-level record,
-        # as indicated by MARC leader byte 7 having a value of'c'.
-        digital_object_data['dynamic_field_data'].fetch("collection", []).each do |collection_term|
+      # For the given marc_hyacinth_record, this method enhances any collection_term field that only contains a 'clio_id' property.
+      # This method creates a new Collection controlled vocabulary term in Hyacinth if a term with the given clio_id doesn't already exist.
+      def add_collection_if_collection_clio_id_present!(marc_hyacinth_record)
+        marc_hyacinth_record.digital_object_data['dynamic_field_data'].fetch("collection", []).each do |collection_term|
           collection_term = collection_term['collection_term']
           collection_clio_id = collection_term['clio_id']
           next unless collection_clio_id
@@ -45,7 +38,7 @@ module Hysync
             collection_marc_record = @voyager_client.find_by_bib_id(collection_clio_id)
             # Return if a collection-level marc record wasn't found for the given clio id
             unless collection_marc_record && collection_marc_record.leader[7] == 'c'
-              @errors << "For bib record #{marc_record['001'].value}, could not resolve collection clio id #{collection_clio_id} to a collection-level marc record."
+              @errors << "For bib record #{marc_hyacinth_record.clio_id}, could not resolve collection clio id #{collection_clio_id} to a collection-level marc record."
               return
             end
             # Raise error if the marc 001 field of this record doesn't actually match the value in collection_clio_id
@@ -54,7 +47,7 @@ module Hysync
             term = @hyacinth_client.create_controlled_term({
               'controlled_vocabulary_string_key' => 'collection',
               'type' => 'local',
-              'value' => collection_marc_record['245']['a'].sub(/[.,]$/, ''), # remove trailing period or comma
+              'value' => collection_marc_record['245']['a'].sub(/[.,:]$/, ''), # remove trailing period or comma
               'clio_id' => collection_clio_id
             })
             # Add newly-created term to @collection_clio_ids_to_uris so it can be used for future records
@@ -80,7 +73,7 @@ module Hysync
           holdings_marc_records << holdings_marc_record
         end
         marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, holdings_marc_records, base_digital_object_data)
-        add_collection_if_collection_clio_id_present!(base_digital_object_data, marc_record)
+        add_collection_if_collection_clio_id_present!(marc_hyacinth_record)
 
         if marc_hyacinth_record.clio_id.nil?
           msg = 'Missing CLIO ID for marc_hyacinth_record'
