@@ -21,7 +21,7 @@ module Hysync
 
         def extract_type_of_resource(marc_record, mapping_ruleset)
           case mapping_ruleset
-          when 'carnegie_scrapbooks_and_ledgers'
+          when 'carnegie_scrapbooks_and_ledgers', 'annual_reports'
             return 'text'
           when 'oral_history'
             return 'mixed material'

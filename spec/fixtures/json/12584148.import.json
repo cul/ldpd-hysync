@@ -99,7 +99,7 @@
           "value": "Rare Book & Manuscript Library, Columbia University",
           "authority": "marcorg",
           "code": "NNC-RB",
-          "url": "http:\/\/id.library.columbia.edu\/term\/d2142d01-deaa-4a39-8dbd-72c4f148353f"
+          "uri": "http:\/\/id.library.columbia.edu\/term\/d2142d01-deaa-4a39-8dbd-72c4f148353f"
         }
       }
     ],
@@ -111,6 +111,12 @@
     "archive_org_identifier": [
       {
         "archive_org_identifier_value": "ldpd_12584148_000"
+      }
+    ],
+    "url": [
+      {
+        "url_value": "http://www.columbia.edu/cgi-bin/cul/resolve?clio12584148",
+        "url_display_label": "Internet Archive"
       }
     ]
   }

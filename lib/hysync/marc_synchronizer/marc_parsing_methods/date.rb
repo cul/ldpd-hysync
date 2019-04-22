@@ -66,6 +66,7 @@ module Hysync
         end
 
         def add_date_created_textual(textual_date)
+          return if textual_date.nil?
           dynamic_field_data['date_created_textual'] ||= []
           dynamic_field_data['date_created_textual'] << {
             'date_created_textual_value' => textual_date
@@ -73,6 +74,7 @@ module Hysync
         end
 
         def add_date_issued_textual(textual_date)
+          return if textual_date.nil?
           dynamic_field_data['date_issued_textual'] ||= []
           dynamic_field_data['date_issued_textual'] << {
             'date_issued_textual_value' => textual_date
@@ -85,6 +87,16 @@ module Hysync
           has_245_f = MarcSelector.first(marc_record, '245', f: true).present?
 
           textual_date = extract_textual_date(marc_record, mapping_ruleset)
+
+          if mapping_ruleset == 'annual_reports'
+            fields = [MarcSelector.first(marc_record, 362, indicator1: 0, a: true), MarcSelector.first(marc_record, 362, indicator1: 1, a: true)].compact
+            # When dealing with annual reports, do not add any kind of textual date again later on if we found one in the above fields.
+            textual_date = nil if fields.present?
+
+            fields.each do |field|
+              add_date_created_textual(StringCleaner.trailing_punctuation(field['a']))
+            end
+          end
 
           # Rules below are from discussion between Melanie and Eric.
           # See: https://docs.google.com/spreadsheets/d/1hwOL_N4QNSAB7UiMfvUeT7NiGoWyByqUibKkiFau6FA

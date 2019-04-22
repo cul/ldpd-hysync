@@ -29,6 +29,7 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::AlternativeTitle
       include Hysync::MarcSynchronizer::MarcParsingMethods::TypeOfResource
       include Hysync::MarcSynchronizer::MarcParsingMethods::RestrictionOnAccess
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Url
 
       # include Hysync::MarcSynchronizer::MarcParsingMethods::Group # TODO: For Hyaicnth 3
 

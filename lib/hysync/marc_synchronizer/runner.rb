@@ -47,7 +47,7 @@ module Hysync
             term = @hyacinth_client.create_controlled_term({
               'controlled_vocabulary_string_key' => 'collection',
               'type' => 'local',
-              'value' => collection_marc_record['245']['a'].sub(/[.,:]$/, ''), # remove trailing period or comma
+              'value' => StringCleaner.trailing_punctuation(collection_marc_record['245']['a']),
               'clio_id' => collection_clio_id
             })
             # Add newly-created term to @collection_clio_ids_to_uris so it can be used for future records
