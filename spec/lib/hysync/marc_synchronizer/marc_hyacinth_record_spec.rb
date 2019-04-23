@@ -15,6 +15,18 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
     expected = json_record['dynamic_field_data']
     expect(actual).to eql(expected)
   end
+  it "produces the expected project" do
+    actual = subject.digital_object_data['project']
+    deep_compact!(actual)
+    expected = json_record['project']
+    expect(actual).to eql(expected)
+  end
+  it "produces the expected publish_targets" do
+    actual = subject.digital_object_data['publish_targets']
+    deep_compact!(actual)
+    expected = json_record['publish_targets']
+    expect(actual).to eql(expected)
+  end
   context "with an archive.org identifier in a 920" do
     let(:marc_fixture) { File.new("spec/fixtures/marc21/11258902.marc","rb") }
     it "parses an archive.org idneitifer" do

@@ -2,6 +2,11 @@
   "project": {
     "string_key": "carnegie_dpf"
   },
+  "publish_targets": [
+    {
+      "string_key": "carnegie_staging"
+    }
+  ],
   "dynamic_field_data": {
     "collection": [
       {

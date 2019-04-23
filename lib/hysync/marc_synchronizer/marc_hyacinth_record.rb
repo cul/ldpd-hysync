@@ -7,6 +7,7 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::Collection
       include Hysync::MarcSynchronizer::MarcParsingMethods::Marc005LastModified
       include Hysync::MarcSynchronizer::MarcParsingMethods::Project
+      include Hysync::MarcSynchronizer::MarcParsingMethods::PublishTargets
       include Hysync::MarcSynchronizer::MarcParsingMethods::Abstract
       include Hysync::MarcSynchronizer::MarcParsingMethods::CopyrightNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Date
