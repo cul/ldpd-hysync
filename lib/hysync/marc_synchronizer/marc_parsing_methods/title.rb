@@ -8,6 +8,7 @@ module Hysync
         end
 
         def add_title(marc_record, holdings_marc_records, mapping_ruleset)
+          return if marc_record['245'].blank?
           non_sort_portion_lenth = marc_record['245'].indicator2.nil? ? 0 : marc_record['245'].indicator2.to_i
           title = extract_title(marc_record, mapping_ruleset)
           return if title.nil?
