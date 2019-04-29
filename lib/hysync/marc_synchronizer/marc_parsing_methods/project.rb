@@ -13,15 +13,16 @@ module Hysync
         }.freeze
 
         def add_project(marc_record, holdings_marc_records, mapping_ruleset)
-          # TODO: In Hyacinth 3, support multiple project associations
-          raise 'This record already has a project.' if digital_object_data['project']
+          existing_project = digital_object_data.fetch('project',{})['string_key']
 
           project_string_key = nil
           marc_record.fields('965').each do |field|
             project_string_key = MAP_965_TO_PROJECT[field['a']]
             break unless project_string_key.nil?
           end
-          return if project_string_key.nil?
+          return if project_string_key.nil? || project_string_key.eql?(existing_project)
+          # TODO: In Hyacinth 3, support multiple project associations
+          raise 'This record already has a project.' unless existing_project.nil?
           digital_object_data['project'] = {
             'string_key' => project_string_key
           }
