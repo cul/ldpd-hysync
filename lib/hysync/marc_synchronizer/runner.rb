@@ -1,6 +1,13 @@
 module Hysync
   module MarcSynchronizer
     class Runner
+      def self.default_digital_object_data
+        {
+          'digital_object_type' => {'string_key' => 'item' },
+          'dynamic_field_data' => {}
+        }
+      end
+
       def initialize(hyacinth_config, voyager_config)
         @hyacinth_client = Hyacinth::Client.new(hyacinth_config)
         @voyager_client = Voyager::Client.new(voyager_config)
@@ -16,10 +23,7 @@ module Hysync
         @voyager_client.search_by_965_value('965hyacinth') do |marc_record, i, num_results|
           Rails.logger.debug "#{i+1} of #{num_results}: (clio id = #{marc_record['001'].value}) #{marc_record['245']}"
 
-          base_digital_object_data = {
-            'digital_object_type' => {'string_key' => 'item' },
-            'dynamic_field_data' => {}
-          }
+          base_digital_object_data = Runner.default_digital_object_data
 
           create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
         end
