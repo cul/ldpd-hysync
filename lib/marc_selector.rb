@@ -5,9 +5,14 @@ module MarcSelector
     all(marc_record, field_number, filters).first
   end
 
+  def self.each_with_index(marc_record, field_number, filters = {}, &block)
+    all_with_index(marc_record, field_number, filters).each &block
+  end
+
   def self.each(marc_record, field_number, filters = {}, &block)
     all(marc_record, field_number, filters).each &block
   end
+
   # Selects all marc fields that match the given parameters.
   # @param marc_record [MARC::Record] marc record object
   # @param field_number [String] Marc field number to select.
@@ -19,9 +24,22 @@ module MarcSelector
   #        Example filter: {indicator1: 0, indicator2: 1, b: 'something', c: true}
   # @return [Array] found results, or an empty array
   def self.all(marc_record, field_number, filters = {})
-    marc_record.fields(field_number.to_s).select do |field|
+    all_with_index(marc_record, field_number, filters).map { |field, _ix| field }
+  end
+
+  # Selects all marc fields that match the given parameters.
+  # @return [Array] tuples of marc fields and indexes by field number, or an empty array
+  def self.all_with_index(marc_record, field_number, filters = {})
+    ix = -1
+    marc_record.fields(field_number.to_s).map do |field|
+      [field, (ix += 1)]
+    end.select do |field, _ix|
       field_matches_filters(field, filters)
     end
+  end
+
+  def self.at(marc_record, field_number, index = 0)
+    (marc_record.fields(field_number.to_s) || [])[index]
   end
 
   # @return true if the field matches all given filters
