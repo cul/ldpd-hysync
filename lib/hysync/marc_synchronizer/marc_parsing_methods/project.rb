@@ -20,7 +20,12 @@ module Hysync
             project_string_key = MAP_965_TO_PROJECT[field['a']]
             break unless project_string_key.nil?
           end
-          return if project_string_key.nil? || project_string_key.eql?(existing_project)
+          
+          if project_string_key.nil?
+            @errors << "Could not resolve 965 values to a project for: #{self.clio_id}"
+            return
+          end
+          return if project_string_key.eql?(existing_project)
           # TODO: In Hyacinth 3, support multiple project associations
           raise 'This record already has a project.' unless existing_project.nil?
           digital_object_data['project'] = {

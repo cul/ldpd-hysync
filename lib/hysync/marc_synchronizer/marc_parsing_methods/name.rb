@@ -34,6 +34,7 @@ module Hysync
             val += ' ' + field['c'] if field['c']
             val += ' ' + field['d'] if field['d']
             val += ' ' + field['q'] if field['q']
+            role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
                 'value' => StringCleaner.trailing_comma(val),
@@ -41,7 +42,7 @@ module Hysync
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(field['e'])
+                  'value' => StringCleaner.trailing_punctuation(role_value)
                   #'code' => field['4']
                 }
               }],
@@ -57,6 +58,7 @@ module Hysync
             val += ' ' + field['d'] if field['d']
             val += ' ' + field['g'] if field['g']
             val += ' ' + field['n'] if field['n']
+            role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
                 'value' => StringCleaner.trailing_comma(val),
@@ -64,7 +66,7 @@ module Hysync
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(field['e'])
+                  'value' => StringCleaner.trailing_punctuation(role_value)
                   #'code' => field['4']
                 }
               }],
@@ -80,6 +82,7 @@ module Hysync
             val += ' ' + field['e'] if field['e']
             val += ' ' + field['n'] if field['n']
             val += ' ' + field['q'] if field['q']
+            role_value = field['e'].present? ? field['j'] : ''
             return {
               'name_term' => {
                 'value' => StringCleaner.trailing_comma(val),
@@ -87,7 +90,7 @@ module Hysync
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(field['j'])
+                  'value' => StringCleaner.trailing_punctuation(role_value)
                 }
               }],
               'name_usage_primary' => true
@@ -105,6 +108,7 @@ module Hysync
             val += ' ' + field['d'] if field['d']
             val += ' ' + field['g'] if field['g']
             val += ' ' + field['q'] if field['q']
+            role_value = field['e'].present? ? field['e'] : ''
             names << {
               'name_term' => {
                 'value' => StringCleaner.trailing_comma(val),
@@ -112,7 +116,7 @@ module Hysync
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(field['e'])
+                  'value' => StringCleaner.trailing_punctuation(role_value)
                   #'code' => field['4']
                 }
               }]
@@ -133,6 +137,7 @@ module Hysync
             val += ' ' + field['d'] if field['d']
             val += ' ' + field['g'] if field['g']
             val += ' ' + field['n'] if field['n']
+            role_value = field['e'].present? ? field['e'] : ''
             names << {
               'name_term' => {
                 'value' => StringCleaner.trailing_comma(val),
@@ -140,7 +145,7 @@ module Hysync
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(field['e'])
+                  'value' => StringCleaner.trailing_punctuation(role_value)
                   #'code' => field['4']
                 }
               }]
@@ -159,6 +164,7 @@ module Hysync
             val += ' ' + field['e'] if field['e']
             val += ' ' + field['n'] if field['n']
             val += ' ' + field['q'] if field['q']
+            role_value = field['e'].present? ? field['j'] : ''
             names << {
               'name_term' => {
                 'value' => StringCleaner.trailing_comma(val),
@@ -166,7 +172,7 @@ module Hysync
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(field['j'])
+                  'value' => StringCleaner.trailing_punctuation(role_value)
                 }
               }]
             }

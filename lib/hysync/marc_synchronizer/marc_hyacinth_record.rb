@@ -64,8 +64,14 @@ module Hysync
 
       # Merges data from this marc record into the underlying digital_object_data fields
       def add_marc_data(marc_record, holdings_marc_records)
-        self.class.registered_parsing_methods.each do |method_name|
-          self.send(method_name, marc_record, holdings_marc_records, @mapping_ruleset)
+        begin
+          self.class.registered_parsing_methods.each do |method_name|
+            self.send(method_name, marc_record, holdings_marc_records, @mapping_ruleset)
+          end
+        rescue StandardError => e
+          Rails.logger.error("Unexpected error encountered while parsing record: #{self.clio_id}")
+          # re-raise unhandled error
+          raise e
         end
       end
     end
