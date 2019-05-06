@@ -7,20 +7,15 @@ module Hysync
           register_parsing_method :add_project
         end
 
-        MAP_965_TO_PROJECT = {
-          '965carnegiedpf' => 'carnegie_dpf',
-          '965TBM' => 'TBM'
-        }.freeze
-
         def add_project(marc_record, holdings_marc_records, mapping_ruleset)
           existing_project = digital_object_data.fetch('project',{})['string_key']
 
           project_string_key = nil
           marc_record.fields('965').each do |field|
-            project_string_key = MAP_965_TO_PROJECT[field['a']]
+            project_string_key = HYSYNC['project_mappings'][field['a']]
             break unless project_string_key.nil?
           end
-          
+
           if project_string_key.nil?
             @errors << "Could not resolve 965 values to a project for: #{self.clio_id}"
             return

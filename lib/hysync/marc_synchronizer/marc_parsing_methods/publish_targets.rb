@@ -7,16 +7,12 @@ module Hysync
           register_parsing_method :add_publish_targets
         end
 
-        MAP_965_TO_PUBLISH_TARGET = {
-          '965carnegiedpf' => 'carnegie_staging'
-        }.freeze
-
         def add_publish_targets(marc_record, holdings_marc_records, mapping_ruleset)
           # TODO: Use publish_to for Hyacinth 3
 
           publish_target_string_keys = []
           marc_record.fields('965').each do |field|
-            publish_target_string_key = MAP_965_TO_PUBLISH_TARGET[field['a']]
+            publish_target_string_key = HYSYNC['publish_target_mappings'][field['a']]
             next if publish_target_string_key.blank?
             publish_target_string_keys << publish_target_string_key
           end

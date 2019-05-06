@@ -44,15 +44,10 @@ module Voyager
             holdings_marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file)), :external_encoding => 'MARC-8').first
             yield holdings_marc_record, result_counter, num_results
           rescue Encoding::InvalidByteSequenceError => e
-            if @z3950_config['raise_error_when_marc_decode_fails']
-              # Re-raise error, appending a bit of extra info
-              raise e, "Problem decoding characters for record in marc file #{marc_file}. Error message: #{$!}", $!.backtrace
-              # To troubleshoot this error further, it can be useful to examine the record's text around the
-              # byte range location given in the encoding error. Smart quotes are a common cause of problems.
-            else
-              Rails.logger.warn "Skipping marc file #{marc_file} because of a decoding error."
-              next
-            end
+            # Re-raise error, appending a bit of extra info
+            raise e, "Problem decoding characters for holdings marc file #{marc_file}. Error message: #{$!}", $!.backtrace
+            # To troubleshoot this error further, it can be useful to examine the record's text around the
+            # byte range location given in the encoding error. Smart quotes are a common cause of problems.
           end
           result_counter += 1
         end

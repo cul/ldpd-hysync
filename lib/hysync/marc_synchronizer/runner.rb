@@ -39,23 +39,27 @@ module Hysync
           collection_clio_id = collection_term['clio_id']
           next unless collection_clio_id
           unless @collection_clio_ids_to_uris.key?(collection_clio_id)
-            collection_marc_record = @voyager_client.find_by_bib_id(collection_clio_id)
-            # Return if a collection-level marc record wasn't found for the given clio id
-            unless collection_marc_record && collection_marc_record.leader[7] == 'c'
-              @errors << "For bib record #{marc_hyacinth_record.clio_id}, could not resolve collection clio id #{collection_clio_id} to a collection-level marc record."
-              return
+            begin
+              collection_marc_record = @voyager_client.find_by_bib_id(collection_clio_id)
+              # Return if a collection-level marc record wasn't found for the given clio id
+              unless collection_marc_record && collection_marc_record.leader[7] == 'c'
+                @errors << "For bib record #{marc_hyacinth_record.clio_id}, could not resolve collection clio id #{collection_clio_id} to a collection-level marc record."
+                return
+              end
+              # Raise error if the marc 001 field of this record doesn't actually match the value in collection_clio_id
+              raise 'Mismatch between collection_clio_id and retrieved record 001 value' if collection_clio_id != collection_marc_record['001'].value
+              # Create this term because it does not exist
+              term = @hyacinth_client.create_controlled_term({
+                'controlled_vocabulary_string_key' => 'collection',
+                'type' => 'local',
+                'value' => StringCleaner.trailing_punctuation(collection_marc_record['245']['a']),
+                'clio_id' => collection_clio_id
+              })
+              # Add newly-created term to @collection_clio_ids_to_uris so it can be used for future records
+              @collection_clio_ids_to_uris[collection_clio_id] = term['uri']
+            rescue Encoding::InvalidByteSequenceError => e
+              marc_hyacinth_record.errors << "Collection bib record issue: #{e.message}"
             end
-            # Raise error if the marc 001 field of this record doesn't actually match the value in collection_clio_id
-            raise 'Mismatch between collection_clio_id and retrieved record 001 value' if collection_clio_id != collection_marc_record['001'].value
-            # Create this term because it does not exist
-            term = @hyacinth_client.create_controlled_term({
-              'controlled_vocabulary_string_key' => 'collection',
-              'type' => 'local',
-              'value' => StringCleaner.trailing_punctuation(collection_marc_record['245']['a']),
-              'clio_id' => collection_clio_id
-            })
-            # Add newly-created term to @collection_clio_ids_to_uris so it can be used for future records
-            @collection_clio_ids_to_uris[collection_clio_id] = term['uri']
           end
 
           # Assign collection term to base digital object data hash
@@ -73,10 +77,17 @@ module Hysync
       # @param force_update [Boolean] update records regardless of modification date (005)
       def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
         holdings_marc_records = []
-        @voyager_client.holdings_for_bib_id(marc_record['001'].value) do |holdings_marc_record, i, num_results|
-          holdings_marc_records << holdings_marc_record
+        holdings_marc_record_errors = []
+        begin
+          @voyager_client.holdings_for_bib_id(marc_record['001'].value) do |holdings_marc_record, i, num_results|
+            holdings_marc_records << holdings_marc_record
+          end
+        rescue Encoding::InvalidByteSequenceError => e
+          marc_hyacinth_record.errors << "Holdings record issue: #{e.message}"
         end
         marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, holdings_marc_records, base_digital_object_data)
+        marc_hyacinth_record.errors.concat(holdings_marc_record_errors)
+
         add_collection_if_collection_clio_id_present!(marc_hyacinth_record)
 
         if marc_hyacinth_record.clio_id.nil?
