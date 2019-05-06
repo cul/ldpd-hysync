@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/elohanlon/ruby-marc.git
+  revision: 525704a34de7d905b4371f4bbaaa5999b1eba704
+  branch: easier-InvalidByteSequenceError-troubleshooting
+  specs:
+    marc (1.0.3)
+      scrub_rb (>= 1.0.1, < 2)
+      unf
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -112,9 +121,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    marc (1.0.2)
-      scrub_rb (>= 1.0.1, < 2)
-      unf
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (0.9.2)
@@ -258,7 +264,7 @@ DEPENDENCIES
   chromedriver-helper
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
-  marc (~> 1.0)
+  marc!
   net-ssh (>= 4.2)
   puma (~> 3.11)
   rails (~> 5.2.2)
@@ -279,4 +285,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.16.2
+   1.17.3

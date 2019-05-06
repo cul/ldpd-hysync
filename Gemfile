@@ -31,8 +31,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # For z3950
 gem 'zoom', '0.5.0'
-# For MARC parsing
-gem 'marc', '~> 1.0'
+# For MARC parsing (using fork until PR is merged into main project)
+gem 'marc', git: 'https://github.com/elohanlon/ruby-marc.git', branch: 'easier-InvalidByteSequenceError-troubleshooting'
 # For oracle connections
 gem 'ruby-oci8', '~> 2.2.7'
 # For HTTP Requests
