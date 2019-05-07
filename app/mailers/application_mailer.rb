@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'hysync-noreply@library.columbia.edu'
+  default from: HYSYNC['developer_email_address']
   layout 'mailer'
 
   def marc_sync_error_email
