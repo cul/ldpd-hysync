@@ -3,7 +3,7 @@ namespace :hysync do
     success, errors = Hysync::MarcSynchronizer::Runner.new(HYACINTH_CONFIG, VOYAGER_CONFIG).run(ENV['force_update'] == 'true')
     if !success
       ApplicationMailer.with(
-        to: HYSYNC['error_email_recipients'],
+        to: HYSYNC['marc_sync_email_addresses'],
         subject: "Hysync: MARC-to-Hyacinth Sync Errors (#{Date.today})",
         errors: errors
       ).marc_sync_error_email.deliver
@@ -12,7 +12,7 @@ namespace :hysync do
 
   task :email_test => :environment do
     ApplicationMailer.with(
-      to: HYSYNC['error_email_recipients'],
+      to: HYSYNC['marc_sync_email_addresses'],
       subject: 'Hysync Test Marc Sync Error Email',
       errors: ['Test error 1', 'Test error 2']
     ).marc_sync_error_email.deliver
