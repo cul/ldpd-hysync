@@ -43,9 +43,9 @@
         "type_of_resource_is_collection": false
       }
     ],
-    "restriction_on_access": [
+    "restriction_on_access_deprecated": [
       {
-        "restriction_on_access_value": "Digital version available with no restrictions"
+        "restriction_on_access_deprecated_value": "Digital version available with no restrictions"
       }
     ],
     "date_created": [

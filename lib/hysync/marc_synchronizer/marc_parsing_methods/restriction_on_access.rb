@@ -8,9 +8,9 @@ module Hysync
         end
 
         def add_restriction_on_access(marc_record, holdings_marc_records, mapping_ruleset)
-          dynamic_field_data['restriction_on_access'] ||= []
-          dynamic_field_data['restriction_on_access'] << {
-            'restriction_on_access_value' => extract_restriction_on_access(marc_record, mapping_ruleset),
+          dynamic_field_data['restriction_on_access_deprecated'] ||= []
+          dynamic_field_data['restriction_on_access_deprecated'] << {
+            'restriction_on_access_deprecated_value' => extract_restriction_on_access(marc_record, mapping_ruleset),
           }
         end
 
