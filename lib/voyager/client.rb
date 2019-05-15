@@ -121,7 +121,7 @@ module Voyager
           # Note 2: Marc::Reader is sometimes bad about closing files, and this
           # causes problems with NFS locks on NFS volumes, so we'll
           # read in the file and pass the content in as a StringIO.
-          marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file)), :external_encoding => 'MARC-8').first
+          marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file))).first
           yield marc_record, result_counter, num_results
         rescue Encoding::InvalidByteSequenceError => e
           if @z3950_config['raise_error_when_marc_decode_fails']

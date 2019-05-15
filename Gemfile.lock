@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/elohanlon/ruby-marc.git
-  revision: 0b779e3ef56884900dd9c0a3d312c95e20516695
+  revision: b531734dd868abb19abfb6a828d76922ed1c1173
   branch: easier-InvalidByteSequenceError-troubleshooting
   specs:
     marc (1.0.3)

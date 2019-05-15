@@ -27,4 +27,15 @@ namespace :hysync do
     voyager.instance_variable_get(:@z3950_config)['use_cached_results'] = false
     runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
   end
+
+  task :test_marc_parsing => :environment do
+    runner = Hysync::MarcSynchronizer::Runner.new(HYACINTH_CONFIG, VOYAGER_CONFIG)
+    voyager = runner.instance_variable_get(:@voyager_client)
+    marc_record = voyager.find_by_bib_id(ENV['bib_id'])
+    puts marc_record.inspect
+  end
+
+  task :check_oci8_encoding => :environment do
+    puts "OCI8 encoding is: #{OCI8.encoding.inspect}"
+  end
 end
