@@ -116,12 +116,16 @@ module Voyager
         next unless entry.ends_with?('.marc')
         marc_file = File.join(cache_path, entry)
         begin
-          # Note 1: Need to process the file with MARC-8 external encoding in
-          # order to get correctly formatted utf-8 characters
+          # Note 1: We need to process the file with MARC-8 external encoding in
+          # order to get correctly formatted utf-8 characters from the Z39.50
+          # interface on port 7090. I read something online that suggests that
+          # voyager hosts a MARC-8 Z39.50 interface on port 7090 and a
+          # UTF-8 Z39.50 interface on port 7091, but I haven't verified this
+          # because I can't currently access anything on port 7091.
           # Note 2: Marc::Reader is sometimes bad about closing files, and this
           # causes problems with NFS locks on NFS volumes, so we'll
           # read in the file and pass the content in as a StringIO.
-          marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file))).first
+          marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file)), external_encoding: 'MARC-8').first
           yield marc_record, result_counter, num_results
         rescue Encoding::InvalidByteSequenceError => e
           if @z3950_config['raise_error_when_marc_decode_fails']

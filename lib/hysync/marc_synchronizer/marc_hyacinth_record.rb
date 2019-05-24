@@ -69,9 +69,7 @@ module Hysync
             self.send(method_name, marc_record, holdings_marc_records, @mapping_ruleset)
           end
         rescue StandardError => e
-          Rails.logger.error("Unexpected error encountered while parsing record: #{self.clio_id}")
-          # re-raise unhandled error
-          raise e
+          self.errors << "An unhandled error was encountered while parsing record #{self.clio_id}: #{e.message}"
         end
       end
     end

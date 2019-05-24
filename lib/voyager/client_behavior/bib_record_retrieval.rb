@@ -22,8 +22,10 @@ module Voyager
         end
 
         begin
-          # Note 1: Need to process the file with MARC-8 external encoding in
-          # order to get correctly formatted utf-8 characters
+          # Note 1: Need to process oracle-retrieved files with UTF-8 encoding
+          # (the default encoding for the MARC::Reader) in order to get
+          # correctly formatted utf-8 characters. This is different than what
+          # we're doing over Z39.50, where we want to use MARC-8 instead.
           # Note 2: Marc::Reader is sometimes bad about closing files, and this
           # causes problems with NFS locks on NFS volumes, so we'll
           # read in the file and pass the content in as a StringIO.
