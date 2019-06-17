@@ -4,7 +4,8 @@ module Hysync
       def self.default_digital_object_data
         {
           'digital_object_type' => {'string_key' => 'item' },
-          'dynamic_field_data' => {}
+          'dynamic_field_data' => {},
+          'identifiers' => []
         }
       end
 
@@ -104,10 +105,13 @@ module Hysync
           return
         end
 
+        # Add "clio#{bib_id}" identifier (e.g. clio12345).
+        marc_hyacinth_record.digital_object_data['identifiers'] << "clio#{marc_hyacinth_record.clio_id}"
+
         # Use clio identifier to determine whether Item exists
         results = find_items_by_clio_id(marc_hyacinth_record.clio_id)
         if results.length == 0
-          # Create new Item
+          # Item does not already exist. Create new Item.
           response = @hyacinth_client.create_new_record(marc_hyacinth_record.digital_object_data, true)
           if response.success?
             Rails.logger.debug "Created new record (clio id = #{marc_hyacinth_record.clio_id})"
@@ -118,12 +122,9 @@ module Hysync
           end
         elsif results.length == 1
           pid = results.first['pid']
-          # We want to preserve any existing identifiers, but also add
-          # a 'clio' + bib_id one (e.g. clio12345), so we'll retrieve
-          # this record's identifiers if it's an existing item.
-          marc_hyacinth_record.digital_object_data['identifiers'] = results.first['identifiers']
-          bib_id_based_identifier = 'clio' + marc_hyacinth_record.clio_id
-          marc_hyacinth_record.digital_object_data['identifiers'] << bib_id_based_identifier unless marc_hyacinth_record.digital_object_data['identifiers'].include?(bib_id_based_identifier)
+          # We want to preserve any existing identifiers from the existing item.
+          marc_hyacinth_record.digital_object_data['identifiers'].push(*(results.first['identifiers']))
+          marc_hyacinth_record.digital_object_data['identifiers'].uniq!
 
           if force_update
             marc_005_last_modified = nil # If we're forcing an update, always assume nil value for marc_005_last_modified.
