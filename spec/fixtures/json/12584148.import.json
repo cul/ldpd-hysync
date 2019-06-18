@@ -12,7 +12,18 @@
       {
         "collection_term": {
           "clio_id": "4079753"
-        }
+        },
+        "collection_archival_series": [
+          {
+            "collection_archival_series_part": [
+              {
+                "collection_archival_series_part_type": "series",
+                "collection_archival_series_part_level": 1,
+                "collection_archival_series_part_title": "Series I.C.2 Vol. 37"
+              }
+            ]
+          }
+        ]
       }
     ],
     "clio_identifier": [

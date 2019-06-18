@@ -27,6 +27,8 @@ module Hysync
           end
           dynamic_field_data['collection'] = terms unless terms.empty?
           add_fallback_collection(marc_record, holdings_marc_records, mapping_ruleset)
+
+          add_archival_series_to_first_collection_if_present(marc_record, mapping_ruleset)
         end
 
         # If this marc record has a collection clio id, extract it.
@@ -60,6 +62,24 @@ module Hysync
         def extract_fallback_collection(marc_record, mapping_ruleset)
           field = MarcSelector.first(marc_record, 710, indicator1: 2, a: true, '5': 'NNC')
           return field['a'] unless field.nil?
+        end
+
+        def add_archival_series_to_first_collection_if_present(marc_record, mapping_ruleset)
+          if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers' && dynamic_field_data['collection'].length > 0
+            field = MarcSelector.first(marc_record, 773, indicator1: 0, g: true)
+            return unless field
+            dynamic_field_data['collection'].first['collection_archival_series'] = [
+              {
+                'collection_archival_series_part' => [
+                  {
+                    'collection_archival_series_part_type' => 'series',
+                    'collection_archival_series_part_level' => 1,
+                    'collection_archival_series_part_title' => field['g']
+                  }
+                ]
+              }
+            ]
+          end
         end
       end
     end

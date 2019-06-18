@@ -8,7 +8,12 @@ module Hysync
         end
 
         def add_copyright_note(marc_record, holdings_marc_records, mapping_ruleset)
-          return if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
+          return if [
+            'carnegie_scrapbooks_and_ledgers',
+            'oral_history',
+            'annual_reports',
+            '965tibetan'
+          ].include?(mapping_ruleset)
 
           dynamic_field_data['copyright_note'] ||= []
           dynamic_field_data['copyright_note'] << {
