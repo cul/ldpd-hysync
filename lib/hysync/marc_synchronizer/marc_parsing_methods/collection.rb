@@ -10,7 +10,7 @@ module Hysync
         def add_collection(marc_record, holdings_marc_records, mapping_ruleset)
           if mapping_ruleset == "annual_reports"
             dynamic_field_data['collection'] = [{
-              collection_term => {
+              'collection_term' => {
                 'value' => 'Carnegie Corporation of New York Records',
                 'uri' => 'http://id.library.columbia.edu/term/72fcfd07-f7db-4a18-bdb2-beb0abce071c'
               }
