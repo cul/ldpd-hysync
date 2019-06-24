@@ -56,4 +56,18 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
       expect(deprecated_note).to eql("Digital version available with no restrictions")
     end
   end
+  context "with subject name titles" do
+    let(:marc_fixture) { File.new("spec/fixtures/marc21/12998581.marc","rb") }
+    it "sets a subject name title term" do
+      actual = subject.digital_object_data['dynamic_field_data']
+
+      expect(actual['subject_name'].detect { |s| s['subject_name_title_term'] }).to be_present
+      expect(actual['subject_name'].detect { |s| !s['subject_name_title_term'] }).to be_blank
+    end
+  end
+  context "with uniform title subjects" do
+    it "sets a subject title term" do
+      skip "until we have an example record with a 630 field"
+    end
+  end
 end

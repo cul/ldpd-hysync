@@ -35,18 +35,6 @@ module Hysync
             subject_title_terms << { 'value' => StringCleaner.trailing_punctuation(val) }
           end
 
-          MarcSelector.all(marc_record, 600, t: true).map do |field|
-            subject_title_terms << { 'value' => StringCleaner.trailing_punctuation(field['t']) }
-          end
-
-          MarcSelector.all(marc_record, 610, t: true).map do |field|
-            subject_title_terms << { 'value' => StringCleaner.trailing_punctuation(field['t']) }
-          end
-
-          MarcSelector.all(marc_record, 611, t: true).map do |field|
-            subject_title_terms << { 'value' => StringCleaner.trailing_punctuation(field['t']) }
-          end
-
           subject_title_terms
         end
       end
