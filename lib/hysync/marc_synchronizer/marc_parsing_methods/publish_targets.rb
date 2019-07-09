@@ -12,9 +12,11 @@ module Hysync
 
           publish_target_string_keys = []
           marc_record.fields('965').each do |field|
-            publish_target_string_key = HYSYNC['publish_target_mappings'][field['a']]
-            next if publish_target_string_key.blank?
-            publish_target_string_keys << publish_target_string_key
+            publish_target_mappings = Array.wrap(HYSYNC['publish_target_mappings'][field['a']])
+            next if publish_target_mappings.blank?
+            publish_target_mappings.each do |publish_target_string_key|
+              publish_target_string_keys << publish_target_string_key
+            end
           end
 
           return if publish_target_string_keys.blank?
