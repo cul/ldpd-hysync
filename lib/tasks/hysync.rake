@@ -28,6 +28,17 @@ namespace :hysync do
     runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
   end
 
+  task :sync_by_965 => :environment do
+    runner = Hysync::MarcSynchronizer::Runner.new(HYACINTH_CONFIG, VOYAGER_CONFIG)
+    force_update = (ENV['force_update'] == 'true')
+    voyager = runner.instance_variable_get(:@voyager_client)
+    voyager.instance_variable_get(:@z3950_config)['use_cached_results'] = false
+    voyager.search_by_965_value(ENV['value965']) do |marc_record, i, num_results|
+      base_digital_object_data = Hysync::MarcSynchronizer::Runner.default_digital_object_data
+      runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
+    end
+  end
+
   task :test_marc_parsing => :environment do
     runner = Hysync::MarcSynchronizer::Runner.new(HYACINTH_CONFIG, VOYAGER_CONFIG)
     voyager = runner.instance_variable_get(:@voyager_client)

@@ -7,9 +7,9 @@ module Hysync
           register_parsing_method :add_subject_name
         end
 
-        def add_subject_name(marc_record, holdings_marc_records, mapping_ruleset)
-          return if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
+        NO_VALUES = [].freeze
 
+        def add_subject_name(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['subject_name'] ||= []
           extract_subject_name_terms(marc_record, mapping_ruleset).each do |subject_name_term|
             subject_title = subject_name_term.delete('subject_name_title_term')
@@ -52,6 +52,7 @@ module Hysync
         end
 
         def extract_conference_subject_name_terms(marc_record, mapping_ruleset)
+          return NO_VALUES if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
           field = 611
           name_type = 'conference'
           filters = { indicator1: 2, indicator2: 0, a: true }

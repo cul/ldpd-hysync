@@ -65,6 +65,17 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
       expect(actual['subject_name'].detect { |s| !s['subject_name_title_term'] }).to be_blank
     end
   end
+  context "with subject names" do
+    let(:marc_fixture) { File.new("spec/fixtures/marc21/12584157.marc","rb") }
+    it "sets a subject name term" do
+      actual = subject.digital_object_data['dynamic_field_data']
+      subject_name = actual['subject_name'].detect { |s| s['subject_name_term'] }
+      expect(subject_name).to be_present
+      subject_name_term = subject_name['subject_name_term']
+      expect(subject_name_term['name_type']).to eql 'personal' 
+      expect(subject_name_term['value']).to eql 'Carnegie, Andrew, 1835-1919' 
+    end
+  end
   context "with corporate name main entry" do
     let(:marc_fixture) { File.new("spec/fixtures/marc21/12998568.marc","rb") }
     it "sets a main entry name term" do

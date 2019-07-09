@@ -126,6 +126,19 @@
         }
       }
     ],
+    "subject_name": [
+      {
+        "subject_name_term": {
+          "uri": "https://id.loc.gov/authorities/names/n50032468",
+          "value": "Carnegie, Andrew, 1835-1919",
+          "type": "external",
+          "authority": "naf",
+          "vocabulary_string_key": "subject_name",
+          "internal_id": 927049,
+          "name_type": "personal"
+        }
+      }
+    ],
     "subject_topic": [
       {
         "subject_topic_term": {

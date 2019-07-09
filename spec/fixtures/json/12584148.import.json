@@ -95,6 +95,14 @@
         }
       }
     ],
+    "subject_name": [
+      {
+        "subject_name_term": {
+          "value": "Carnegie, Andrew, 1835-1919",
+          "name_type": "personal"
+        }
+      }
+    ],
     "subject_topic": [
       {
         "subject_topic_term": {
