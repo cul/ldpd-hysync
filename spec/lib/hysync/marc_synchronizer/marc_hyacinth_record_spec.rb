@@ -65,6 +65,15 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
       expect(actual['subject_name'].detect { |s| !s['subject_name_title_term'] }).to be_blank
     end
   end
+  context "with corporate name main entry" do
+    let(:marc_fixture) { File.new("spec/fixtures/marc21/12998568.marc","rb") }
+    it "sets a main entry name term" do
+      actual = subject.digital_object_data['dynamic_field_data']
+      first_primary = actual['name'].detect { |s| s['name_usage_primary'] }
+      expect(first_primary).to be_present
+      expect(first_primary['name_term']['value']).to eql('Carnegie Corporation of New York')
+    end
+  end
   context "with uniform title subjects" do
     it "sets a subject title term" do
       skip "until we have an example record with a 630 field"

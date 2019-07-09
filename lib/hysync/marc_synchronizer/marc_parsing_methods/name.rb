@@ -50,7 +50,7 @@ module Hysync
             }
           end
           # Check corporate name field (110)
-          field = MarcSelector.first(marc_record, 100, indicator1: 1, a: true) || MarcSelector.first(marc_record, 100, indicator1: 2, a: true)
+          field = MarcSelector.first(marc_record, 110, indicator1: 1, a: true) || MarcSelector.first(marc_record, 110, indicator1: 2, a: true)
           if field
             val = field['a']
             val += ' ' + field['b'] if field['b']
@@ -61,7 +61,7 @@ module Hysync
             role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
-                'value' => StringCleaner.trailing_comma(val),
+                'value' => StringCleaner.trailing_punctuation(val),
                 'name_type' => 'corporate'
               },
               'name_role' => [{
