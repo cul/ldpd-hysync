@@ -41,7 +41,7 @@ module Hysync
             'im' # Sound recording, monograph/item
             form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm009874' } # sound recordings
           when 'gm', # Video recording, Monograph/item
-            'gd', # Video recording, Collection
+            'gd' # Video recording, Collection
             form_terms << { 'uri' => 'http://vocab.getty.edu/aat/300028682' } # video recordings
           when 'kd' # Two-dimensional nonprojectable graphic, Subunit
             form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm007779' } # pictures
