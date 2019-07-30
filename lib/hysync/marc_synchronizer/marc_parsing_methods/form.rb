@@ -37,6 +37,14 @@ module Hysync
             'ea', # Cartographic material, Monographic component part
             'fa' # Manuscript cartographic material, Monographic component part
             form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm006261' } # maps
+          when 'id', # Sound recording, Subunit
+            'im' # Sound recording, monograph/item
+            form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm009874' } # sound recordings
+          when 'gm', # Video recording, Monograph/item
+            'gd', # Video recording, Collection
+            form_terms << { 'uri' => 'http://vocab.getty.edu/aat/300028682' } # video recordings
+          when 'kd' # Two-dimensional nonprojectable graphic, Subunit
+            form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm007779' } # pictures
           when 'km', # Two-dimensional nonprojectable graphic, Monograph/Item
             'ac', # Language material, Collection
             'pc', # Mixed materials, Collection
