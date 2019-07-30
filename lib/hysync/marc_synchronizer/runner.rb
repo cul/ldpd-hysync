@@ -86,7 +86,9 @@ module Hysync
         rescue Encoding::InvalidByteSequenceError => e
           marc_hyacinth_record.errors << "Holdings record issue: #{e.message}"
         end
-        marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, holdings_marc_records, base_digital_object_data)
+        marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(
+          marc_record, holdings_marc_records, base_digital_object_data, @voyager_client
+        )
         marc_hyacinth_record.errors.concat(holdings_marc_record_errors)
 
         add_collection_if_collection_clio_id_present!(marc_hyacinth_record)
