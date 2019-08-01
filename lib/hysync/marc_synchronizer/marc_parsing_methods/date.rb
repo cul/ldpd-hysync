@@ -30,6 +30,7 @@ module Hysync
         end
 
         def add_date_created(date1, date2, date_type, is_keydate)
+          return if date1.nil? && date2.nil?
           dynamic_field_data['date_created'] ||= []
           dynamic_field_data['date_created'] << {
             'date_created_start_value' => date1,
@@ -40,6 +41,7 @@ module Hysync
         end
 
         def add_date_issued(date1, date2, date_type, is_keydate)
+          return if date1.nil? && date2.nil?
           dynamic_field_data['date_issued'] ||= []
           dynamic_field_data['date_issued'] << {
             'date_issued_start_value' => date1,
