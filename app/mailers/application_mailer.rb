@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: HYSYNC['developer_email_address']
+  default from: HYSYNC['default_sender_email_address']
   layout 'mailer'
 
   def marc_sync_error_email
