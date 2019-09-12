@@ -49,11 +49,12 @@ module Hysync
               end
               # Raise error if the marc 001 field of this record doesn't actually match the value in collection_clio_id
               raise 'Mismatch between collection_clio_id and retrieved record 001 value' if collection_clio_id != collection_marc_record['001'].value
+
               # Create this term because it does not exist
               term = @hyacinth_client.create_controlled_term({
                 'controlled_vocabulary_string_key' => 'collection',
                 'type' => 'local',
-                'value' => StringCleaner.trailing_punctuation(collection_marc_record['245']['a']),
+                'value' => extract_collection_record_title(collection_record_title),
                 'clio_id' => collection_clio_id
               })
               # Add newly-created term to @collection_clio_ids_to_uris so it can be used for future records
@@ -155,6 +156,12 @@ module Hysync
           @errors << msg
           Rails.logger.error msg
         end
+      end
+
+      def self.extract_collection_record_title(collection_record)
+        collection_record_title = collection_record['245']['a']
+        collection_record_title += ' ' + collection_record['245']['n'] if collection_record['245']['n']
+        StringCleaner.trailing_punctuation(collection_record_title)
       end
     end
   end
