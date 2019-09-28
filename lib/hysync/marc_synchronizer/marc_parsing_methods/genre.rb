@@ -59,10 +59,12 @@ module Hysync
             non_655_genre_values.each do |genre_value|
               genre_terms << {
                 'value' => genre_value,
-                'authority' => 'lcsh' # All 6XX fields have authority 'lcsh' (other than 655)
+                # Do not supply authority value if mapping_ruleset == annual_reports
+                'authority' => (mapping_ruleset == 'annual_reports' ? '' : 'lcsh') # All 6XX fields have authority 'lcsh' (other than 655)
               }
             end
           end
+
           genre_terms
         end
       end

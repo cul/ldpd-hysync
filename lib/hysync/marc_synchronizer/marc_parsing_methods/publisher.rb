@@ -21,6 +21,10 @@ module Hysync
           return field['b'] unless field.nil?
           field = MarcSelector.first(marc_record, 264, indicator2: 1, b: true)
           return field['b'] unless field.nil?
+          field = MarcSelector.first(marc_record, 264, indicator2: 0, b: true)
+          return field['b'] unless field.nil?
+          field = MarcSelector.first(marc_record, 264, indicator2: 3, b: true)
+          return field['b'] unless field.nil?
           nil
         end
       end

@@ -106,21 +106,25 @@ module Hysync
         end
 
         def add_archival_series_to_first_collection_if_present(marc_record, mapping_ruleset)
-          if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers' && dynamic_field_data['collection'].length > 0
-            field = MarcSelector.first(marc_record, 773, indicator1: 0, g: true)
-            return unless field
-            dynamic_field_data['collection'].first['collection_archival_series'] = [
-              {
-                'collection_archival_series_part' => [
-                  {
-                    'collection_archival_series_part_type' => 'series',
-                    'collection_archival_series_part_level' => 1,
-                    'collection_archival_series_part_title' => field['g']
-                  }
-                ]
-              }
-            ]
-          end
+          # TODO: Uncomment rules below when questions about mapping are answered.
+
+          # return if ['oral_history', 'music'].include?(mapping_ruleset)
+          #
+          # if dynamic_field_data['collection'].length > 0
+          #   field = MarcSelector.first(marc_record, 773, indicator1: 0, g: true)
+          #   return unless field
+          #   dynamic_field_data['collection'].first['collection_archival_series'] = [
+          #     {
+          #       'collection_archival_series_part' => [
+          #         {
+          #           'collection_archival_series_part_type' => 'series',
+          #           'collection_archival_series_part_level' => 1,
+          #           'collection_archival_series_part_title' => field['g']
+          #         }
+          #       ]
+          #     }
+          #   ]
+          # end
         end
       end
     end

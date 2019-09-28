@@ -82,6 +82,7 @@ module Voyager
 
       if !search_cache_exists?(query_type, query_field, query_value)
         FileUtils.mkdir_p(cache_path)
+        Rails.logger.debug("Downloading MARC records to #{cache_path}. This may take a while...")
         duration = Benchmark.realtime do
           ZOOM::Connection.open(@z3950_config['host'], @z3950_config['port']) do |conn|
             conn.database_name = @z3950_config['database_name']

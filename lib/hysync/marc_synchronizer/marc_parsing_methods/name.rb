@@ -8,8 +8,6 @@ module Hysync
         end
 
         def add_name(marc_record, holdings_marc_records, mapping_ruleset)
-          return if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
-
           dynamic_field_data['name'] ||= []
           extract_names(marc_record, mapping_ruleset).each do |name|
             dynamic_field_data['name'] << name
@@ -155,7 +153,6 @@ module Hysync
         end
 
         def extract_711_conference_names(marc_record, mapping_ruleset)
-          return [] if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
           names = []
           MarcSelector.all(marc_record, 711, indicator1: 2, a: true).map do |field|
             val = field['a']

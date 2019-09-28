@@ -2,34 +2,39 @@ module Hysync
   module MarcSynchronizer
     class MarcHyacinthRecord
       include Hysync::MarcSynchronizer::MarcParsingMethods
-      include Hysync::MarcSynchronizer::MarcParsingMethods::ClioIdentifier
-      include Hysync::MarcSynchronizer::MarcParsingMethods::ArchiveOrgIdentifier
-      include Hysync::MarcSynchronizer::MarcParsingMethods::Collection
-      include Hysync::MarcSynchronizer::MarcParsingMethods::Marc005LastModified
-      include Hysync::MarcSynchronizer::MarcParsingMethods::Project
-      include Hysync::MarcSynchronizer::MarcParsingMethods::PublishTargets
       include Hysync::MarcSynchronizer::MarcParsingMethods::Abstract
+      include Hysync::MarcSynchronizer::MarcParsingMethods::AlternativeTitle
+      include Hysync::MarcSynchronizer::MarcParsingMethods::ArchiveOrgIdentifier
+      include Hysync::MarcSynchronizer::MarcParsingMethods::ClioIdentifier
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Collection
       include Hysync::MarcSynchronizer::MarcParsingMethods::CopyrightNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Date
       include Hysync::MarcSynchronizer::MarcParsingMethods::Extent
       include Hysync::MarcSynchronizer::MarcParsingMethods::Form
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Frequency
       include Hysync::MarcSynchronizer::MarcParsingMethods::Genre
       include Hysync::MarcSynchronizer::MarcParsingMethods::Language
       include Hysync::MarcSynchronizer::MarcParsingMethods::Location
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Marc005LastModified
       include Hysync::MarcSynchronizer::MarcParsingMethods::Name
-      include Hysync::MarcSynchronizer::MarcParsingMethods::Note
-      include Hysync::MarcSynchronizer::MarcParsingMethods::BiographicalNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::BiographicalNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::FundingInformationNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::Note
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::NumberingPeculiaritiesNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::ParticipantOrPerformerNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::ProvenanceNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::PlaceOfOrigin
-      include Hysync::MarcSynchronizer::MarcParsingMethods::Provenance
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Project
       include Hysync::MarcSynchronizer::MarcParsingMethods::Publisher
+      include Hysync::MarcSynchronizer::MarcParsingMethods::PublishTargets
+      include Hysync::MarcSynchronizer::MarcParsingMethods::RestrictionOnAccess
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectGeographic
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectName
-      include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectTopic
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectTitle
+      include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectTopic
+      include Hysync::MarcSynchronizer::MarcParsingMethods::TableOfContents
       include Hysync::MarcSynchronizer::MarcParsingMethods::Title
-      include Hysync::MarcSynchronizer::MarcParsingMethods::AlternativeTitle
       include Hysync::MarcSynchronizer::MarcParsingMethods::TypeOfResource
-      include Hysync::MarcSynchronizer::MarcParsingMethods::RestrictionOnAccess
       include Hysync::MarcSynchronizer::MarcParsingMethods::Url
 
       # include Hysync::MarcSynchronizer::MarcParsingMethods::Group # TODO: For Hyaicnth 3

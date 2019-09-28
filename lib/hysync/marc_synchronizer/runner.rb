@@ -24,7 +24,7 @@ module Hysync
         @voyager_client.search_by_965_value('965hyacinth') do |marc_record, i, num_results|
           Rails.logger.debug "#{i+1} of #{num_results}: (clio id = #{marc_record['001'].value}) #{marc_record['245']}"
 
-          base_digital_object_data = Runner.default_digital_object_data
+          base_digital_object_data = self.class.default_digital_object_data
 
           create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
         end
@@ -54,7 +54,7 @@ module Hysync
               term = @hyacinth_client.create_controlled_term({
                 'controlled_vocabulary_string_key' => 'collection',
                 'type' => 'local',
-                'value' => extract_collection_record_title(collection_record_title),
+                'value' => self.class.extract_collection_record_title(collection_marc_record),
                 'clio_id' => collection_clio_id
               })
               # Add newly-created term to @collection_clio_ids_to_uris so it can be used for future records
@@ -158,9 +158,9 @@ module Hysync
         end
       end
 
-      def self.extract_collection_record_title(collection_record)
-        collection_record_title = collection_record['245']['a']
-        collection_record_title += ' ' + collection_record['245']['n'] if collection_record['245']['n']
+      def self.extract_collection_record_title(collection_marc_record)
+        collection_record_title = collection_marc_record['245']['a']
+        collection_record_title += ' ' + collection_marc_record['245']['n'] if collection_marc_record['245']['n']
         StringCleaner.trailing_punctuation(collection_record_title)
       end
     end
