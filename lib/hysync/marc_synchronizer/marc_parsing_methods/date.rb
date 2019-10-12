@@ -52,7 +52,7 @@ module Hysync
         end
 
         def extract_textual_date(marc_record, mapping_ruleset)
-          if ['oral_history', 'carnegie_scrapbooks_and_ledgers'].include?(mapping_ruleset)
+          if ['oral_history'].include?(mapping_ruleset)
             field = MarcSelector.first(marc_record, 245, f: true)
             return StringCleaner.trailing_punctuation(field['f']) unless field.nil?
             return nil
