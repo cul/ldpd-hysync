@@ -58,22 +58,14 @@ module Hysync
             return nil
           end
 
-          if ['965tibetan', 'music']
-            field = MarcSelector.first(marc_record, 260, c: true)
-            return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
-            field = MarcSelector.first(marc_record, 264, indicator2: 1, c: true) if field.nil?
-            return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
-            field = MarcSelector.first(marc_record, 264, indicator2: 3, c: true) if field.nil?
-            return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
-            field = MarcSelector.first(marc_record, 264, indicator2: 0, c: true) if field.nil?
-            return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
-            return nil
-          end
-
-          # Default fallback
+          # Default
           field = MarcSelector.first(marc_record, 260, c: true)
           return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
           field = MarcSelector.first(marc_record, 264, indicator2: 1, c: true) if field.nil?
+          return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
+          field = MarcSelector.first(marc_record, 264, indicator2: 3, c: true) if field.nil?
+          return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
+          field = MarcSelector.first(marc_record, 264, indicator2: 0, c: true) if field.nil?
           return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
           field = MarcSelector.first(marc_record, 245, f: true)
           return StringCleaner.trailing_punctuation(field['f']) unless field.nil?
@@ -104,9 +96,15 @@ module Hysync
 
           textual_date = extract_textual_date(marc_record, mapping_ruleset)
 
+          # For annual reports, replace default values if values are found in alternate field
           if mapping_ruleset == 'annual_reports'
-            fields = [MarcSelector.first(marc_record, 362, indicator1: 0, a: true), MarcSelector.first(marc_record, 362, indicator1: 1, a: true)].compact
-            # When dealing with annual reports, do not add any kind of textual date again later on if we found one in the above fields.
+            fields = (
+              MarcSelector.all(marc_record, 362, indicator1: 0, a: true) +
+              MarcSelector.all(marc_record, 362, indicator1: 1, a: true)
+            )
+            # If we found any textual date values from the 362 fields,
+            # use those values and set the earlier textual_date value to nil
+            # so that it is ignored.
             textual_date = nil if fields.present?
 
             fields.each do |field|

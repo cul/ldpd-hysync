@@ -20,7 +20,12 @@ module Hysync
             url = {
               'url_value' => field['u']
             }
-            url['url_display_label'] = field['3'] if field['3']
+            if field['3']
+              url['url_display_label'] = field['3']
+            elsif field['z']
+              # If $3 is not present, use $z if it's present
+              url['url_display_label'] = field['z'] 
+            end
             urls << url
           end
           urls

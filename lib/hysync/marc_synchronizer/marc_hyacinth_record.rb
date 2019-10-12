@@ -7,7 +7,6 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::ArchiveOrgIdentifier
       include Hysync::MarcSynchronizer::MarcParsingMethods::ClioIdentifier
       include Hysync::MarcSynchronizer::MarcParsingMethods::Collection
-      include Hysync::MarcSynchronizer::MarcParsingMethods::CopyrightNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Date
       include Hysync::MarcSynchronizer::MarcParsingMethods::Extent
       include Hysync::MarcSynchronizer::MarcParsingMethods::Form
@@ -27,7 +26,6 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::Project
       include Hysync::MarcSynchronizer::MarcParsingMethods::Publisher
       include Hysync::MarcSynchronizer::MarcParsingMethods::PublishTargets
-      include Hysync::MarcSynchronizer::MarcParsingMethods::RestrictionOnAccess
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectGeographic
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectName
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectTitle

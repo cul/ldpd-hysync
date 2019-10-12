@@ -29,20 +29,30 @@ module Hysync
             }
           end
 
-          # Additional rules for 965tibetan
-          if mapping_ruleset == '965tibetan'
-            # MarcSelector.all(marc_record, 880, indicator1: 0, indicator2: 0, '6': true).each do |field|
-            #   values << {
-            #     'alternative_title_value' => StringCleaner.trailing_punctuation(field['6'])
-            #   }
-            # end
-            #
-            # MarcSelector.all(marc_record, 245, indicator1: 0, indicator2: 1, a: true).each do |field|
-            #   values << {
-            #     'alternative_title_value' => StringCleaner.trailing_punctuation(field['6'])
-            #   }
-            # end
-          end
+          # TODO: Uncomment and update code below when latest rules have been verified
+          # # Additional values to extract for 965tibetan mapping
+          # if mapping_ruleset == '965tibetan'
+          #   primary_title_values = (
+          #     MarcSelector.all(marc_record, 245, indicator1: 0, indicator2: 1, a: true) +
+          #     MarcSelector.all(marc_record, 245, indicator1: 0, indicator2: 2, a: true)
+          #   ).map do |field|
+          #     StringCleaner.trailing_punctuation(field['a'])
+          #   end
+          #
+          #   # Retrieve the concatenated values in subfields $a and $b for each
+          #   # 880 00 or 880 10 field where the value in $6 equals 245-01 $a OR 245-02 $a
+          #   (
+          #     MarcSelector.all(marc_record, 880, indicator1: 0, indicator2: 0, a: true, '6': true) +
+          #     MarcSelector.all(marc_record, 880, indicator1: 1, indicator2: 0, a: true, '6': true)
+          #   ).each do |field|
+          #     alternative_title = StringCleaner.trailing_punctuation(field['6'])
+          #     if primary_title_values.include?(alternative_title)
+          #       values << {
+          #         'alternative_title_value' => alternative_title
+          #       }
+          #     end
+          #   end
+          # end
 
           values
         end

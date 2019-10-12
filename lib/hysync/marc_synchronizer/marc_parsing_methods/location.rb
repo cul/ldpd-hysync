@@ -34,6 +34,13 @@ module Hysync
               'code' => 'NyNyCOH',
               'uri' => 'http://id.library.columbia.edu/term/cd34331d-899b-444a-85c4-211e045fc2ea'
             }
+          when '965tibetan'
+            location_terms << {
+              'value' => 'C.V. Starr East Asian Library, Columbia University',
+              'authority' => 'marcorg',
+              'code' => 'NNC-EA',
+              'uri' => 'http://id.library.columbia.edu/term/d0642664-03aa-4dc4-8579-a9b04b23960f'
+            }
           else
             holdings_marc_records.each do |holdings_marc_record|
               MarcSelector.all(holdings_marc_record, 852, b: true).map do |field|
