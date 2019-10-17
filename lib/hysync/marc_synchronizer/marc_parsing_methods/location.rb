@@ -34,7 +34,7 @@ module Hysync
               'code' => 'NyNyCOH',
               'uri' => 'http://id.library.columbia.edu/term/cd34331d-899b-444a-85c4-211e045fc2ea'
             }
-          when '965tibetan'
+          when 'tibetan'
             location_terms << {
               'value' => 'C.V. Starr East Asian Library, Columbia University',
               'authority' => 'marcorg',

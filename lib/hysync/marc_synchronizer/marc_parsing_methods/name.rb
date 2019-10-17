@@ -9,7 +9,14 @@ module Hysync
 
         def add_name(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['name'] ||= []
+
+          names_seen = Set.new
           extract_names(marc_record, mapping_ruleset).each do |name|
+            # Keep track of seen names so we can deduplicate repeated ones (on a type by type basis)
+            unique_name_key = name['name_term']['name_type'] + name['name_term']['value']
+            next if names_seen.include?(unique_name_key)
+            names_seen.add(unique_name_key)
+
             dynamic_field_data['name'] << name
           end
         end
@@ -120,6 +127,7 @@ module Hysync
               }]
             }
           end
+
           names
         end
 
@@ -149,6 +157,7 @@ module Hysync
               }]
             }
           end
+
           names
         end
 
@@ -174,6 +183,7 @@ module Hysync
               }]
             }
           end
+
           names
         end
       end

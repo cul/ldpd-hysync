@@ -4,7 +4,7 @@ module Hysync
     CARNEGIE_SCRAPBOOKS_AND_LEDGERS = 'carnegie_scrapbooks_and_ledgers'
     ORAL_HISTORY = 'oral_history'
     ANNUAL_REPORTS = 'annual_reports'
-    TIBETAN = '965tibetan'
+    TIBETAN = 'tibetan'
     MUSIC = 'music'
   end
 end

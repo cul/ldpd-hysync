@@ -9,7 +9,14 @@ module Hysync
 
         def add_subject_topic(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['subject_topic'] ||= []
+
+          topics_seen = Set.new
           extract_subject_topic_terms(marc_record, mapping_ruleset).each do |subject_topic_term|
+            # Keep track of seen subject topics so we can deduplicate repeated ones
+            unique_topic_key = subject_topic_term['value'] + (subject_topic_term['authority'] || '') + (subject_topic_term['uri'] || '')
+            next if topics_seen.include?(unique_topic_key)
+            topics_seen.add(unique_topic_key)
+
             dynamic_field_data['subject_topic'] << {
               'subject_topic_term' => subject_topic_term
             }

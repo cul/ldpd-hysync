@@ -83,7 +83,7 @@ module Voyager
 
         holdings_keys.each do |holdings_key|
           holdings_ids_to_records[holdings_key] ||= ''
-          results = execute_select_command_with_retry(fill_in_query_placeholders("select RECORD_SEGMENT from mfhd_data where mfhd_id = ~bibid~ order by seqnum", bibid: bib_id))
+          results = execute_select_command_with_retry(fill_in_query_placeholders("select RECORD_SEGMENT from mfhd_data where mfhd_id = ~mfhd_id~ order by seqnum", mfhd_id: holdings_key))
           results.each do |result|
             holdings_ids_to_records[holdings_key] += result['RECORD_SEGMENT']
           end

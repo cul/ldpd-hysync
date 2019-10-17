@@ -9,7 +9,14 @@ module Hysync
 
         def add_subject_name(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['subject_name'] ||= []
+
+          subject_names_seen = Set.new
           extract_subject_names(marc_record, mapping_ruleset).each do |subject_name|
+            # Keep track of seen subject names so we can deduplicate repeated ones (on a type by type basis)
+            unique_subject_name_key = subject_name['subject_name_term']['name_type'] + subject_name['subject_name_term']['value']
+            next if subject_names_seen.include?(unique_subject_name_key)
+            subject_names_seen.add(unique_subject_name_key)
+
             dynamic_field_data['subject_name'] << subject_name
           end
         end
