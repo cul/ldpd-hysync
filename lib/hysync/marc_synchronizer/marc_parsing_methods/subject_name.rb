@@ -31,7 +31,7 @@ module Hysync
           field = 600
           name_type = 'personal'
           filters = { indicator1: 1, indicator2: 0, a: true }
-          append_subfields = ['b', 'c', 'd', 'q', 'x']
+          append_subfields = ['b', 'c', 'q', 'd', 'x']
           extract_fielded_subject_names(marc_record, mapping_ruleset, field, name_type, filters, append_subfields)
         end
 

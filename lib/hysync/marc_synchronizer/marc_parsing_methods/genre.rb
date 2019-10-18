@@ -28,7 +28,7 @@ module Hysync
           when 'carnegie_scrapbooks_and_ledgers'
             MarcSelector.all(marc_record, '655', indicator2: 7, a: true).each do |field|
               genre_terms << {
-                'value' => field['a']
+                'value' => StringCleaner.trailing_punctuation(field['a'])
               }.tap do |term|
                 term['authority'] = field['2'] if field['2']
               end
@@ -51,14 +51,14 @@ module Hysync
 
             genre_values_to_authorities_for_655.each do |value, authority|
               genre_terms << {
-                'value' => value,
+                'value' => StringCleaner.trailing_punctuation(value),
                 'authority' => authority
               }
             end
 
             non_655_genre_values.each do |genre_value|
               genre_terms << {
-                'value' => genre_value,
+                'value' => StringCleaner.trailing_punctuation(genre_value),
                 # Do not supply authority value if mapping_ruleset == annual_reports
                 'authority' => (mapping_ruleset == 'annual_reports' ? '' : 'lcsh') # All 6XX fields have authority 'lcsh' (other than 655)
               }

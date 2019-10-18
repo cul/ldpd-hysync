@@ -37,8 +37,8 @@ module Hysync
             val = field['a']
             val += ' ' + field['b'] if field['b']
             val += ' ' + field['c'] if field['c']
-            val += ' ' + field['d'] if field['d']
             val += ' ' + field['q'] if field['q']
+            val += ' ' + field['d'] if field['d']
             role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
@@ -83,10 +83,10 @@ module Hysync
           if field
             val = field['a']
             val += ' ' + field['c'] if field['c']
+            val += ' ' + field['q'] if field['q']
             val += ' ' + field['d'] if field['d']
             val += ' ' + field['e'] if field['e']
             val += ' ' + field['n'] if field['n']
-            val += ' ' + field['q'] if field['q']
             role_value = field['e'].present? ? field['j'] : ''
             return {
               'name_term' => {
@@ -110,9 +110,9 @@ module Hysync
             val = field['a']
             val += ' ' + field['b'] if field['b']
             val += ' ' + field['c'] if field['c']
+            val += ' ' + field['q'] if field['q']
             val += ' ' + field['d'] if field['d']
             val += ' ' + field['g'] if field['g']
-            val += ' ' + field['q'] if field['q']
             role_value = field['e'].present? ? field['e'] : ''
             names << {
               'name_term' => {
@@ -166,10 +166,10 @@ module Hysync
           MarcSelector.all(marc_record, 711, indicator1: 2, a: true).map do |field|
             val = field['a']
             val += ' ' + field['c'] if field['c']
+            val += ' ' + field['q'] if field['q']
             val += ' ' + field['d'] if field['d']
             val += ' ' + field['e'] if field['e']
             val += ' ' + field['n'] if field['n']
-            val += ' ' + field['q'] if field['q']
             role_value = field['e'].present? ? field['j'] : ''
             names << {
               'name_term' => {

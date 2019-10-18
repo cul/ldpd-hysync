@@ -31,6 +31,7 @@ module Hysync
               note += ' ' + field['h'] if field['h']
               notes << StringCleaner.trailing_punctuation(note)
             end
+            notes
           end
         end
       end

@@ -29,20 +29,17 @@ module Hysync
             }
           end
 
-          # Additional values to extract for tibetan mapping
-          if mapping_ruleset == 'tibetan'
-            # Retrieve 880 $a $b -- but ONLY when an 880 field has a $6 value that starts with "245-" or "246-" (e.g. "245-01", "246-01", "246-02", etc.)
-            (
-              MarcSelector.all(marc_record, 880, indicator1: 0, indicator2: 0, a: true, '6': true) +
-              MarcSelector.all(marc_record, 880, indicator1: 1, indicator2: 0, a: true, '6': true)
-            ).each do |field|
-              next unless field['6'].start_with?('245-') || field['6'].start_with?('246-')
-              val = field['a']
-              val += ' ' + field['b'] if field['b']
-              values << {
-                'alternative_title_value' => val
-              }
-            end
+          # Also retrieve 880 $a $b -- but ONLY when an 880 field has a $6 value that starts with "245-" or "246-" (e.g. "245-01", "246-01", "246-02", etc.)
+          (
+            MarcSelector.all(marc_record, 880, indicator1: 0, indicator2: 0, a: true, '6': true) +
+            MarcSelector.all(marc_record, 880, indicator1: 1, indicator2: 0, a: true, '6': true)
+          ).each do |field|
+            next unless field['6'].start_with?('245-') || field['6'].start_with?('246-')
+            val = field['a']
+            val += ' ' + field['b'] if field['b']
+            values << {
+              'alternative_title_value' => val
+            }
           end
 
           values
