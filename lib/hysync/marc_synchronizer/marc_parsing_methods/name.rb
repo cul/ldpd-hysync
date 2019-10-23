@@ -42,7 +42,7 @@ module Hysync
             role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
-                'value' => StringCleaner.trailing_comma(val),
+                'value' => StringCleaner.trailing_punctuation(val),
                 'name_type' => 'personal'
               },
               'name_role' => [{
@@ -90,7 +90,7 @@ module Hysync
             role_value = field['e'].present? ? field['j'] : ''
             return {
               'name_term' => {
-                'value' => StringCleaner.trailing_comma(val),
+                'value' => StringCleaner.trailing_punctuation(val),
                 'name_type' => 'conference'
               },
               'name_role' => [{
@@ -116,7 +116,7 @@ module Hysync
             role_value = field['e'].present? ? field['e'] : ''
             names << {
               'name_term' => {
-                'value' => StringCleaner.trailing_comma(val),
+                'value' => StringCleaner.trailing_punctuation(val),
                 'name_type' => 'personal'
               },
               'name_role' => [{
@@ -146,7 +146,7 @@ module Hysync
             role_value = field['e'].present? ? field['e'] : ''
             names << {
               'name_term' => {
-                'value' => StringCleaner.trailing_comma(val),
+                'value' => StringCleaner.trailing_punctuation(val),
                 'name_type' => 'corporate'
               },
               'name_role' => [{
@@ -173,7 +173,7 @@ module Hysync
             role_value = field['e'].present? ? field['j'] : ''
             names << {
               'name_term' => {
-                'value' => StringCleaner.trailing_comma(val),
+                'value' => StringCleaner.trailing_punctuation(val),
                 'name_type' => 'conference'
               },
               'name_role' => [{
