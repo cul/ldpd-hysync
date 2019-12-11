@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -42,6 +42,9 @@ gem 'rest-client', '~> 2.0'
 gem 'whenever', require: false
 # For retrying after raised errors
 gem 'retriable', '~> 3.1'
+
+# Ensure min versions of certain gems for security reasons only
+gem 'rubyzip', '>= 1.3.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.8'
