@@ -35,8 +35,7 @@ module Hysync
             title += ' ' + field['p'] if field['p']
           end
 
-          # remove trailing period or comma if present
-          title.sub(/[.,]$/, '')
+          StringCleaner.trailing_punctuation_and_whitespace(title)
         end
       end
     end
