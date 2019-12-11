@@ -68,13 +68,13 @@ module Hysync
               end
               subject_name = {
                 'subject_name_term' => {
-                  'value' => StringCleaner.trailing_punctuation(val),
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
                   'name_type' => name_type
                 }
               }
               if f['t']
                 subject_name['subject_name_title_term'] = {
-                  'value' => StringCleaner.trailing_punctuation(f['t'])
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(f['t'])
                 }
               end
               subject_names << subject_name

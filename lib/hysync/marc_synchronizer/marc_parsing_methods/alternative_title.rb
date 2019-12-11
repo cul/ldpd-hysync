@@ -25,7 +25,7 @@ module Hysync
             val += ' ' + field['n'] if field['n']
             val += ' ' + field['p'] if field['p']
             values << {
-              'alternative_title_value' => StringCleaner.trailing_punctuation(val)
+              'alternative_title_value' => StringCleaner.trailing_punctuation_and_whitespace(val)
             }
           end
 

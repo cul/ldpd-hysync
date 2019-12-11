@@ -42,12 +42,12 @@ module Hysync
             role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
-                'value' => StringCleaner.trailing_punctuation(val),
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
                 'name_type' => 'personal'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(role_value)
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(role_value)
                   #'code' => field['4']
                 }
               }],
@@ -66,12 +66,12 @@ module Hysync
             role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
-                'value' => StringCleaner.trailing_punctuation(val),
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
                 'name_type' => 'corporate'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(role_value)
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(role_value)
                   #'code' => field['4']
                 }
               }],
@@ -90,12 +90,12 @@ module Hysync
             role_value = field['e'].present? ? field['j'] : ''
             return {
               'name_term' => {
-                'value' => StringCleaner.trailing_punctuation(val),
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
                 'name_type' => 'conference'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(role_value)
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(role_value)
                 }
               }],
               'name_usage_primary' => true
@@ -116,12 +116,12 @@ module Hysync
             role_value = field['e'].present? ? field['e'] : ''
             names << {
               'name_term' => {
-                'value' => StringCleaner.trailing_punctuation(val),
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
                 'name_type' => 'personal'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(role_value)
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(role_value)
                   #'code' => field['4']
                 }
               }]
@@ -146,12 +146,12 @@ module Hysync
             role_value = field['e'].present? ? field['e'] : ''
             names << {
               'name_term' => {
-                'value' => StringCleaner.trailing_punctuation(val),
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
                 'name_type' => 'corporate'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(role_value)
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(role_value)
                   #'code' => field['4']
                 }
               }]
@@ -173,12 +173,12 @@ module Hysync
             role_value = field['e'].present? ? field['j'] : ''
             names << {
               'name_term' => {
-                'value' => StringCleaner.trailing_punctuation(val),
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
                 'name_type' => 'conference'
               },
               'name_role' => [{
                 'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation(role_value)
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(role_value)
                 }
               }]
             }

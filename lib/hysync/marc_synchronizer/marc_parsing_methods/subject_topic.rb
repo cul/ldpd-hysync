@@ -44,7 +44,7 @@ module Hysync
             end
 
             {
-              'value' => StringCleaner.trailing_punctuation(val),
+              'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
               'authority' => authority,
             }.tap do |term|
               term['uri'] = uri if uri

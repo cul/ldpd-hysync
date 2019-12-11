@@ -11,8 +11,8 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
   before(:all) do
     @project_mappings = HYSYNC['project_mappings']
     @target_mappings = HYSYNC['publish_target_mappings']
-    HYSYNC['project_mappings'] = { '965carnegiedpf' => 'carnegie_dpf', '965Durst' => 'durst' } 
-    HYSYNC['publish_target_mappings'] = { '965carnegiedpf' => 'carnegie_staging', '965Durst' => 'dlc_catalog_staging' } 
+    HYSYNC['project_mappings'] = { '965carnegiedpf' => 'carnegie_dpf', '965Durst' => 'durst' }
+    HYSYNC['publish_target_mappings'] = { '965carnegiedpf' => 'carnegie_staging', '965Durst' => 'dlc_catalog_staging' }
   end
   after(:all) do
     HYSYNC['project_mappings'] = @project_mappings
@@ -47,15 +47,6 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
       expect(archive_org_identifier).to eql("150thanniversary00tamm")
     end
   end
-  context "with data in 506$a" do
-    it "does not set an access restriction, but a deprecated note" do
-      actual = subject.digital_object_data['dynamic_field_data']
-      expect(actual["restriction_on_access"]).to be_blank
-      expect(actual["restriction_on_access_deprecated"]).not_to be_empty
-      deprecated_note = actual["restriction_on_access_deprecated"][0]["restriction_on_access_deprecated_value"]
-      expect(deprecated_note).to eql("Digital version available with no restrictions")
-    end
-  end
   context "with subject name titles" do
     let(:marc_fixture) { File.new("spec/fixtures/marc21/12998581.marc","rb") }
     it "sets a subject name title term" do
@@ -72,8 +63,8 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
       subject_name = actual['subject_name'].detect { |s| s['subject_name_term'] }
       expect(subject_name).to be_present
       subject_name_term = subject_name['subject_name_term']
-      expect(subject_name_term['name_type']).to eql 'personal' 
-      expect(subject_name_term['value']).to eql 'Carnegie, Andrew, 1835-1919' 
+      expect(subject_name_term['name_type']).to eql 'personal'
+      expect(subject_name_term['value']).to eql 'Carnegie, Andrew, 1835-1919'
     end
   end
   context "with corporate name main entry" do

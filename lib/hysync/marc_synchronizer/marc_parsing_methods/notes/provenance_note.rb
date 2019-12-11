@@ -31,7 +31,7 @@ module Hysync
             value += ' ' + field['3'] if field['3']
 
             {
-              'note_value' => StringCleaner.trailing_punctuation(value),
+              'note_value' => StringCleaner.trailing_punctuation_and_whitespace(value),
               'note_type' => 'provenance'
             }
           end

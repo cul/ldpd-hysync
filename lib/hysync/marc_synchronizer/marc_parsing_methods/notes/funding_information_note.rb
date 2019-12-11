@@ -29,7 +29,7 @@ module Hysync
               note += ' ' + field['f'] if field['f']
               note += ' ' + field['g'] if field['g']
               note += ' ' + field['h'] if field['h']
-              notes << StringCleaner.trailing_punctuation(note)
+              notes << StringCleaner.trailing_punctuation_and_whitespace(note)
             end
             notes
           end

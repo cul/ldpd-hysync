@@ -1,9 +1,7 @@
 module StringCleaner
-  def self.trailing_punctuation(string)
-    string.sub(/[,.:]+$/, '').strip
-  end
-
-  def self.trailing_comma(string)
-    string.sub(/,$/, '').strip
+  def self.trailing_punctuation_and_whitespace(string)
+    stripped_string = string.strip
+    return stripped_string if stripped_string.ends_with?('...')
+    stripped_string.sub(/[,.:\/ ]+$/, '').strip
   end
 end

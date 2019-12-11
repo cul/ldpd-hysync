@@ -161,7 +161,7 @@ module Hysync
       def self.extract_collection_record_title(collection_marc_record)
         collection_record_title = collection_marc_record['245']['a']
         collection_record_title += ' ' + collection_marc_record['245']['n'] if collection_marc_record['245']['n']
-        StringCleaner.trailing_punctuation(collection_record_title)
+        StringCleaner.trailing_punctuation_and_whitespace(collection_record_title)
       end
     end
   end

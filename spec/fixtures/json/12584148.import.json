@@ -18,7 +18,6 @@
             "collection_archival_series_part": [
               {
                 "collection_archival_series_part_type": "series",
-                "collection_archival_series_part_level": 1,
                 "collection_archival_series_part_title": "Series I.C.2 Vol. 37"
               }
             ]
@@ -48,15 +47,19 @@
         "title_sort_portion": "Carnegie Corporation Applications No. 1, Carnegie Corporation, 1912"
       }
     ],
+    "name": [
+      {
+        "name_term": {
+          "name_type": "corporate",
+          "value": "Carnegie Corporation of New York"
+        },
+        "name_usage_primary": true
+      }
+    ],
     "type_of_resource": [
       {
         "type_of_resource_value": "text",
         "type_of_resource_is_collection": false
-      }
-    ],
-    "restriction_on_access_deprecated": [
-      {
-        "restriction_on_access_deprecated_value": "Digital version available with no restrictions"
       }
     ],
     "date_created": [

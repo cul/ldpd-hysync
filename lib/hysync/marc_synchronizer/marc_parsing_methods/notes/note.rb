@@ -27,7 +27,7 @@ module Hysync
               note += ' ' + field['d'] if field['d']
               note += ' ' + field['o'] if field['o']
               note += ' ' + field['p'] if field['p']
-              notes << StringCleaner.trailing_punctuation(note)
+              notes << StringCleaner.trailing_punctuation_and_whitespace(note)
             end
             MarcSelector.all(marc_record, 534, a: true).each do |field|
               note = field['a']
@@ -41,7 +41,7 @@ module Hysync
               note += ' ' + field['n'] if field['n']
               note += ' ' + field['o'] if field['o']
               note += ' ' + field['p'] if field['p']
-              notes << StringCleaner.trailing_punctuation(note)
+              notes << StringCleaner.trailing_punctuation_and_whitespace(note)
             end
 
             notes

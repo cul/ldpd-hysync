@@ -21,7 +21,7 @@ module Hysync
             val += ' ' + field['b'] if field['b']
             val += ' ' + field['c'] if field['c']
             val += ' ' + field['f'] if field['f']
-            values << StringCleaner.trailing_punctuation(val)
+            values << StringCleaner.trailing_punctuation_and_whitespace(val)
           end
           values.join('; ')
         end

@@ -23,7 +23,7 @@
     "string_key": "carnegie_dpf"
   },
   "publish_targets": [
-    
+
   ],
   "digital_object_type": {
     "string_key": "item",
@@ -72,11 +72,6 @@
     "type_of_resource": [
       {
         "type_of_resource_value": "text"
-      }
-    ],
-    "restriction_on_access_deprecated": [
-      {
-        "restriction_on_access_deprecated_value": "Digital version available with no restrictions"
       }
     ],
     "date_created": [
@@ -182,13 +177,13 @@
     ]
   },
   "ordered_child_digital_objects": [
-    
+
   ],
   "parent_digital_objects": [
-    
+
   ],
   "doi": "doi:10.7916\/d8-nfd2-zc36",
   "assignments": [
-    
+
   ]
 }

@@ -24,7 +24,7 @@ module Hysync
             MarcSelector.all(marc_record, '321', a: true)
           ).each do |field|
             frequency_terms << {
-              'value' => StringCleaner.trailing_punctuation(field['a'] + (field['b'] ? ' ' + field['b'] : ''))
+              'value' => StringCleaner.trailing_punctuation_and_whitespace(field['a'] + (field['b'] ? ' ' + field['b'] : ''))
             }
           end
 

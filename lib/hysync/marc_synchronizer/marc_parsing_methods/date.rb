@@ -54,21 +54,21 @@ module Hysync
         def extract_textual_date(marc_record, mapping_ruleset)
           if ['oral_history'].include?(mapping_ruleset)
             field = MarcSelector.first(marc_record, 245, f: true)
-            return StringCleaner.trailing_punctuation(field['f']) unless field.nil?
+            return StringCleaner.trailing_punctuation_and_whitespace(field['f']) unless field.nil?
             return nil
           end
 
           # Default
           field = MarcSelector.first(marc_record, 260, c: true)
-          return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
+          return StringCleaner.trailing_punctuation_and_whitespace(field['c']) unless field.nil?
           field = MarcSelector.first(marc_record, 264, indicator2: 1, c: true) if field.nil?
-          return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
+          return StringCleaner.trailing_punctuation_and_whitespace(field['c']) unless field.nil?
           field = MarcSelector.first(marc_record, 264, indicator2: 3, c: true) if field.nil?
-          return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
+          return StringCleaner.trailing_punctuation_and_whitespace(field['c']) unless field.nil?
           field = MarcSelector.first(marc_record, 264, indicator2: 0, c: true) if field.nil?
-          return StringCleaner.trailing_punctuation(field['c']) unless field.nil?
+          return StringCleaner.trailing_punctuation_and_whitespace(field['c']) unless field.nil?
           field = MarcSelector.first(marc_record, 245, f: true)
-          return StringCleaner.trailing_punctuation(field['f']) unless field.nil?
+          return StringCleaner.trailing_punctuation_and_whitespace(field['f']) unless field.nil?
 
           nil
         end
@@ -108,7 +108,7 @@ module Hysync
             textual_date = nil if fields.present?
 
             fields.each do |field|
-              add_date_created_textual(StringCleaner.trailing_punctuation(field['a']))
+              add_date_created_textual(StringCleaner.trailing_punctuation_and_whitespace(field['a']))
             end
           end
 

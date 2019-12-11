@@ -22,7 +22,7 @@ module Hysync
             value += ' ' + field['t'] if field['t']
             value += ' ' + field['u'] if field['u']
             {
-              'table_of_contents_value' => StringCleaner.trailing_punctuation(value)
+              'table_of_contents_value' => StringCleaner.trailing_punctuation_and_whitespace(value)
             }
           end
         end
