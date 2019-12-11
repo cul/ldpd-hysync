@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -32,7 +32,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # For z3950
 gem 'zoom', '0.5.0'
 # For MARC parsing (using fork until PR is merged into main project)
-gem 'marc', git: 'https://github.com/elohanlon/ruby-marc.git', branch: 'easier-InvalidByteSequenceError-troubleshooting'
+gem 'marc', '1.0.4'
 # gem 'marc', path: '../ruby-marc'
 # For oracle connections
 gem 'ruby-oci8', '~> 2.2.7'
@@ -42,6 +42,9 @@ gem 'rest-client', '~> 2.0'
 gem 'whenever', require: false
 # For retrying after raised errors
 gem 'retriable', '~> 3.1'
+
+# Ensure min versions of certain gems for security reasons only
+gem 'rubyzip', '>= 2.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.8'
