@@ -21,7 +21,7 @@ set :job_template, "/usr/local/bin/mailifrc -s 'Error - :email_subject' :error_r
 job_type :rake, "cd :path && :environment_variable=:environment bundle exec rake :task --silent :output"
 
 if Rails.env == 'hysync_prod'
-  every 1.day, at: '2:00 am' do
+  every 1.day, at: '3:00 am' do
     rake "hysync:marc_sync"
   end
 end
