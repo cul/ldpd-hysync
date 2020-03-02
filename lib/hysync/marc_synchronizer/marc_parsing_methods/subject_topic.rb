@@ -7,6 +7,33 @@ module Hysync
           register_parsing_method :add_subject_topic
         end
 
+        OFFENSIVE_VALUE_REPLACEMENTS = {
+          'Aliens' => 'Noncitizens',
+          'Illegal aliens' => 'Undocumented immigrants',
+          'Alien detention centers' => 'Immigrant detention centers',
+          'Children of illegal aliens' => 'Children of undocumented immigrants',
+          'Illegal alien children' => 'Undocumented immigrant children',
+          'Illegal aliens in literature' => 'Undocumented immigrants in literature',
+          'Women illegal aliens' => 'Women undocumented immigrants',
+          'Alien criminals' => 'Noncitizen criminals',
+          'Aliens in motion pictures' => 'Noncitizens in motion pictures',
+          'Church work with aliens' => 'Church work with noncitizens',
+          'Aliens in literature' => 'Noncitizens in literature',
+          'Aliens in art' => 'Noncitizens in art',
+          'Aliens in mass media' => 'Noncitizens in mass media',
+          'Alien property' => 'Foreign-owned property',
+          'Alien property (Greek law)' => 'Foreign-owned property (Greek law)',
+          'Aliens (Greek law)' => 'Noncitizens (Greek law)',
+          'Aliens (Jewish law)' => 'Noncitizens (Jewish law)',
+          'Aliens (Islamic law)' => 'Noncitizens (Islamic law)',
+          'Aliens (Roman law)' => 'Noncitizens (Roman law)',
+          'Alien labor' => 'Foreign workers',
+          'Children of alien laborers' => 'Children of foreign workers',
+          'Alien labor certification' => 'Foreign worker certification',
+          'Women alien labor' => 'Women foreign workers',
+          'Officials and employees, Alien' => 'Officials and employees, Noncitizen',
+        }.freeze
+
         def add_subject_topic(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['subject_topic'] ||= []
 
@@ -17,6 +44,8 @@ module Hysync
             next if topics_seen.include?(unique_topic_key)
             topics_seen.add(unique_topic_key)
 
+            # We're filtering out "illegal aliens" and other similar offensive terms
+            subject_topic_term['value'] = replace_term_if_offensive(subject_topic_term['value'])
             dynamic_field_data['subject_topic'] << {
               'subject_topic_term' => subject_topic_term
             }
@@ -25,8 +54,8 @@ module Hysync
 
         def extract_subject_topic_terms(marc_record, mapping_ruleset)
           MarcSelector.all(marc_record, 650, a: true).map do |field|
-            val = field['a']
-            val += '--' + field['x'] if field['x']
+            val = replace_term_if_offensive(field['a'])
+            val += '--' + replace_term_if_offensive(field['x']) if field['x']
             val += '--' + field['y'] if field['y']
             val += '--' + field['z'] if field['z']
 
@@ -50,6 +79,13 @@ module Hysync
               term['uri'] = uri if uri
             end
           end
+        end
+
+        # Given a value, replaces that value with a preferred value if it matches a value in our
+        # offensive term list. If no match is found, returns the original value.
+        def replace_term_if_offensive(value)
+          replacement = OFFENSIVE_VALUE_REPLACEMENTS[value]
+          return replacement || value
         end
       end
     end
