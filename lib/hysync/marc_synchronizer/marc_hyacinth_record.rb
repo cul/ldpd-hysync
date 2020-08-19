@@ -13,6 +13,7 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::Frequency
       include Hysync::MarcSynchronizer::MarcParsingMethods::Genre
       include Hysync::MarcSynchronizer::MarcParsingMethods::Language
+      include Hysync::MarcSynchronizer::MarcParsingMethods::LocalIdentifier
       include Hysync::MarcSynchronizer::MarcParsingMethods::Location
       include Hysync::MarcSynchronizer::MarcParsingMethods::Marc005LastModified
       include Hysync::MarcSynchronizer::MarcParsingMethods::Name
@@ -22,10 +23,13 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::NumberingPeculiaritiesNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::ParticipantOrPerformerNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::ProvenanceNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::RightsNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::PlaceOfOrigin
       include Hysync::MarcSynchronizer::MarcParsingMethods::Project
       include Hysync::MarcSynchronizer::MarcParsingMethods::Publisher
       include Hysync::MarcSynchronizer::MarcParsingMethods::PublishTargets
+      include Hysync::MarcSynchronizer::MarcParsingMethods::RelatedItem
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Series
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectGeographic
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectName
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectTitle

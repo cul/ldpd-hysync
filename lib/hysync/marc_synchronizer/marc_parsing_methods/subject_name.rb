@@ -16,7 +16,6 @@ module Hysync
             unique_subject_name_key = subject_name['subject_name_term']['name_type'] + subject_name['subject_name_term']['value']
             next if subject_names_seen.include?(unique_subject_name_key)
             subject_names_seen.add(unique_subject_name_key)
-
             dynamic_field_data['subject_name'] << subject_name
           end
         end
@@ -69,7 +68,8 @@ module Hysync
               subject_name = {
                 'subject_name_term' => {
                   'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                  'name_type' => name_type
+                  'name_type' => name_type,
+                  'authority' => f['0']
                 }
               }
               if f['t']

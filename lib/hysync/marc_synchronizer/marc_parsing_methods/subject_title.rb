@@ -32,7 +32,10 @@ module Hysync
             val += '--' + field['r'] if field['r']
             val += '--' + field['s'] if field['s']
             val += '--' + field['x'] if field['x']
-            subject_title_terms << { 'value' => StringCleaner.trailing_punctuation_and_whitespace(val) }
+            subject_title_terms << {
+              'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
+              'uri' => field['0']
+            }
           end
 
           (

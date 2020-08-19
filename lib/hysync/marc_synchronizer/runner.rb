@@ -77,7 +77,7 @@ module Hysync
       # @param marc_record [MARC::Reader] ruby-marc record object
       # @param base_digital_object_data [Hash] Hyacinth digital object properties
       # @param force_update [Boolean] update records regardless of modification date (005)
-      def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
+      def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run = false)
         holdings_marc_records = []
         holdings_marc_record_errors = []
         begin
@@ -110,6 +110,11 @@ module Hysync
 
         # Add "clio#{bib_id}" identifier (e.g. clio12345).
         marc_hyacinth_record.digital_object_data['identifiers'] << "clio#{marc_hyacinth_record.clio_id}"
+
+        if dry_run
+          puts '- Skipping create/update because dry_run option was provided.'
+          return
+        end
 
         # Use clio identifier to determine whether Item exists
         results = find_items_by_clio_id(marc_hyacinth_record.clio_id)

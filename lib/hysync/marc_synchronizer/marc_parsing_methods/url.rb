@@ -8,6 +8,8 @@ module Hysync
         end
 
         def add_url(marc_record, holdings_marc_records, mapping_ruleset)
+          return if mapping_ruleset == 'ldeotechnical'
+
           dynamic_field_data['url'] ||= []
           extract_urls(marc_record, mapping_ruleset).each do |url|
             dynamic_field_data['url'] << url
@@ -24,7 +26,7 @@ module Hysync
               url['url_display_label'] = field['3']
             elsif field['z']
               # If $3 is not present, use $z if it's present
-              url['url_display_label'] = field['z'] 
+              url['url_display_label'] = field['z']
             end
             urls << url
           end

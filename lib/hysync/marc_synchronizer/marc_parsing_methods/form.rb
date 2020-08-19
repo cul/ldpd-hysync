@@ -9,6 +9,9 @@ module Hysync
         end
 
         def add_form(marc_record, holdings_marc_records, mapping_ruleset)
+          # We skip form for ldeotechnical because that collection uses genre instead of form
+          return if mapping_ruleset == 'ldeotechnical'
+
           dynamic_field_data['form'] ||= []
           extract_form_terms(marc_record, mapping_ruleset).each do |form_term|
             dynamic_field_data['form'] << {

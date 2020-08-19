@@ -8,6 +8,8 @@ module Hysync
         end
 
         def add_archive_org_identifier(marc_record, holdings_marc_records, mapping_ruleset)
+          return if mapping_ruleset == 'ldeotechnical'
+
           dynamic_field_data['archive_org_identifier'] ||= []
           MarcSelector.each_with_index(marc_record, 920, indicator1: 4, indicator2: 0, u: true) do |url920, ix|
             if url920['u'].match?(/https?:\/\/(www\.)?archive\.org\/details\//)

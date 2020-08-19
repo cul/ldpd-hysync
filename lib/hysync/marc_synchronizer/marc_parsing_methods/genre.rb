@@ -25,34 +25,43 @@ module Hysync
               'uri' => 'http://id.loc.gov/authorities/genreForms/gf2014026115', # Interviews
               'value' => 'Interviews'
             }
-          when 'carnegie_scrapbooks_and_ledgers'
+          when 'carnegie_scrapbooks_and_ledgers', 'ldeotechnical', 'video'
             MarcSelector.all(marc_record, '655', indicator2: 7, a: true).each do |field|
               genre_terms << {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(field['a'])
               }.tap do |term|
                 term['authority'] = field['2'] if field['2']
+
+                if mapping_ruleset == 'ldeotechnical' && field['0']
+                  # convert identifier "(OCoLC)fst01941336" to url "http://id.worldcat.org/fast/1941336"
+                  term['uri'] = 'http://id.worldcat.org/fast/' + field['0'].gsub(/\(.+\)fst/, '')
+                end
               end
             end
           else
-            genre_values_to_authorities_for_655 = {}
+            genre_data_for_655 = {}
             MarcSelector.all(marc_record, '655', a: true).each do |field|
-              genre_values_to_authorities_for_655[field['a']] = field['2']
+              genre_data_for_655[field['a']] = {
+                'authority' => field['2'],
+                'uri' => field['0']
+              }
             end
 
             non_655_genre_values = []
             ['600', '610', '611', '630', '647', '648', '650', '651'].each do |field_number|
               MarcSelector.all(marc_record, field_number, v: true).each do |field|
-                non_655_genre_values << field['v'] unless genre_values_to_authorities_for_655.key?(field['v'])
+                non_655_genre_values << field['v'] unless genre_data_for_655.key?(field['v'])
               end
             end
 
             # De-dupe non_655_genre_values
             non_655_genre_values.uniq!
 
-            genre_values_to_authorities_for_655.each do |value, authority|
+            genre_data_for_655.each do |value, data|
               genre_terms << {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(value),
-                'authority' => authority
+                'authority' => data['authority'],
+                'uri' => data['uri']
               }
             end
 

@@ -21,11 +21,12 @@ namespace :hysync do
   task :sync_record => :environment do
     runner = Hysync::MarcSynchronizer::Runner.new(HYACINTH_CONFIG, VOYAGER_CONFIG)
     force_update = (ENV['force_update'] == 'true')
+    dry_run = (ENV['dry_run'] == 'true')
     voyager = runner.instance_variable_get(:@voyager_client)
     voyager.instance_variable_get(:@z3950_config)['use_cached_results'] = false
     marc_record = voyager.find_by_bib_id(ENV['bib_id'])
     base_digital_object_data = Hysync::MarcSynchronizer::Runner.default_digital_object_data
-    runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
+    runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run)
   end
 
   task :sync_by_965 => :environment do

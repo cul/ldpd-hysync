@@ -144,10 +144,13 @@ module Hysync
               add_date_issued_textual(textual_date)
             end
           when 'p'
-            #p - Date of distribution/release/issue and production/recording session when different.
-            # If the two dates are the same, only record a dateCreated entry for that single date.
-            # And if the dates are different, we can record both dateIssued (for the first date) and dateCreated (for the second date).
-            if date1 == date2
+            # p - Date of distribution/release/issue and production/recording session when different.
+            # If mapping_ruleset == 'video', set date2 as date_cteated since other date is too uncertain to use (e.g. vague "19uu" date)
+            # If date1 and date2 are the same, only record a dateCreated entry for that single (same) date.
+            # If the dates are different, we can record both dateIssued (for the first date) and dateCreated (for the second date).
+            if mapping_ruleset == 'video'
+              add_date_created(date2, nil, date_type, true)
+            elsif date1 == date2
               add_date_created(date1, nil, date_type, true)
               add_date_created_textual(textual_date)
             else

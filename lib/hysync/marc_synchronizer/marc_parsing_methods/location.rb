@@ -9,6 +9,8 @@ module Hysync
         end
 
         def add_location(marc_record, holdings_marc_records, mapping_ruleset)
+          return if mapping_ruleset == 'ldeotechnical'
+
           dynamic_field_data['location'] ||= []
           extract_location_terms(holdings_marc_records, mapping_ruleset).each do |location_term|
             dynamic_field_data['location'] << {
@@ -34,7 +36,7 @@ module Hysync
               'code' => 'NyNyCOH',
               'uri' => 'http://id.library.columbia.edu/term/cd34331d-899b-444a-85c4-211e045fc2ea'
             }
-          when 'tibetan'
+          when 'tibetan', 'video'
             location_terms << {
               'value' => 'C.V. Starr East Asian Library, Columbia University',
               'authority' => 'marcorg',
