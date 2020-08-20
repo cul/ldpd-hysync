@@ -27,10 +27,11 @@ module Hysync
           end
 
           def extract_preceding_title(marc_record, mapping_ruleset)
-            MarcSelector.all(marc_record, 780, a: true).map do |field|
+            MarcSelector.all(marc_record, 780).reject { |field| field['a'].blank? && field['t'].blank? }.map do |field|
               {
                 'related_item' => {
                   'related_item_title' => field['a'],
+                  'related_item_name' => field['t'],
                   'related_item_type' => {
                     'value' => 'preceding',
                     'authority' => 'mods'
@@ -41,10 +42,11 @@ module Hysync
           end
 
           def extract_succeeding_title(marc_record, mapping_ruleset)
-            MarcSelector.all(marc_record, 785, a: true).map do |field|
+            MarcSelector.all(marc_record, 785).reject { |field| field['a'].blank? && field['t'].blank? }.map do |field|
               {
                 'related_item' => {
                   'related_item_title' => field['a'],
+                  'related_item_name' => field['t'],
                   'related_item_type' => {
                     'value' => 'preceding',
                     'authority' => 'mods'
@@ -55,7 +57,7 @@ module Hysync
           end
 
           def extract_related_constituent_title(marc_record, mapping_ruleset)
-            (
+            values = (
               MarcSelector.all(marc_record, 740, indicator1: 0, indicator2: 2, a: true) +
               MarcSelector.all(marc_record, 730, indicator1: 0, indicator2: 2, a: true)
             ).map do |field|
@@ -68,21 +70,25 @@ module Hysync
                   }
                 }
               }
-            end +
-            (
-              MarcSelector.all(marc_record, 700, indicator1: 1, indicator2: 2, a: true) +
-              MarcSelector.all(marc_record, 710, indicator1: 1, indicator2: 2, a: true)
-            ).map do |field|
-              {
-                'related_item' => {
-                  'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't'], true),
-                  'related_item_type' => {
-                    'value' => 'constituent',
-                    'authority' => 'mods'
-                  }
-                }
-              }
             end
+
+            # TODO: Reinstate and correct rule below after talking with Melanie
+            # values += (
+            #   MarcSelector.all(marc_record, 700, indicator1: 1, indicator2: 2, a: true) +
+            #   MarcSelector.all(marc_record, 710, indicator1: 1, indicator2: 2, a: true)
+            # ).map do |field|
+            #   {
+            #     'related_item' => {
+            #       'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't'], true),
+            #       'related_item_type' => {
+            #         'value' => 'constituent',
+            #         'authority' => 'mods'
+            #       }
+            #     }
+            #   }
+            # end
+
+            values
           end
 
           def extract_is_identical_to(marc_record, mapping_ruleset)
