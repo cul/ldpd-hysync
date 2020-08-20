@@ -2,11 +2,7 @@ require 'rails_helper'
 
 describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
   let(:marc_record) do
-    # TODO: Convert some of the code below into a factory (including the 001 and 005 fields, which are required)
-    record = MARC::Record.new
-    record.append(MARC::ControlField.new('001', '1234567'))
-    record.append(MARC::ControlField.new('005', '20190310095234.0'))
-    record.append(MARC::ControlField.new('008', '171206d19542005nyuar   o     0   a0eng d'))
+    record = FactoryBot.build(:marc_record)
     record.append(MARC::DataField.new('650', '',  '0', ['a', 'Advertising agencies'], ['z', 'United States']))
     record.append(MARC::DataField.new('650', '',  '0', ['a', 'Photographers']))
     record

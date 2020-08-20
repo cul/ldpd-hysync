@@ -19,19 +19,9 @@ module Hysync
           end
 
           def extract_funding_information_notes(marc_record, mapping_ruleset)
-            notes = []
-            MarcSelector.all(marc_record, 536, a: true).each do |field|
-              note = field['a']
-              note += ' ' + field['b'] if field['b']
-              note += ' ' + field['c'] if field['c']
-              note += ' ' + field['d'] if field['d']
-              note += ' ' + field['e'] if field['e']
-              note += ' ' + field['f'] if field['f']
-              note += ' ' + field['g'] if field['g']
-              note += ' ' + field['h'] if field['h']
-              notes << StringCleaner.trailing_punctuation_and_whitespace(note)
+            MarcSelector.all(marc_record, 536, a: true).map do |field|
+              MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], true)
             end
-            notes
           end
         end
       end
