@@ -16,16 +16,10 @@ module Hysync
 
         def extract_alternative_titles(marc_record, mapping_ruleset)
           values = []
+
           MarcSelector.all(marc_record, 246, a: true).each do |field|
-            val = field['a']
-            val += ' ' + field['b'] if field['b']
-            val += ' ' + field['f'] if field['f']
-            val += ' ' + field['g'] if field['g']
-            val += ' ' + field['h'] if field['h']
-            val += ' ' + field['n'] if field['n']
-            val += ' ' + field['p'] if field['p']
             values << {
-              'alternative_title_value' => StringCleaner.trailing_punctuation_and_whitespace(val)
+              'alternative_title_value' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'f', 'g', 'h', 'n', 'p'])
             }
           end
 

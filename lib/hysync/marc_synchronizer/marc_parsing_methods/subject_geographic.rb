@@ -18,7 +18,7 @@ module Hysync
 
         def extract_subject_geographic_terms(marc_record, mapping_ruleset)
           if mapping_ruleset == 'ldeotechnical'
-            MarcSelector.all(marc_record, 655, indicator2: 7, a: true).map do |field|
+            MarcSelector.all(marc_record, 651, indicator2: 7, a: true).map do |field|
               {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(field['a']),
                 'authority' => field['2']
@@ -31,14 +31,9 @@ module Hysync
             end
           else
             MarcSelector.all(marc_record, 651, indicator2: 0, a: true).map do |field|
-              val = field['a']
-              val += '--' + field['x'] if field['x']
-              val += '--' + field['y'] if field['y']
-              val += '--' + field['z'] if field['z']
               {
-                'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                'authority' => 'lcsh', # always use lcsh because we're only selecting fields where indicator 2 is 0, which means authority lcsh
-                'uri' => field['0']
+                'value' => MarcSelector.concat_subfield_values(field, ['a', 'x', 'y', 'z']),
+                'authority' => 'lcsh' # always when 651 has indicator2 lcsh because we're only selecting fields where indicator 2 is 0, which means authority lcsh
               }
             end
           end

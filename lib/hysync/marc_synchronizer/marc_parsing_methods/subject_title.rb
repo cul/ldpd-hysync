@@ -28,7 +28,7 @@ module Hysync
             end
 
             subject_title_terms << {
-              'value' => MarcSelector.concat_subfield_values(field, ['f', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 'x']),
+              'value' => MarcSelector.concat_subfield_values(field, ['a', 'f', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 'x']),
               'authority' => authority,
               'uri' => uri
             }
