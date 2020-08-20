@@ -20,7 +20,7 @@ module Hysync
 
           def extract_funding_information_notes(marc_record, mapping_ruleset)
             MarcSelector.all(marc_record, 536, a: true).map do |field|
-              MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'], true)
+              MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'])
             end
           end
         end

@@ -35,10 +35,8 @@ module Hysync
             MarcSelector.all(marc_record, 880, indicator1: 1, indicator2: 0, a: true, '6': true)
           ).each do |field|
             next unless field['6'].start_with?('245-') || field['6'].start_with?('246-')
-            val = field['a']
-            val += ' ' + field['b'] if field['b']
             values << {
-              'alternative_title_value' => val
+              'alternative_title_value' => MarcSelector.concat_subfield_values(field, ['a', 'b'])
             }
           end
 

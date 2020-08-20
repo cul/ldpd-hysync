@@ -79,7 +79,7 @@ module Hysync
             # ).map do |field|
             #   {
             #     'related_item' => {
-            #       'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't'], true),
+            #       'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't']),
             #       'related_item_type' => {
             #         'value' => 'constituent',
             #         'authority' => 'mods'
@@ -92,7 +92,7 @@ module Hysync
           end
 
           def extract_is_identical_to(marc_record, mapping_ruleset)
-            title_245_ab = MarcSelector.concat_subfield_values(MarcSelector.first(marc_record, 245, a: true), ['a', 'b'], true)
+            title_245_ab = MarcSelector.concat_subfield_values(MarcSelector.first(marc_record, 245, a: true), ['a', 'b'])
 
             MarcSelector.all(marc_record, 920, indicator1: 4, indicator2: 0, u: true).map do |field|
               {

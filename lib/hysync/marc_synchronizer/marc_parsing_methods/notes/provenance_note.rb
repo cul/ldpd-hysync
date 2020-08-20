@@ -18,7 +18,7 @@ module Hysync
           def extract_provenance_note(marc_record, mapping_ruleset)
             MarcSelector.all(marc_record, 541, a: true).map do |field|
               {
-                'note_value' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'e', 'f', 'h', 'n', 'o', '3'], true),
+                'note_value' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'e', 'f', 'h', 'n', 'o', '3']),
                 'note_type' => 'provenance'
               }
             end

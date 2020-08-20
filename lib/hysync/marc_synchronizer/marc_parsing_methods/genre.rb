@@ -32,7 +32,7 @@ module Hysync
               }.tap do |term|
                 term['authority'] = field['2'] if field['2']
 
-                if mapping_ruleset == 'ldeotechnical' && field['0']
+                if mapping_ruleset == 'ldeotechnical' && field['2'] == 'fast' && field['0'].present?
                   # convert identifier "(OCoLC)fst01941336" to url "http://id.worldcat.org/fast/1941336"
                   term['uri'] = 'http://id.worldcat.org/fast/' + field['0'].gsub(/\(.+\)fst/, '')
                 end

@@ -39,7 +39,7 @@ module Hysync
                 'name_role_term' => {
                   'value' => 'Originator',
                   'uri' => 'http://id.loc.gov/vocabulary/relators/org',
-                  'authority' => marcrelator
+                  'authority' => 'marcrelator'
                 }
               }],
               'name_usage_primary' => true

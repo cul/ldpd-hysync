@@ -19,7 +19,7 @@ module Hysync
         def extract_series_values(marc_record, mapping_ruleset)
           series_values = MarcSelector.all(marc_record, 830, a: true).map do |field|
             {
-              'series_title' => MarcSelector.concat_subfield_values(field, ['a', 'n', 'p'], true),
+              'series_title' => MarcSelector.concat_subfield_values(field, ['a', 'n', 'p']),
               'series_number' => field['v'],
               'series_issn' => field['x']
             }

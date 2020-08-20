@@ -21,11 +21,12 @@ module Hysync
             MarcSelector.all(marc_record, 655, indicator2: 7, a: true).map do |field|
               {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(field['a']),
-                'authority' => field['2'],
-                'uri' => uri,
+                'authority' => field['2']
               }.tap do |term|
-                # convert identifier "(OCoLC)fst01941336" to url "http://id.worldcat.org/fast/1941336"
-                term['uri'] = 'http://id.worldcat.org/fast/' + field['0'].gsub(/\(.+\)fst/, '') if field['0']
+                if field['2'] == 'fast' && field['0'].present?
+                  # convert identifier "(OCoLC)fst01941336" to url "http://id.worldcat.org/fast/1941336"
+                  term['uri'] = 'http://id.worldcat.org/fast/' + field['0'].gsub(/\(.+\)fst/, '')
+                end
               end
             end
           else

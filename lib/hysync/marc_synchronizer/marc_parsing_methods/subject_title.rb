@@ -21,14 +21,14 @@ module Hysync
         def extract_subject_title_terms(marc_record, mapping_ruleset)
           subject_title_terms = []
           MarcSelector.all(marc_record, 630, a: true).map do |field|
-            authority = f['2']
+            authority = field['2']
             uri = field['0']
             if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
               uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
             end
 
             subject_title_terms << {
-              'value' => MarcSelector.concat_subfield_values(field, ['f', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 'x'], true),
+              'value' => MarcSelector.concat_subfield_values(field, ['f', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 'x']),
               'authority' => authority,
               'uri' => uri
             }

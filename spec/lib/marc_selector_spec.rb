@@ -16,12 +16,12 @@ describe MarcSelector do
     let(:subfield_keys) do
       ['a', 'b', 'c']
     end
-    it "concatenates as expected" do
-      expect(described_class.concat_subfield_values(field, subfield_keys)).to eq('Part A. Part C. ')
+    it "concatenates as expected, cleaning trailing punctuation by default" do
+      expect(described_class.concat_subfield_values(field, subfield_keys)).to eq('Part A. Part C')
     end
 
-    it "cleans trailing punctuation when clean param is given" do
-      expect(described_class.concat_subfield_values(field, subfield_keys, true)).to eq('Part A. Part C')
+    it "does not clean trailing punctuation when clean=false param is given" do
+      expect(described_class.concat_subfield_values(field, subfield_keys, false)).to eq('Part A. Part C. ')
     end
   end
 end
