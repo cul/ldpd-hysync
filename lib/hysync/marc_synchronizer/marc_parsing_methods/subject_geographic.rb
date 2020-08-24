@@ -17,15 +17,25 @@ module Hysync
         end
 
         def extract_subject_geographic_terms(marc_record, mapping_ruleset)
-          MarcSelector.all(marc_record, 651, indicator2: 0, a: true).map do |field|
-            val = field['a']
-            val += '--' + field['x'] if field['x']
-            val += '--' + field['y'] if field['y']
-            val += '--' + field['z'] if field['z']
-            {
-              'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-              'authority' => 'lcsh' # always use lcsh because we're only selecting fields where indicator 2 is 0, which means authority lcsh
-            }
+          if mapping_ruleset == 'ldeotechnical'
+            MarcSelector.all(marc_record, 651, indicator2: 7, a: true).map do |field|
+              {
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(field['a']),
+                'authority' => field['2']
+              }.tap do |term|
+                if field['2'] == 'fast' && field['0'].present?
+                  # convert identifier "(OCoLC)fst01941336" to url "http://id.worldcat.org/fast/1941336"
+                  term['uri'] = 'http://id.worldcat.org/fast/' + field['0'].gsub(/\(.+\)fst/, '')
+                end
+              end
+            end
+          else
+            MarcSelector.all(marc_record, 651, indicator2: 0, a: true).map do |field|
+              {
+                'value' => MarcSelector.concat_subfield_values(field, ['a', 'x', 'y', 'z']),
+                'authority' => 'lcsh' # always when 651 has indicator2 lcsh because we're only selecting fields where indicator 2 is 0, which means authority lcsh
+              }
+            end
           end
         end
       end

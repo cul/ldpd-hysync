@@ -21,18 +21,17 @@ module Hysync
         def extract_subject_title_terms(marc_record, mapping_ruleset)
           subject_title_terms = []
           MarcSelector.all(marc_record, 630, a: true).map do |field|
-            val = field['a']
-            val += '--' + field['f'] if field['f']
-            val += '--' + field['k'] if field['k']
-            val += '--' + field['l'] if field['l']
-            val += '--' + field['m'] if field['m']
-            val += '--' + field['n'] if field['n']
-            val += '--' + field['o'] if field['o']
-            val += '--' + field['p'] if field['p']
-            val += '--' + field['r'] if field['r']
-            val += '--' + field['s'] if field['s']
-            val += '--' + field['x'] if field['x']
-            subject_title_terms << { 'value' => StringCleaner.trailing_punctuation_and_whitespace(val) }
+            authority = field['2']
+            uri = field['0']
+            if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
+              uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
+            end
+
+            subject_title_terms << {
+              'value' => MarcSelector.concat_subfield_values(field, ['a', 'f', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 'x']),
+              'authority' => authority,
+              'uri' => uri
+            }
           end
 
           (

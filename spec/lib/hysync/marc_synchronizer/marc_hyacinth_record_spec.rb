@@ -24,6 +24,7 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
     actual = subject.digital_object_data['dynamic_field_data']
     deep_compact!(actual)
     expected = json_record['dynamic_field_data']
+    expect(subject.errors).to be_blank
     expect(actual).to eql(expected)
   end
   it "produces the expected project" do
@@ -51,7 +52,6 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
     let(:marc_fixture) { File.new("spec/fixtures/marc21/12998581.marc","rb") }
     it "sets a subject name title term" do
       actual = subject.digital_object_data['dynamic_field_data']
-
       expect(actual['subject_name'].detect { |s| s['subject_name_title_term'] }).to be_present
       expect(actual['subject_name'].detect { |s| !s['subject_name_title_term'] }).to be_blank
     end

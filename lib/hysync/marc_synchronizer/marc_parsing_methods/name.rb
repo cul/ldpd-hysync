@@ -24,10 +24,29 @@ module Hysync
         def extract_names(marc_record, mapping_ruleset)
           first_main_entry_name_term = extract_first_main_entry_name_term(marc_record, mapping_ruleset)
 
-          (first_main_entry_name_term.present? ? [first_main_entry_name_term] : []) +
-          extract_700_personal_names(marc_record, mapping_ruleset) +
-          extract_710_corporate_names(marc_record, mapping_ruleset) +
-          extract_711_conference_names(marc_record, mapping_ruleset)
+          names = (first_main_entry_name_term.present? ? [first_main_entry_name_term] : []) +
+          extract_700_personal_names(marc_record, mapping_ruleset)
+
+          if mapping_ruleset == 'ldeotechnical'
+            # For ldeotechnical, we always hard-code the corporate name below
+            names << {
+              'name_term' => {
+                'value' => 'Columbia University. Lamont-Doherty Earth Observatory',
+                'name_type' => 'corporate',
+                'uri' => 'temp:7f8a595bcd672d4062555333cc62fe6e64d249df79ab341a9ebdeec3425d0d8d'
+              },
+              'name_role' => [{
+                'name_role_term' => {
+                  'value' => 'Originator',
+                  'uri' => 'http://id.loc.gov/vocabulary/relators/org',
+                  'authority' => 'marcrelator'
+                }
+              }],
+              'name_usage_primary' => names.blank? # This name should only be primary if there are no other names
+            }
+          else
+            names += extract_710_corporate_names(marc_record, mapping_ruleset) + extract_711_conference_names(marc_record, mapping_ruleset)
+          end
         end
 
         def extract_first_main_entry_name_term(marc_record, mapping_ruleset)
@@ -43,7 +62,8 @@ module Hysync
             return {
               'name_term' => {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                'name_type' => 'personal'
+                'name_type' => 'personal',
+                'uri' => field['0']
               },
               'name_role' => [{
                 'name_role_term' => {
@@ -54,30 +74,35 @@ module Hysync
               'name_usage_primary' => true
             }
           end
-          # Check corporate name field (110)
-          field = MarcSelector.first(marc_record, 110, indicator1: 1, a: true) || MarcSelector.first(marc_record, 110, indicator1: 2, a: true)
-          if field
-            val = field['a']
-            val += ' ' + field['b'] if field['b']
-            val += ' ' + field['c'] if field['c']
-            val += ' ' + field['d'] if field['d']
-            val += ' ' + field['g'] if field['g']
-            val += ' ' + field['n'] if field['n']
-            role_value = field['e'].present? ? field['e'] : ''
-            return {
-              'name_term' => {
-                'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                'name_type' => 'corporate'
-              },
-              'name_role' => [{
-                'name_role_term' => {
-                  'value' => StringCleaner.trailing_punctuation_and_whitespace(role_value)
-                  #'code' => field['4']
-                }
-              }],
-              'name_usage_primary' => true
-            }
+
+          unless mapping_ruleset == 'ldeotechnical'
+            # Check corporate name field (110)
+            field = MarcSelector.first(marc_record, 110, indicator1: 1, a: true) || MarcSelector.first(marc_record, 110, indicator1: 2, a: true)
+            if field
+              val = field['a']
+              val += ' ' + field['b'] if field['b']
+              val += ' ' + field['c'] if field['c']
+              val += ' ' + field['d'] if field['d']
+              val += ' ' + field['g'] if field['g']
+              val += ' ' + field['n'] if field['n']
+              role_value = field['e'].present? ? field['e'] : ''
+              return {
+                'name_term' => {
+                  'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
+                  'name_type' => 'corporate',
+                  'uri' => field['0']
+                },
+                'name_role' => [{
+                  'name_role_term' => {
+                    'value' => StringCleaner.trailing_punctuation_and_whitespace(role_value)
+                    #'code' => field['4']
+                  }
+                }],
+                'name_usage_primary' => true
+              }
+            end
           end
+
           # Check conference name field (111)
           field = MarcSelector.first(marc_record, 111, indicator1: 2, a: true)
           if field
@@ -91,7 +116,8 @@ module Hysync
             return {
               'name_term' => {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                'name_type' => 'conference'
+                'name_type' => 'conference',
+                'uri' => field['0']
               },
               'name_role' => [{
                 'name_role_term' => {
@@ -117,7 +143,8 @@ module Hysync
             names << {
               'name_term' => {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                'name_type' => 'personal'
+                'name_type' => 'personal',
+                'uri' => field['0']
               },
               'name_role' => [{
                 'name_role_term' => {
@@ -147,7 +174,8 @@ module Hysync
             names << {
               'name_term' => {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                'name_type' => 'corporate'
+                'name_type' => 'corporate',
+                'uri' => field['0']
               },
               'name_role' => [{
                 'name_role_term' => {
@@ -174,7 +202,8 @@ module Hysync
             names << {
               'name_term' => {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                'name_type' => 'conference'
+                'name_type' => 'conference',
+                'uri' => field['0']
               },
               'name_role' => [{
                 'name_role_term' => {

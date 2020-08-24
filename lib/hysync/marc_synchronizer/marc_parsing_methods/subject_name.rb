@@ -16,7 +16,6 @@ module Hysync
             unique_subject_name_key = subject_name['subject_name_term']['name_type'] + subject_name['subject_name_term']['value']
             next if subject_names_seen.include?(unique_subject_name_key)
             subject_names_seen.add(unique_subject_name_key)
-
             dynamic_field_data['subject_name'] << subject_name
           end
         end
@@ -60,16 +59,24 @@ module Hysync
         private
 
           def extract_fielded_subject_names(marc_record, mapping_ruleset, field, name_type, filters = {}, append_subfields = [])
-            subject_names = []
             MarcSelector.all(marc_record, field, filters).map do |f|
               val = f['a']
+              authority = f['2']
+              uri = nil
+
+              if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
+                uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
+              end
+
               append_subfields.each do |subfield|
                 val += ' ' + f[subfield] if f[subfield]
               end
               subject_name = {
                 'subject_name_term' => {
                   'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
-                  'name_type' => name_type
+                  'name_type' => name_type,
+                  'authority' => authority,
+                  'uri' => uri
                 }
               }
               if f['t']
@@ -77,11 +84,9 @@ module Hysync
                   'value' => StringCleaner.trailing_punctuation_and_whitespace(f['t'])
                 }
               end
-              subject_names << subject_name
+              subject_name
             end
-            subject_names
           end
-
       end
     end
   end

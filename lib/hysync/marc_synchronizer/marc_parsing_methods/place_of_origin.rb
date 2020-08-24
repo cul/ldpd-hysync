@@ -10,7 +10,9 @@ module Hysync
         def add_place_of_origin(marc_record, holdings_marc_records, mapping_ruleset)
           dynamic_field_data['place_of_origin'] ||= []
           dynamic_field_data['place_of_origin'] << {
-            'place_of_origin_value' => extract_place_of_origin(marc_record, mapping_ruleset)
+            'place_of_origin_value' => StringCleaner.trailing_punctuation_and_whitespace(
+              extract_place_of_origin(marc_record, mapping_ruleset)
+            )
           }
         end
 

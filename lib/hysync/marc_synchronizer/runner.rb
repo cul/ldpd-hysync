@@ -19,14 +19,14 @@ module Hysync
       # Runs the synchronization action.
       # @param force_update [Boolean] update records regardless of modification date (005)
       # @return [Boolean] success, [Array] errors
-      def run(force_update = false)
+      def run(force_update = false, dry_run = false)
         @errors = [] # clear errors
         @voyager_client.search_by_965_value('965hyacinth') do |marc_record, i, num_results|
           Rails.logger.debug "#{i+1} of #{num_results}: (clio id = #{marc_record['001'].value}) #{marc_record['245']}"
 
           base_digital_object_data = self.class.default_digital_object_data
 
-          create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
+          create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run)
         end
 
         [@errors.blank?, @errors]
@@ -77,7 +77,7 @@ module Hysync
       # @param marc_record [MARC::Reader] ruby-marc record object
       # @param base_digital_object_data [Hash] Hyacinth digital object properties
       # @param force_update [Boolean] update records regardless of modification date (005)
-      def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update)
+      def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run = false)
         holdings_marc_records = []
         holdings_marc_record_errors = []
         begin
@@ -101,12 +101,19 @@ module Hysync
           return
         end
 
+        if dry_run
+          puts "- Dry run only: #{marc_hyacinth_record.clio_id} #{marc_hyacinth_record.errors.present? ? 'failed validation' : 'passed validation'}"
+        end
+
         if marc_hyacinth_record.errors.present?
           msg = "CLIO record #{marc_hyacinth_record.clio_id} has the following errors: \n\t#{marc_hyacinth_record.errors.join("\n\t")}"
           @errors << msg
           Rails.logger.error msg
-          return
+          puts msg if dry_run
+          return false, @errors
         end
+
+        return if dry_run
 
         # Add "clio#{bib_id}" identifier (e.g. clio12345).
         marc_hyacinth_record.digital_object_data['identifiers'] << "clio#{marc_hyacinth_record.clio_id}"

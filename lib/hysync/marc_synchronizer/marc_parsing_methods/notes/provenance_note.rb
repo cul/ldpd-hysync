@@ -12,28 +12,16 @@ module Hysync
             return if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
 
             dynamic_field_data['note'] ||= []
-            dynamic_field_data['note'] << extract_provenance_note(marc_record, mapping_ruleset)
+            dynamic_field_data['note'] += extract_provenance_note(marc_record, mapping_ruleset)
           end
 
           def extract_provenance_note(marc_record, mapping_ruleset)
-            field = MarcSelector.first(marc_record, 541, a: true)
-            return nil unless field
-
-            value = field['a']
-            value += ' ' + field['b'] if field['b']
-            value += ' ' + field['c'] if field['c']
-            value += ' ' + field['d'] if field['d']
-            value += ' ' + field['e'] if field['e']
-            value += ' ' + field['f'] if field['f']
-            value += ' ' + field['h'] if field['h']
-            value += ' ' + field['n'] if field['n']
-            value += ' ' + field['o'] if field['o']
-            value += ' ' + field['3'] if field['3']
-
-            {
-              'note_value' => StringCleaner.trailing_punctuation_and_whitespace(value),
-              'note_type' => 'provenance'
-            }
+            MarcSelector.all(marc_record, 541, a: true).map do |field|
+              {
+                'note_value' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'e', 'f', 'h', 'n', 'o', '3']),
+                'note_type' => 'provenance'
+              }
+            end
           end
         end
       end

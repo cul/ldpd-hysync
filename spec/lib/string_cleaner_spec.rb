@@ -9,7 +9,8 @@ describe StringCleaner do
         'The title:' => 'The title',
         'The title/' => 'The title',
         'The title  .  ' => 'The title',
-        '    The title  .  ' => 'The title'
+        '    The title  .  ' => 'The title',
+        '哀樂中年 /' => '哀樂中年'
       }.each do |pre, post|
         expect(described_class.trailing_punctuation_and_whitespace(pre)).to eq(post)
       end

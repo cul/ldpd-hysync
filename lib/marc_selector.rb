@@ -63,4 +63,14 @@ module MarcSelector
     end
     true
   end
+
+  # For the given field, concatenates (with a space) all values in the given subfields.
+  # Blank or nil subfields are skipped.
+  # @param field [MARC::Field] Field to process
+  # @param subfield_keys [Array] Array of subfield keys to concatenate
+  # @clean [Boolean] Whether or not to clean trailing whitespace and punctuation.
+  def self.concat_subfield_values(field, subfield_keys, clean = true)
+    val = subfield_keys.map { |subfield_key| field[subfield_key].present? ? field[subfield_key] : nil }.compact.join(' ')
+    clean ? StringCleaner.trailing_punctuation_and_whitespace(val) : val
+  end
 end
