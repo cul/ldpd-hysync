@@ -12,7 +12,9 @@ module Hysync
 
           dynamic_field_data['publisher'] ||= []
           dynamic_field_data['publisher'] << {
-            'publisher_value' => extract_publisher(marc_record, mapping_ruleset)
+            'publisher_value' => StringCleaner.trailing_punctuation_and_whitespace(
+              extract_publisher(marc_record, mapping_ruleset)
+            )
           }
         end
 

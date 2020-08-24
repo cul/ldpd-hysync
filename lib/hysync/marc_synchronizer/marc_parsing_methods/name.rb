@@ -42,7 +42,7 @@ module Hysync
                   'authority' => 'marcrelator'
                 }
               }],
-              'name_usage_primary' => true
+              'name_usage_primary' => names.blank? # This name should only be primary if there are no other names
             }
           else
             names += extract_710_corporate_names(marc_record, mapping_ruleset) + extract_711_conference_names(marc_record, mapping_ruleset)

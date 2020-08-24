@@ -20,9 +20,11 @@ module Hysync
           series_values = MarcSelector.all(marc_record, 830, a: true).map do |field|
             {
               'series_title' => MarcSelector.concat_subfield_values(field, ['a', 'n', 'p']),
-              'series_number' => field['v'],
-              'series_issn' => field['x']
-            }
+              'series_number' => StringCleaner.trailing_punctuation_and_whitespace(field['v']),
+              'series_issn' => StringCleaner.trailing_punctuation_and_whitespace(field['x'])
+            }.tap do |series|
+              series['series_is_columbia'] = true if mapping_ruleset == 'ldeotechnical'
+            end
           end
 
           return series_values if series_values.present?

@@ -3,6 +3,6 @@ module StringCleaner
     return nil if string.nil?
     stripped_string = string.strip
     return stripped_string if stripped_string.ends_with?('...')
-    stripped_string.sub(/[,.:\/ ]+$/, '').strip
+    stripped_string.sub(/[,.:;\/ ]+$/, '').strip
   end
 end

@@ -17,7 +17,7 @@ module Hysync
           end
 
           if project_string_key.nil?
-            @errors << "Could not resolve 965 values to a project for: #{self.clio_id}"
+            self.errors << "Could not resolve 965 values to a project for: #{self.clio_id}"
             return
           end
           return if project_string_key.eql?(existing_project)

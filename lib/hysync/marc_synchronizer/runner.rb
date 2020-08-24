@@ -110,7 +110,7 @@ module Hysync
           @errors << msg
           Rails.logger.error msg
           puts msg if dry_run
-          return
+          return false, @errors
         end
 
         return if dry_run
