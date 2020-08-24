@@ -57,36 +57,35 @@ module Hysync
           end
 
           def extract_related_constituent_title(marc_record, mapping_ruleset)
-            values = (
-              MarcSelector.all(marc_record, 740, indicator1: 0, indicator2: 2, a: true) +
-              MarcSelector.all(marc_record, 730, indicator1: 0, indicator2: 2, a: true)
-            ).map do |field|
-              {
+            values = []
+
+            MarcSelector.all(marc_record, 740, indicator1: 0, indicator2: 2, a: true).each do |field|
+              values << {
                 'related_item' => {
-                  'related_item_title' => field['a'],
-                  'related_item_type' => {
-                    'value' => 'constituent',
-                    'authority' => 'mods'
-                  }
+                  'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'n', 'p']),
+                  'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
                 }
               }
             end
 
-            # TODO: Reinstate and correct rule below after talking with Melanie
-            # values += (
-            #   MarcSelector.all(marc_record, 700, indicator1: 1, indicator2: 2, a: true) +
-            #   MarcSelector.all(marc_record, 710, indicator1: 1, indicator2: 2, a: true)
-            # ).map do |field|
-            #   {
-            #     'related_item' => {
-            #       'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'f', 'g', 'h', 'l', 'm', 'n', 'o', 'p', 'r', 's', 't']),
-            #       'related_item_type' => {
-            #         'value' => 'constituent',
-            #         'authority' => 'mods'
-            #       }
-            #     }
-            #   }
-            # end
+            MarcSelector.all(marc_record, 730, indicator1: 0, indicator2: 2, a: true).each do |field|
+              values << {
+                'related_item' => {
+                  'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'm', 'n', 'p', 'r', 's', 'k', 'l', 'o', 'f']),
+                  'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
+                }
+              }
+            end
+
+            MarcSelector.all(marc_record, 700, indicator2: 2, a: true).each do |field|
+              values << {
+                'related_item' => {
+                  'related_item_name' => MarcSelector.concat_subfield_values(field, ['a', 'c', 'q', 'd']),
+                  'related_item_title' => MarcSelector.concat_subfield_values(field, ['t', 'm', 'n', 'p', 'r', 's', 'l', 'o', 'f']),
+                  'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
+                }
+              }
+            end
 
             values
           end

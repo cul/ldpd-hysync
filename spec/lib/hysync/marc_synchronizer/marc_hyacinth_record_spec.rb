@@ -24,8 +24,6 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
     actual = subject.digital_object_data['dynamic_field_data']
     deep_compact!(actual)
     expected = json_record['dynamic_field_data']
-    # puts 'Actual:' + "\n" + actual.to_json
-    # puts 'Expected:' + "\n" + expected.to_json
     expect(subject.errors).to be_blank
     expect(actual).to eql(expected)
   end
