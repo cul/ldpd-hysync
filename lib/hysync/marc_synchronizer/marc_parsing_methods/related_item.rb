@@ -29,13 +29,13 @@ module Hysync
           def extract_preceding_title(marc_record, mapping_ruleset)
             MarcSelector.all(marc_record, 780).reject { |field| field['a'].blank? && field['t'].blank? }.map do |field|
               {
-                'related_item' => {
-                  'related_item_title' => field['a'],
-                  'related_item_name' => field['t'],
-                  'related_item_type' => {
-                    'value' => 'preceding',
-                    'authority' => 'mods'
-                  }
+                'related_item_title' => field['a'],
+                'related_item_name' => {
+                  'value' => field['t']
+                },
+                'related_item_type' => {
+                  'value' => 'preceding',
+                  'authority' => 'mods'
                 }
               }
             end
@@ -44,13 +44,13 @@ module Hysync
           def extract_succeeding_title(marc_record, mapping_ruleset)
             MarcSelector.all(marc_record, 785).reject { |field| field['a'].blank? && field['t'].blank? }.map do |field|
               {
-                'related_item' => {
-                  'related_item_title' => field['a'],
-                  'related_item_name' => field['t'],
-                  'related_item_type' => {
-                    'value' => 'preceding',
-                    'authority' => 'mods'
-                  }
+                'related_item_title' => field['a'],
+                'related_item_name' => {
+                  'value' => field['t']
+                },
+                'related_item_type' => {
+                  'value' => 'preceding',
+                  'authority' => 'mods'
                 }
               }
             end
@@ -61,29 +61,25 @@ module Hysync
 
             MarcSelector.all(marc_record, 740, indicator1: 0, indicator2: 2, a: true).each do |field|
               values << {
-                'related_item' => {
-                  'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'n', 'p']),
-                  'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
-                }
+                'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'n', 'p']),
+                'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
               }
             end
 
             MarcSelector.all(marc_record, 730, indicator1: 0, indicator2: 2, a: true).each do |field|
               values << {
-                'related_item' => {
-                  'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'm', 'n', 'p', 'r', 's', 'k', 'l', 'o', 'f']),
-                  'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
-                }
+                'related_item_title' => MarcSelector.concat_subfield_values(field, ['a', 'm', 'n', 'p', 'r', 's', 'k', 'l', 'o', 'f']),
+                'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
               }
             end
 
             MarcSelector.all(marc_record, 700, indicator2: 2, a: true).each do |field|
               values << {
-                'related_item' => {
-                  'related_item_name' => MarcSelector.concat_subfield_values(field, ['a', 'c', 'q', 'd']),
-                  'related_item_title' => MarcSelector.concat_subfield_values(field, ['t', 'm', 'n', 'p', 'r', 's', 'l', 'o', 'f']),
-                  'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
-                }
+                'related_item_name' => {
+                  'value' => MarcSelector.concat_subfield_values(field, ['a', 'c', 'q', 'd'])
+                },
+                'related_item_title' => MarcSelector.concat_subfield_values(field, ['t', 'm', 'n', 'p', 'r', 's', 'l', 'o', 'f']),
+                'related_item_type' => { 'value' => 'constituent', 'authority' => 'mods' }
               }
             end
 
