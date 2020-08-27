@@ -43,6 +43,9 @@ module Hysync
           else
             genre_data_for_655 = {}
             MarcSelector.all(marc_record, '655', a: true).each do |field|
+              # For now, ignore FAST terms in the default mapping (because they duplicate non-FAST terms)
+              next if field['2'] == 'fast'
+
               genre_data_for_655[field['a']] = {
                 'authority' => field['2'],
                 'uri' => field['0']

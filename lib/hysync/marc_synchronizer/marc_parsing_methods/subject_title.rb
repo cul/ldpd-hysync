@@ -23,9 +23,13 @@ module Hysync
           MarcSelector.all(marc_record, 630, a: true).map do |field|
             authority = field['2']
             uri = field['0']
-            if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
-              uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
-            end
+
+            # For now, ignore FAST terms in the default mapping (because they duplicate non-FAST terms)
+            next if authority == 'fast'
+
+            # if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
+            #   uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
+            # end
 
             subject_title_terms << {
               'value' => MarcSelector.concat_subfield_values(field, ['a', 'f', 'k', 'l', 'm', 'n', 'o', 'p', 'r', 's', 'x']),

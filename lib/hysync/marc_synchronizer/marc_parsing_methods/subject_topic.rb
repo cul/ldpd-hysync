@@ -65,11 +65,15 @@ module Hysync
               authority = 'lcsh'
             elsif field.indicator2 == '7'
               authority = field['2']
-              # If authority is 'fast', then we'll expect to see a fast
-              # identifier in $0, which we can convert to a URI.
-              if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
-                uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
-              end
+
+              # For now, ignore FAST terms in the default mapping (because they duplicate non-FAST terms)
+              next if authority == 'fast' # next will return nil, so must use compact method later
+
+              # # If authority is 'fast', then we'll expect to see a fast
+              # # identifier in $0, which we can convert to a URI.
+              # if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
+              #   uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
+              # end
             end
 
             {
@@ -78,7 +82,7 @@ module Hysync
             }.tap do |term|
               term['uri'] = uri if uri
             end
-          end
+          end.compact
         end
 
         # Given a value, replaces that value with a preferred value if it matches a value in our

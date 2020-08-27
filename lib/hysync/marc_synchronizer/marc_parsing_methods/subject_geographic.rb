@@ -31,11 +31,14 @@ module Hysync
             end
           else
             MarcSelector.all(marc_record, 651, indicator2: 0, a: true).map do |field|
+              # For now, ignore FAST terms in the default mapping (because they duplicate non-FAST terms)
+              next if field['2'] == 'fast' # next will return nil, so must use compact method later
+
               {
                 'value' => MarcSelector.concat_subfield_values(field, ['a', 'x', 'y', 'z']),
                 'authority' => 'lcsh' # always when 651 has indicator2 lcsh because we're only selecting fields where indicator 2 is 0, which means authority lcsh
               }
-            end
+            end.compact
           end
         end
       end

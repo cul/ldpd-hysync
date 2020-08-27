@@ -64,9 +64,12 @@ module Hysync
               authority = f['2']
               uri = nil
 
-              if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
-                uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
-              end
+              # For now, ignore FAST terms in the default mapping (because they duplicate non-FAST terms)
+              next if authority == 'fast' # next will return nil, so must use compact method later
+
+              # if authority == 'fast' && field['0'] && (fast_uri_match = field['0'].match(/^\(OCoLC\)fst(\d+)$/))
+              #   uri = 'http://id.worldcat.org/fast/' + fast_uri_match[1]
+              # end
 
               append_subfields.each do |subfield|
                 val += ' ' + f[subfield] if f[subfield]
@@ -85,7 +88,7 @@ module Hysync
                 }
               end
               subject_name
-            end
+            end.compact
           end
       end
     end
