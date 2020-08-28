@@ -71,13 +71,16 @@ module Hyacinth
     def update_existing_record(pid, digital_object_data, publish = false)
       response = Hyacinth::Client::Response.new
       begin
-        json_response = JSON.parse(RestClient::Request.execute(
-          method: :put,
-          url: "#{@config['url']}/digital_objects/#{pid}.json",
-          timeout: 60,
-          payload: {'digital_object_data_json' => JSON.generate(digital_object_data.merge({publish: publish.to_s}))},
-          headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
-        ).body)
+        json_response = nil
+        Retriable.retriable on: [RestClient::ServerBrokeConnection], tries: 2, base_interval: 1 do
+          json_response = JSON.parse(RestClient::Request.execute(
+            method: :put,
+            url: "#{@config['url']}/digital_objects/#{pid}.json",
+            timeout: 60,
+            payload: {'digital_object_data_json' => JSON.generate(digital_object_data.merge({publish: publish.to_s}))},
+            headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
+          ).body)
+        end
         # TODO: Eventually use response code instead of checking for success value
         if json_response['success'] != true
           response.errors << "Error updating record #{pid}. Details: #{json_response['errors'].inspect}"
