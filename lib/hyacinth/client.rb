@@ -87,6 +87,8 @@ module Hyacinth
         end
       rescue RestClient::ExceptionWithResponse => err
         response.errors << "Error: Received response '#{err.message}' for Hyacinth record update request for #{pid}"
+      rescue RestClient::ServerBrokeConnection => err
+        response.errors << "Error: Received response '#{err.message}' for Hyacinth record update request for #{pid}. This happens occasionally due to network issues and usually resolves automatically during the next run."
       end
       response
     end
