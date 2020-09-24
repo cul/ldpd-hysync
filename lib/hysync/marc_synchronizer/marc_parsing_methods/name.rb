@@ -106,13 +106,8 @@ module Hysync
           # Check conference name field (111)
           field = MarcSelector.first(marc_record, 111, indicator1: 2, a: true)
           if field
-            val = field['a']
-            val += ' ' + field['c'] if field['c']
-            val += ' ' + field['q'] if field['q']
-            val += ' ' + field['d'] if field['d']
-            val += ' ' + field['e'] if field['e']
-            val += ' ' + field['n'] if field['n']
-            role_value = field['e'].present? ? field['j'] : ''
+            val = MarcSelector.concat_subfield_values(field, ['a', 'q', 'n', 'c', 'd', 'e', 'g'])
+            role_value = field['j'].present? ? field['j'] : ''
             return {
               'name_term' => {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(val),
@@ -192,13 +187,8 @@ module Hysync
         def extract_711_conference_names(marc_record, mapping_ruleset)
           names = []
           MarcSelector.all(marc_record, 711, indicator1: 2, a: true).map do |field|
-            val = field['a']
-            val += ' ' + field['c'] if field['c']
-            val += ' ' + field['q'] if field['q']
-            val += ' ' + field['d'] if field['d']
-            val += ' ' + field['e'] if field['e']
-            val += ' ' + field['n'] if field['n']
-            role_value = field['e'].present? ? field['j'] : ''
+            val = MarcSelector.concat_subfield_values(field, ['a', 'q', 'n', 'c', 'd', 'e', 'g'])
+            role_value = field['j'].present? ? field['j'] : ''
             names << {
               'name_term' => {
                 'value' => StringCleaner.trailing_punctuation_and_whitespace(val),

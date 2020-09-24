@@ -19,8 +19,14 @@ module Hysync
           end
 
           def extract_funding_information_notes(marc_record, mapping_ruleset)
-            MarcSelector.all(marc_record, 536, a: true).map do |field|
-              MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'])
+            if mapping_ruleset == 'tibetan'
+              MarcSelector.all(marc_record, 533, n: true).map do |field|
+                field['n']
+              end
+            else
+              MarcSelector.all(marc_record, 536, a: true).map do |field|
+                MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'])
+              end
             end
           end
         end
