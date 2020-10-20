@@ -49,11 +49,18 @@ namespace :hysync do
     runner = Hysync::MarcSynchronizer::Runner.new(HYACINTH_CONFIG, VOYAGER_CONFIG)
     force_update = (ENV['force_update'] == 'true')
     dry_run = (ENV['dry_run'] == 'true')
+    use_cached_results = (ENV['use_cached_results'] == 'true')
     voyager = runner.instance_variable_get(:@voyager_client)
-    voyager.instance_variable_get(:@z3950_config)['use_cached_results'] = false
-    voyager.search_by_965_value(ENV['value965']) do |marc_record, i, num_results|
-      base_digital_object_data = Hysync::MarcSynchronizer::Runner.default_digital_object_data
-      success, errors = runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run)
+    voyager.instance_variable_get(:@z3950_config)['use_cached_results'] = use_cached_results
+    voyager.search_by_965_value(ENV['value965']) do |marc_record, i, num_results, unexpected_error|
+      if unexpected_error.present?
+        success = false
+        errors = [unexpected_error]
+      else
+        base_digital_object_data = Hysync::MarcSynchronizer::Runner.default_digital_object_data
+        success, errors = runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run)
+      end
+
       if success
         puts "#{i}: Success"
       else
