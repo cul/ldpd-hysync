@@ -134,7 +134,7 @@ module Voyager
           friendly_error_message = "CLIO record #{entry[0...-5]} has the following errors: \n\tProblem decoding characters for record in marc file #{marc_file}. This is usually caused by smart/curly quotation marks in the record (usually the abstract field), which should be replaced with plain quotation marks.  Error message: #{e.message}"
           # Log error, appending a bit of extra info
           Rails.logger.error("#{friendly_error_message}\n#{e.message}\n\t#{e.backtrace.join("\n\t")}")
-          yield nil, nil, nil, friendly_error_message
+          yield nil, result_counter, num_results, friendly_error_message
         end
         result_counter += 1
       end
