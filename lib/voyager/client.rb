@@ -49,8 +49,8 @@ module Voyager
     # Finds a single record by bib id
     # @return [MARC::Record] The MARC record associated with the given id.
     def search_by_965_value(string_965_value)
-      search(1, 9000, string_965_value) do |marc_record, i, num_results|
-        yield marc_record, i, num_results
+      search(1, 9000, string_965_value) do |marc_record, i, num_results, unexpected_error|
+        yield marc_record, i, num_results, unexpected_error
       end
     end
 
@@ -127,17 +127,14 @@ module Voyager
           # causes problems with NFS locks on NFS volumes, so we'll
           # read in the file and pass the content in as a StringIO.
           marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file)), external_encoding: 'MARC-8').first
-          yield marc_record, result_counter, num_results
+          yield marc_record, result_counter, num_results, nil
         rescue Encoding::InvalidByteSequenceError => e
-          if @z3950_config['raise_error_when_marc_decode_fails']
-            # Re-raise error, appending a bit of extra info
-            raise e, "Problem decoding characters for record in marc file #{marc_file}. Error message: #{$!}", $!.backtrace
-            # To troubleshoot this error further, it can be useful to examine the record's text around the
-            # byte range location given in the encoding error. Smart quotes are a common cause of problems.
-          else
-            Rails.logger.warn "Skipping marc file #{marc_file} because of a decoding error."
-            next
-          end
+          # To troubleshoot this error further, it can be useful to examine the record's text around the
+          # byte range location given in the encoding error. Smart quotes are a common cause of problems.
+          friendly_error_message = "CLIO record #{entry[0...-5]} has the following errors: \n\tProblem decoding characters for record in marc file #{marc_file}. This is usually caused by smart/curly quotation marks in the record (usually the abstract field), which should be replaced with plain quotation marks.  Error message: #{e.message}"
+          # Log error, appending a bit of extra info
+          Rails.logger.error("#{friendly_error_message}\n#{e.message}\n\t#{e.backtrace.join("\n\t")}")
+          yield nil, nil, nil, friendly_error_message
         end
         result_counter += 1
       end
