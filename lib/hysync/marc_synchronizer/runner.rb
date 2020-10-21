@@ -22,11 +22,13 @@ module Hysync
       def run(force_update = false, dry_run = false)
         @errors = [] # clear errors
         @voyager_client.search_by_965_value('965hyacinth') do |marc_record, i, num_results, unexpected_error|
-          Rails.logger.debug "#{i+1} of #{num_results}: (clio id = #{marc_record['001'].value}) #{marc_record['245']}"
           if unexpected_error.present?
+            Rails.logger.debug "#{i+1} of #{num_results}: ERROR"
             # This comes up most often when we encounter text encoding errors
             @errors << unexpected_error
             next
+          else
+            Rails.logger.debug "#{i+1} of #{num_results}: (clio id = #{marc_record['001'].value}) #{marc_record['245']}"
           end
 
           base_digital_object_data = self.class.default_digital_object_data
