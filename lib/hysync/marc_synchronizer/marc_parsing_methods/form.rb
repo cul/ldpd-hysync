@@ -41,7 +41,8 @@ module Hysync
             'fa' # Manuscript cartographic material, Monographic component part
             form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm006261' } # maps
           when 'id', # Sound recording, Subunit
-            'im' # Sound recording, monograph/item
+            'im', # Sound recording, monograph/item
+            'ic' # Sound recording, Collection
             form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm009874' } # sound recordings
           when 'gm', # Video recording, Monograph/item
             'gd' # Video recording, Collection
