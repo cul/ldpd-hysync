@@ -29,6 +29,7 @@ module Hysync
             project_string_keys.unshift(first_project_string_key) unless existing_project.eql?(first_project_string_key)
           end
           project_string_keys.each do |project_string_key|
+            next if existing_project.eql?(project_string_key)
             other_projects = (dynamic_field_data['other_project'] ||= [])
             other_project_term_uri = "info:hyacinth.library.columbia.edu/projects/#{project_string_key}"
             unless other_projects.detect {|v| v.dig('other_project_term', 'uri').eql?(other_project_term_uri) }
