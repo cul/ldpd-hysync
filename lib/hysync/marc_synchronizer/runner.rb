@@ -137,22 +137,13 @@ module Hysync
             Rails.logger.error msg
           end
         elsif results.length == 1
-          pid = results.first['pid']
+          hyc_record = results.first
           # We want to preserve any existing identifiers from the existing item.
-          marc_hyacinth_record.digital_object_data['identifiers'].push(*(results.first['identifiers']))
+          marc_hyacinth_record.digital_object_data['identifiers'].push(*(hyc_record['identifiers']))
           marc_hyacinth_record.digital_object_data['identifiers'].uniq!
 
-          if force_update
-            marc_005_last_modified = nil # If we're forcing an update, always assume nil value for marc_005_last_modified.
-          else
-            # Get marc_005_last_modified date for the record we plan to update, to see if we need to update it.
-            record = @hyacinth_client.find_by_pid(results.first['pid'])
-            marc_005_last_modified = record['dynamic_field_data'].key?('marc_005_last_modified') ? record['dynamic_field_data']['marc_005_last_modified'].first['marc_005_last_modified_value'] : nil
-          end
-
-          # If current marc_005_last_modified is equal to marc record value, skip update because MARC source data has not changed.
-          if marc_005_last_modified.nil? || marc_005_last_modified != marc_hyacinth_record.marc_005_last_modified
-            response = @hyacinth_client.update_existing_record(pid, marc_hyacinth_record.digital_object_data, true)
+          if update_indicated?(marc_record, hyc_record, force_update)
+            response = @hyacinth_client.update_existing_record(hyc_record['pid'], marc_hyacinth_record.digital_object_data, true)
             if response.success?
               Rails.logger.debug "Updated existing record (clio id = #{marc_hyacinth_record.clio_id})"
             else
@@ -169,6 +160,15 @@ module Hysync
           @errors << msg
           Rails.logger.error msg
         end
+      end
+
+      # If current marc_005_last_modified is equal to marc record value, return false unless forcing updates.
+      def update_indicated?(marc_record, hyacinth_record, force_update)
+        return true if force_update
+        marc_005_last_modified = marc_record['005'].value
+        hyc_005_last_modified = hyacinth_record['dynamic_field_data'].key?('marc_005_last_modified') ?
+          hyacinth_record['dynamic_field_data']['marc_005_last_modified'].first['marc_005_last_modified_value'] : nil
+        hyc_005_last_modified.nil? || marc_005_last_modified != hyc_005_last_modified
       end
 
       def self.extract_collection_record_title(collection_marc_record)
