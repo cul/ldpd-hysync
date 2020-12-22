@@ -24,11 +24,11 @@ describe Hysync::MarcSynchronizer::Runner do
       record.append(MARC::ControlField.new('005', same_005))
       record
     end
-    let(:hyacinth_record) {
+    let(:hyacinth_record) do
       record = described_class.default_digital_object_data
       record['dynamic_field_data']['marc_005_last_modified'] = [{'marc_005_last_modified_value' => same_005}]
       record
-    }
+    end
     subject { runner.update_indicated?(marc_record, hyacinth_record, force_update) }
     context 'force_update flag is set' do
       let(:force_update) { true }
@@ -47,15 +47,68 @@ describe Hysync::MarcSynchronizer::Runner do
       end
     end
     context 'hyacinth and marc 005 differ' do
-      let(:hyacinth_record) {
+      let(:hyacinth_record) do
         record = described_class.default_digital_object_data
         record['dynamic_field_data']['marc_005_last_modified'] = [{'marc_005_last_modified_value' => different_005}]
         record
-      }
+      end
       it { is_expected.to be true }
     end
     context 'hyacinth and marc 005 do not differ' do
       it { is_expected.to be false }
+    end
+  end
+  describe '#reconcile_identifiers!' do
+    let(:runner) { described_class.allocate }
+    let(:default_data) { described_class.default_digital_object_data }
+    let(:marc_record) do
+      FactoryBot.build(:marc_record)
+    end
+    let(:marc_ids) { [] }
+    let(:marc_hyacinth_record) do
+      Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, [], default_data.merge('identifiers' => marc_ids.dup))
+    end
+    let(:hyacinth_ids) do
+      []
+    end
+    let(:existing_hyacinth_record) do
+      record = described_class.default_digital_object_data.merge('identifiers' => hyacinth_ids.dup)
+      record
+    end
+    before do
+      runner.reconcile_identifiers!(marc_hyacinth_record, existing_hyacinth_record)
+    end
+    context 'marc is superset of hyacinth' do
+      let(:marc_ids) { ['abc123', 'abc456'] }
+      let(:hyacinth_ids) { ['abc456'] }
+      let(:expected) { marc_ids }
+      it 'stub' do
+        expect(marc_hyacinth_record.digital_object_data['identifiers']).to eql(expected)
+      end
+    end
+    context 'hyacinth is superset of marc' do
+      let(:marc_ids) { ['abc456'] }
+      let(:hyacinth_ids) { ['abc123', 'abc456'] }
+      let(:expected) { ['abc456', 'abc123'] }
+      it 'stub' do
+        expect(marc_hyacinth_record.digital_object_data['identifiers']).to eql(expected)
+      end
+    end
+    context 'marc and hyacinth identifier sets are equal' do
+      let(:marc_ids) { ['abc123', 'abc456'] }
+      let(:hyacinth_ids) { marc_ids.reverse }
+      let(:expected) { marc_ids }
+      it 'stub' do
+        expect(marc_hyacinth_record.digital_object_data['identifiers']).to eql(expected)
+      end
+    end
+    context 'marc and hyacinth identifier sets are disjoint' do
+      let(:marc_ids) { ['abc123', 'abc456'] }
+      let(:hyacinth_ids) { ['abc789', '123abc'] }
+      let(:expected) { marc_ids + hyacinth_ids }
+      it 'stub' do
+        expect(marc_hyacinth_record.digital_object_data['identifiers']).to eql(expected)
+      end
     end
   end
 end

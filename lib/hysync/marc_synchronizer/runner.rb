@@ -139,8 +139,7 @@ module Hysync
         elsif results.length == 1
           hyc_record = results.first
           # We want to preserve any existing identifiers from the existing item.
-          marc_hyacinth_record.digital_object_data['identifiers'].push(*(hyc_record['identifiers']))
-          marc_hyacinth_record.digital_object_data['identifiers'].uniq!
+          reconcile_identifiers!(marc_hyacinth_record, existing_hyacinth_record)
 
           if update_indicated?(marc_record, hyc_record, force_update)
             response = @hyacinth_client.update_existing_record(hyc_record['pid'], marc_hyacinth_record.digital_object_data, true)
@@ -169,6 +168,12 @@ module Hysync
         hyc_005_last_modified = hyacinth_record['dynamic_field_data'].key?('marc_005_last_modified') ?
           hyacinth_record['dynamic_field_data']['marc_005_last_modified'].first['marc_005_last_modified_value'] : nil
         hyc_005_last_modified.nil? || marc_005_last_modified != hyc_005_last_modified
+      end
+
+      # Preserve any existing identifiers from the existing item.
+      def reconcile_identifiers!(marc_hyacinth_record, existing_hyacinth_record)
+        marc_hyacinth_record.digital_object_data['identifiers'].push(*(existing_hyacinth_record['identifiers']))
+        marc_hyacinth_record.digital_object_data['identifiers'].uniq!
       end
 
       def self.extract_collection_record_title(collection_marc_record)
