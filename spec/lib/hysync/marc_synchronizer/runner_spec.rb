@@ -68,9 +68,7 @@ describe Hysync::MarcSynchronizer::Runner do
     let(:marc_hyacinth_record) do
       Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, [], default_data.merge('identifiers' => marc_ids.dup))
     end
-    let(:hyacinth_ids) do
-      []
-    end
+    let(:hyacinth_ids) { [] }
     let(:existing_hyacinth_record) do
       record = described_class.default_digital_object_data.merge('identifiers' => hyacinth_ids.dup)
       record
@@ -82,7 +80,7 @@ describe Hysync::MarcSynchronizer::Runner do
       let(:marc_ids) { ['abc123', 'abc456'] }
       let(:hyacinth_ids) { ['abc456'] }
       let(:expected) { marc_ids }
-      it 'stub' do
+      it 'preserves marc identifiers in order' do
         expect(marc_hyacinth_record.digital_object_data['identifiers']).to eql(expected)
       end
     end
@@ -90,7 +88,7 @@ describe Hysync::MarcSynchronizer::Runner do
       let(:marc_ids) { ['abc456'] }
       let(:hyacinth_ids) { ['abc123', 'abc456'] }
       let(:expected) { ['abc456', 'abc123'] }
-      it 'stub' do
+      it 'reorders the union to match marc order first' do
         expect(marc_hyacinth_record.digital_object_data['identifiers']).to eql(expected)
       end
     end
@@ -98,7 +96,7 @@ describe Hysync::MarcSynchronizer::Runner do
       let(:marc_ids) { ['abc123', 'abc456'] }
       let(:hyacinth_ids) { marc_ids.reverse }
       let(:expected) { marc_ids }
-      it 'stub' do
+      it 'reorders the union to match marc order' do
         expect(marc_hyacinth_record.digital_object_data['identifiers']).to eql(expected)
       end
     end
@@ -106,8 +104,88 @@ describe Hysync::MarcSynchronizer::Runner do
       let(:marc_ids) { ['abc123', 'abc456'] }
       let(:hyacinth_ids) { ['abc789', '123abc'] }
       let(:expected) { marc_ids + hyacinth_ids }
-      it 'stub' do
+      it 'assigns the union of values, marc first' do
         expect(marc_hyacinth_record.digital_object_data['identifiers']).to eql(expected)
+      end
+    end
+  end
+  describe '#reconcile_projects!' do
+    let(:runner) { described_class.allocate }
+    let(:hyacinth_project) { 'hyacinth_only' }
+    let(:default_data) { described_class.default_digital_object_data }
+    let(:marc_record) do
+      record = FactoryBot.build(:marc_record)
+      marc_ids.each do |key|
+        record.append(MARC::DataField.new('965', ' ',  ' ', ['a', "965#{key}"]))
+      end
+      record
+    end
+    let(:marc_ids) { [] }
+    let(:marc_projects) { marc_ids.map {|string_key| Hysync::MarcSynchronizer::MarcParsingMethods::Project.hyacinth_2_project_term(string_key) } }
+    let(:marc_hyacinth_record) do
+      Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, [], default_data.merge('identifiers' => marc_ids.dup))
+    end
+    let(:hyacinth_ids) { [] }
+    let(:hyc_projects) { hyacinth_ids.map {|string_key| Hysync::MarcSynchronizer::MarcParsingMethods::Project.hyacinth_2_project_term(string_key) } }
+    let(:existing_hyacinth_record) do
+      record = described_class.default_digital_object_data.merge('identifiers' => hyacinth_ids.dup)
+      record['project'] = {'string_key' => hyacinth_project}
+      record['dynamic_field_data']['other_project'] = hyc_projects.dup
+      record
+    end
+    before do
+      runner.reconcile_projects!(marc_hyacinth_record, existing_hyacinth_record)
+    end
+    context 'marc is superset of hyacinth' do
+      let(:marc_ids) { ['tibetan', 'TBM'] }
+      let(:hyacinth_ids) { ['TBM'] }
+      let(:expected) { hyacinth_ids | marc_ids }
+      it 'assigns union of values with hyacinth order preserved' do
+        actual = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map {|v| v.dig('other_project_term', 'uri')}
+        actual.map! { |u| u.split('/')[-1] }
+        expect(actual).to eql(expected)
+        existing_project = existing_hyacinth_record.dig('project', 'string_key')
+        proposed_project = marc_hyacinth_record.digital_object_data.dig('project','string_key')
+        expect(proposed_project).to eql(existing_project)
+      end
+    end
+    context 'hyacinth is superset of marc' do
+      let(:marc_ids) { ['TBM'] }
+      let(:hyacinth_ids) { ['tibetan', 'TBM'] }
+      let(:expected) { hyacinth_ids }
+      it 'assigns union of values with hyacinth order preserved' do
+        actual = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map {|v| v.dig('other_project_term', 'uri')}
+        actual.map! { |u| u.split('/')[-1] }
+        expect(actual).to eql(expected)
+        existing_project = existing_hyacinth_record.dig('project', 'string_key')
+        proposed_project = marc_hyacinth_record.digital_object_data.dig('project','string_key')
+        expect(proposed_project).to eql(existing_project)
+      end
+    end
+    context 'marc and hyacinth identifier sets are equal' do
+      let(:marc_ids) { ['tibetan', 'TBM'] }
+      let(:hyacinth_ids) { marc_ids.reverse }
+      let(:expected) { hyacinth_ids }
+      it 'assigns union of values with hyacinth order preserved' do
+        actual = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map {|v| v.dig('other_project_term', 'uri')}
+        actual.map! { |u| u.split('/')[-1] }
+        expect(actual).to eql(expected)
+        existing_project = existing_hyacinth_record.dig('project', 'string_key')
+        proposed_project = marc_hyacinth_record.digital_object_data.dig('project','string_key')
+        expect(proposed_project).to eql(existing_project)
+      end
+    end
+    context 'marc and hyacinth identifier sets are disjoint' do
+      let(:marc_ids) { ['tibetan', 'TBM'] }
+      let(:hyacinth_ids) { ['carnegie_dpf'] }
+      let(:expected) { hyacinth_ids + marc_ids }
+      it 'assigns union of values with hyacinth order preserved' do
+        actual = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map {|v| v.dig('other_project_term', 'uri')}
+        actual.map! { |u| u.split('/')[-1] }
+        expect(actual).to eql(expected)
+        existing_project = existing_hyacinth_record.dig('project', 'string_key')
+        proposed_project = marc_hyacinth_record.digital_object_data.dig('project','string_key')
+        expect(proposed_project).to eql(existing_project)
       end
     end
   end

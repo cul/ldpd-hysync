@@ -2,6 +2,8 @@ module Hysync
   module MarcSynchronizer
     module MarcParsingMethods
       module Project
+        HYACINTH_2_URI_TEMPLATE = 'info:hyacinth.library.columbia.edu/projects/%s'.freeze
+
         extend ActiveSupport::Concern
         included do
           register_parsing_method :add_project
@@ -31,15 +33,19 @@ module Hysync
           project_string_keys.each do |project_string_key|
             next if existing_project.eql?(project_string_key)
             other_projects = (dynamic_field_data['other_project'] ||= [])
-            other_project_term_uri = "info:hyacinth.library.columbia.edu/projects/#{project_string_key}"
+            other_project_term_uri = Project.hyacinth_2_project_uri(project_string_key)
             unless other_projects.detect {|v| v.dig('other_project_term', 'uri').eql?(other_project_term_uri) }
-              other_projects << {
-                'other_project_term' => {
-                  'uri' => other_project_term_uri
-                }
-              }
+              other_projects << Project.hyacinth_2_project_term(project_string_key)
             end
           end
+        end
+
+        def self.hyacinth_2_project_uri(project_string_key)
+          HYACINTH_2_URI_TEMPLATE % project_string_key
+        end
+
+        def self.hyacinth_2_project_term(project_string_key)
+          { 'other_project_term' => { 'uri' => hyacinth_2_project_uri(project_string_key)} }
         end
       end
     end

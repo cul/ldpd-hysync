@@ -141,6 +141,8 @@ module Hysync
           # We want to preserve any existing identifiers from the existing item.
           reconcile_identifiers!(marc_hyacinth_record, existing_hyacinth_record)
 
+          reconcile_projects!(marc_hyacinth_record, existing_hyacinth_record)
+
           if update_indicated?(marc_record, hyc_record, force_update)
             response = @hyacinth_client.update_existing_record(hyc_record['pid'], marc_hyacinth_record.digital_object_data, true)
             if response.success?
@@ -174,6 +176,24 @@ module Hysync
       def reconcile_identifiers!(marc_hyacinth_record, existing_hyacinth_record)
         marc_hyacinth_record.digital_object_data['identifiers'].push(*(existing_hyacinth_record['identifiers']))
         marc_hyacinth_record.digital_object_data['identifiers'].uniq!
+      end
+
+      # do not attempt to reassign primary project via synch
+      def reconcile_projects!(marc_hyacinth_record, existing_hyacinth_record)
+        marc_project = marc_hyacinth_record.digital_object_data.dig('project', 'string_key')
+        hyc_project = existing_hyacinth_record.dig('project', 'string_key')
+        marc_other_projects = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map { |t| t.dig('other_project_term', 'uri').split('/')[-1] }
+        hyc_other_projects = existing_hyacinth_record['dynamic_field_data'].fetch('other_project', []).map { |t| t.dig('other_project_term', 'uri').split('/')[-1] }
+
+        if !marc_project.eql?(hyc_project)
+          marc_other_projects.unshift(marc_project)
+          marc_hyacinth_record.digital_object_data['project'] = existing_hyacinth_record['project']
+        end
+
+        marc_hyacinth_record.dynamic_field_data['other_project'] = []
+        (hyc_other_projects | marc_other_projects).each do |string_key|
+          marc_hyacinth_record.dynamic_field_data['other_project'] << MarcParsingMethods::Project.hyacinth_2_project_term(string_key)
+        end
       end
 
       def self.extract_collection_record_title(collection_marc_record)

@@ -20,7 +20,7 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
     actual = marc_hyacinth_record.digital_object_data['project']['string_key']
     expect(actual).to eql('carnegie_dpf')
   end
-  it "extracts the expected archive.org identifiers" do
+  it "extracts the expected other project references" do
     actual = marc_hyacinth_record.digital_object_data['dynamic_field_data']['other_project']
     expect(actual).not_to be_empty
     expect(actual).to eql(expected)
