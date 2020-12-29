@@ -139,9 +139,9 @@ module Hysync
         elsif results.length == 1
           hyc_record = results.first
           # We want to preserve any existing identifiers from the existing item.
-          reconcile_identifiers!(marc_hyacinth_record, existing_hyacinth_record)
+          reconcile_identifiers!(marc_hyacinth_record, hyc_record)
 
-          reconcile_projects!(marc_hyacinth_record, existing_hyacinth_record)
+          reconcile_projects!(marc_hyacinth_record, hyc_record)
 
           if update_indicated?(marc_record, hyc_record, force_update)
             response = @hyacinth_client.update_existing_record(hyc_record['pid'], marc_hyacinth_record.digital_object_data, true)
