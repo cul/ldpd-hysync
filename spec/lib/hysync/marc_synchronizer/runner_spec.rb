@@ -16,7 +16,6 @@ describe Hysync::MarcSynchronizer::Runner do
     let(:runner) { described_class.allocate }
     let(:same_005) { '20150713190008.1' }
     let(:different_005) { '20150713190008.0' }
-    let(:force_update) { false }
     let(:marc_005) { early_005 }
     let(:marc_record) do
       record = FactoryBot.build(:marc_record)
@@ -29,11 +28,7 @@ describe Hysync::MarcSynchronizer::Runner do
       record['dynamic_field_data']['marc_005_last_modified'] = [{'marc_005_last_modified_value' => same_005}]
       record
     end
-    subject { runner.update_indicated?(marc_record, hyacinth_record, force_update) }
-    context 'force_update flag is set' do
-      let(:force_update) { true }
-      it { is_expected.to be true }
-    end
+    subject { runner.update_indicated?(marc_record, hyacinth_record) }
     context 'no hyacinth 005 recorded' do
       let(:hyacinth_record) {
         described_class.default_digital_object_data
@@ -43,7 +38,7 @@ describe Hysync::MarcSynchronizer::Runner do
     context 'no marc 005 is recorded' do
       subject { nil }
       pending 'raises an error' do
-        expect { runner.update_indicated?(marc_record, hyacinth_record, force_update) }.to raise_error
+        expect { runner.update_indicated?(marc_record, hyacinth_record) }.to raise_error
       end
     end
     context 'hyacinth and marc 005 differ' do

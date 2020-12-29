@@ -143,7 +143,7 @@ module Hysync
 
           reconcile_projects!(marc_hyacinth_record, hyc_record)
 
-          if update_indicated?(marc_record, hyc_record, force_update)
+          if force_update || update_indicated?(marc_record, hyc_record)
             response = @hyacinth_client.update_existing_record(hyc_record['pid'], marc_hyacinth_record.digital_object_data, true)
             if response.success?
               Rails.logger.debug "Updated existing record (clio id = #{marc_hyacinth_record.clio_id})"
@@ -163,9 +163,9 @@ module Hysync
         end
       end
 
-      # If current marc_005_last_modified is equal to marc record value, return false unless forcing updates.
-      def update_indicated?(marc_record, hyacinth_record, force_update)
-        return true if force_update
+      # If given hyacinth_record marc_005_last_modified value is equal to given marc_record 005
+      # value, return false.  Otherwise return true.
+      def update_indicated?(marc_record, hyacinth_record)
         marc_005_last_modified = marc_record['005'].value
         hyc_005_last_modified = hyacinth_record['dynamic_field_data'].key?('marc_005_last_modified') ?
           hyacinth_record['dynamic_field_data']['marc_005_last_modified'].first['marc_005_last_modified_value'] : nil
