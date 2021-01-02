@@ -110,31 +110,34 @@ describe Hysync::MarcSynchronizer::Runner do
     let(:default_data) { described_class.default_digital_object_data }
     let(:marc_record) do
       record = FactoryBot.build(:marc_record)
-      marc_ids.each do |key|
+      marc_project_keys.each do |key|
         record.append(MARC::DataField.new('965', ' ',  ' ', ['a', "965#{key}"]))
       end
       record
     end
-    let(:marc_ids) { [] }
-    let(:marc_projects) { marc_ids.map {|string_key| Hysync::MarcSynchronizer::MarcParsingMethods::Project.hyacinth_2_project_term(string_key) } }
+    let(:common_ids) { ['abc123', 'abc456'] }
+    # an intermediate mapping behavior based on configuration prevents these values
+    # from being understood strictly as string_key, but we're passing through
+    let(:marc_project_keys) { [] }
+    let(:marc_projects) { marc_project_keys.map {|marc_project_key| Hysync::MarcSynchronizer::MarcParsingMethods::Project.hyacinth_2_project_term(marc_project_key) } }
     let(:marc_hyacinth_record) do
-      Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, [], default_data.merge('identifiers' => marc_ids.dup))
+      Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, [], default_data.merge('identifiers' => common_ids.dup))
     end
-    let(:hyacinth_ids) { [] }
-    let(:hyc_projects) { hyacinth_ids.map {|string_key| Hysync::MarcSynchronizer::MarcParsingMethods::Project.hyacinth_2_project_term(string_key) } }
+    let(:hyc_other_project_string_keys) { [] }
+    let(:hyc_other_projects) { hyc_other_project_string_keys.map {|string_key| Hysync::MarcSynchronizer::MarcParsingMethods::Project.hyacinth_2_project_term(string_key) } }
     let(:existing_hyacinth_record) do
-      record = described_class.default_digital_object_data.merge('identifiers' => hyacinth_ids.dup)
+      record = described_class.default_digital_object_data.merge('identifiers' => common_ids.dup)
       record['project'] = {'string_key' => hyacinth_project}
-      record['dynamic_field_data']['other_project'] = hyc_projects.dup
+      record['dynamic_field_data']['other_project'] = hyc_other_projects.dup
       record
     end
     before do
       runner.reconcile_projects!(marc_hyacinth_record, existing_hyacinth_record)
     end
     context 'marc is superset of hyacinth' do
-      let(:marc_ids) { ['tibetan', 'TBM'] }
-      let(:hyacinth_ids) { ['TBM'] }
-      let(:expected) { hyacinth_ids | marc_ids }
+      let(:marc_project_keys) { ['tibetan', 'TBM'] }
+      let(:hyc_other_project_string_keys) { ['TBM'] }
+      let(:expected) { hyc_other_project_string_keys | marc_project_keys }
       it 'assigns union of values with hyacinth order preserved' do
         actual = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map {|v| v.dig('other_project_term', 'uri')}
         actual.map! { |u| u.split('/')[-1] }
@@ -145,9 +148,9 @@ describe Hysync::MarcSynchronizer::Runner do
       end
     end
     context 'hyacinth is superset of marc' do
-      let(:marc_ids) { ['TBM'] }
-      let(:hyacinth_ids) { ['tibetan', 'TBM'] }
-      let(:expected) { hyacinth_ids }
+      let(:marc_project_keys) { ['TBM'] }
+      let(:hyc_other_project_string_keys) { ['tibetan', 'TBM'] }
+      let(:expected) { hyc_other_project_string_keys }
       it 'assigns union of values with hyacinth order preserved' do
         actual = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map {|v| v.dig('other_project_term', 'uri')}
         actual.map! { |u| u.split('/')[-1] }
@@ -157,10 +160,10 @@ describe Hysync::MarcSynchronizer::Runner do
         expect(proposed_project).to eql(existing_project)
       end
     end
-    context 'marc and hyacinth identifier sets are equal' do
-      let(:marc_ids) { ['tibetan', 'TBM'] }
-      let(:hyacinth_ids) { marc_ids.reverse }
-      let(:expected) { hyacinth_ids }
+    context 'marc and hyacinth identifier sets are equivalent' do
+      let(:marc_project_keys) { ['tibetan', 'TBM'] }
+      let(:hyc_other_project_string_keys) { marc_project_keys.reverse }
+      let(:expected) { hyc_other_project_string_keys }
       it 'assigns union of values with hyacinth order preserved' do
         actual = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map {|v| v.dig('other_project_term', 'uri')}
         actual.map! { |u| u.split('/')[-1] }
@@ -171,9 +174,9 @@ describe Hysync::MarcSynchronizer::Runner do
       end
     end
     context 'marc and hyacinth identifier sets are disjoint' do
-      let(:marc_ids) { ['tibetan', 'TBM'] }
-      let(:hyacinth_ids) { ['carnegie_dpf'] }
-      let(:expected) { hyacinth_ids + marc_ids }
+      let(:marc_project_keys) { ['tibetan', 'TBM'] }
+      let(:hyc_other_project_string_keys) { ['carnegie_dpf'] }
+      let(:expected) { hyc_other_project_string_keys + marc_project_keys }
       it 'assigns union of values with hyacinth order preserved' do
         actual = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map {|v| v.dig('other_project_term', 'uri')}
         actual.map! { |u| u.split('/')[-1] }
