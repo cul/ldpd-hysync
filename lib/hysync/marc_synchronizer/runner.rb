@@ -137,22 +137,14 @@ module Hysync
             Rails.logger.error msg
           end
         elsif results.length == 1
-          pid = results.first['pid']
+          hyc_record = results.first
           # We want to preserve any existing identifiers from the existing item.
-          marc_hyacinth_record.digital_object_data['identifiers'].push(*(results.first['identifiers']))
-          marc_hyacinth_record.digital_object_data['identifiers'].uniq!
+          reconcile_identifiers!(marc_hyacinth_record, hyc_record)
 
-          if force_update
-            marc_005_last_modified = nil # If we're forcing an update, always assume nil value for marc_005_last_modified.
-          else
-            # Get marc_005_last_modified date for the record we plan to update, to see if we need to update it.
-            record = @hyacinth_client.find_by_pid(results.first['pid'])
-            marc_005_last_modified = record['dynamic_field_data'].key?('marc_005_last_modified') ? record['dynamic_field_data']['marc_005_last_modified'].first['marc_005_last_modified_value'] : nil
-          end
+          reconcile_projects!(marc_hyacinth_record, hyc_record)
 
-          # If current marc_005_last_modified is equal to marc record value, skip update because MARC source data has not changed.
-          if marc_005_last_modified.nil? || marc_005_last_modified != marc_hyacinth_record.marc_005_last_modified
-            response = @hyacinth_client.update_existing_record(pid, marc_hyacinth_record.digital_object_data, true)
+          if force_update || update_indicated?(marc_record, hyc_record)
+            response = @hyacinth_client.update_existing_record(hyc_record['pid'], marc_hyacinth_record.digital_object_data, true)
             if response.success?
               Rails.logger.debug "Updated existing record (clio id = #{marc_hyacinth_record.clio_id})"
             else
@@ -168,6 +160,39 @@ module Hysync
             "Found more than one Hyacinth record with identifier #{hyacinth_record_identifier}, but only expected to find one. This needs to be corrected."
           @errors << msg
           Rails.logger.error msg
+        end
+      end
+
+      # If given hyacinth_record marc_005_last_modified value is equal to given marc_record 005
+      # value, return false.  Otherwise return true.
+      def update_indicated?(marc_record, hyacinth_record)
+        marc_005_last_modified = marc_record['005'].value
+        hyc_005_last_modified = hyacinth_record['dynamic_field_data'].key?('marc_005_last_modified') ?
+          hyacinth_record['dynamic_field_data']['marc_005_last_modified'].first['marc_005_last_modified_value'] : nil
+        hyc_005_last_modified.nil? || marc_005_last_modified != hyc_005_last_modified
+      end
+
+      # Preserve any existing identifiers from the existing item.
+      def reconcile_identifiers!(marc_hyacinth_record, existing_hyacinth_record)
+        marc_hyacinth_record.digital_object_data['identifiers'].push(*(existing_hyacinth_record['identifiers']))
+        marc_hyacinth_record.digital_object_data['identifiers'].uniq!
+      end
+
+      # do not attempt to reassign primary project via synch
+      def reconcile_projects!(marc_hyacinth_record, existing_hyacinth_record)
+        marc_project = marc_hyacinth_record.digital_object_data.dig('project', 'string_key')
+        hyc_project = existing_hyacinth_record.dig('project', 'string_key')
+        marc_other_projects = marc_hyacinth_record.dynamic_field_data.fetch('other_project', []).map { |t| t.dig('other_project_term', 'uri').split('/')[-1] }
+        hyc_other_projects = existing_hyacinth_record['dynamic_field_data'].fetch('other_project', []).map { |t| t.dig('other_project_term', 'uri').split('/')[-1] }
+
+        if !marc_project.eql?(hyc_project)
+          marc_other_projects.unshift(marc_project)
+          marc_hyacinth_record.digital_object_data['project'] = existing_hyacinth_record['project']
+        end
+
+        marc_hyacinth_record.dynamic_field_data['other_project'] = []
+        (hyc_other_projects | marc_other_projects).each do |string_key|
+          marc_hyacinth_record.dynamic_field_data['other_project'] << MarcParsingMethods::Project.hyacinth_2_project_term(string_key)
         end
       end
 
