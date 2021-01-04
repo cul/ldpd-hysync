@@ -1,0 +1,37 @@
+dist: xenial
+
+addons:
+  apt:
+    packages:
+      - libyazpp-dev
+
+language: ruby
+sudo: false
+cache:
+  bundler: true
+
+rvm:
+  - 2.6.4
+
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+
+before_install:
+  - "echo 'gem: --no-document' > ~/.gemrc"
+  - gem update --system 3.0.6
+  - gem install bundler
+  # Remove ruby-oci8 for now since it's difficult to build on travis-ci
+  - cp Gemfile Gemfile.original
+  - sed -i.bak "/'ruby-oci8'/d" ./Gemfile
+  # Need to run bundle install here manually to update Gemfile.lock after removing gems.
+  # This isn't a perfect solution because it could result in different gem versions
+  # than the ones committed to Gemfile.lock in the repository, but at least gets
+  # bundle install to work.
+  - bundle install
+
+before_script:
+  - cp config/templates/hysync.template.yml config/hysync.yml
+  - cp config/templates/hyacinth.template.yml config/hyacinth.yml
+  - cp config/templates/voyager.template.yml config/voyager.yml
+  - cp config/templates/database.template.yml config/database.yml

@@ -1,0 +1,25 @@
+development:
+  z3950:
+    host: localhost
+    port: 7090
+    database_name: dbname
+    use_cached_results: true
+  oracle:
+    host: localhost
+    port: 1527
+    database_name: DBNAME
+    user: username
+    password: password
+
+test:
+  z3950:
+    host: null
+    port: null
+    database_name: null
+    use_cached_results: false
+  oracle:
+    host: null
+    port: null
+    database_name: null
+    user: null
+    password: null

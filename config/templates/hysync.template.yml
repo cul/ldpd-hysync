@@ -1,0 +1,33 @@
+shared: &shared
+  project_mappings:
+    965carnegiedpf: carnegie_dpf
+    965TBM: TBM
+    965tibetan: tibetan
+    965greene_and_greene: greene_and_greene
+    965bnf: france_in_the_americas
+    965CPEMC: cpemc
+    965academiccommons: academic_commons
+  publish_target_mappings:
+    965carnegiedpf:
+    - dlc_catalog
+    - carnegie
+    - carnegie_staging
+    965greene_and_greene:
+    - dlc_catalog
+    - ggva
+    965bnf:
+    - dlc_catalog
+  developer_email_address: test@example.com
+  default_sender_email_address: test@example.com
+  marc_sync_email_addresses:
+    - test@example.com
+
+development:
+  <<: *shared
+  remote_request_username: testuser
+  remote_request_password: testpassword
+
+test:
+  <<: *shared
+  remote_request_username: testuser
+  remote_request_password: testpassword

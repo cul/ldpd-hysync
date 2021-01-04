@@ -1,0 +1,9 @@
+development:
+  url: https://hyacinth-dev.library.columbia.edu
+  email: user@example.com
+  password: password
+
+test:
+  url: null
+  email: null
+  password: null
