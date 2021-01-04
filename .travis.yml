@@ -1,14 +1,21 @@
+arch: amd64
+os: linux
 dist: xenial
 
 addons:
   apt:
     packages:
       - libyazpp-dev
+      - unzip
 
 language: ruby
-sudo: false
+
 cache:
   bundler: true
+  # Travis doesn't follow symlinks when caching, so we'll only cache the downloads directory
+  # because the unzipped downloads include symlinks.
+  directories:
+  - /opt/oracle/downloads
 
 rvm:
   - 2.6.4
@@ -16,19 +23,24 @@ rvm:
 env:
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+    - NLS_LANG='AMERICAN_AMERICA.US7ASCII'
 
 before_install:
   - "echo 'gem: --no-document' > ~/.gemrc"
   - gem update --system 3.0.6
   - gem install bundler
-  # Remove ruby-oci8 for now since it's difficult to build on travis-ci
-  - cp Gemfile Gemfile.original
-  - sed -i.bak "/'ruby-oci8'/d" ./Gemfile
-  # Need to run bundle install here manually to update Gemfile.lock after removing gems.
-  # This isn't a perfect solution because it could result in different gem versions
-  # than the ones committed to Gemfile.lock in the repository, but at least gets
-  # bundle install to work.
-  - bundle install
+  # Install oracle dependency for ruby-oci8 gem
+  - mkdir -p /opt/oracle/downloads
+  - cd /opt/oracle/downloads
+  - "if [ ! -f /opt/oracle/downloads/cache.present ]; then curl -O 'https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-basic-linux.x64-21.1.0.0.0.zip'; fi"
+  - "if [ ! -f /opt/oracle/downloads/cache.present ]; then curl -O 'https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-sdk-linux.x64-21.1.0.0.0.zip'; fi"
+  - "if [ ! -f /opt/oracle/downloads/cache.present ]; then curl -O 'https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-sqlplus-linux.x64-21.1.0.0.0.zip'; fi"
+  - "if [ ! -f /opt/oracle/downloads/cache.present ]; then touch cache.present; fi"
+  - cd /opt/oracle
+  - "find ./downloads -name '*.zip' -exec unzip {} \\;"
+  - echo $NLS_LANG
+  - export LD_LIBRARY_PATH=/opt/oracle/instantclient_21_1
+  - cd $TRAVIS_BUILD_DIR
 
 before_script:
   - cp config/templates/hysync.template.yml config/hysync.yml
