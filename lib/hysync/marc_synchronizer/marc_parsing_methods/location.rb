@@ -22,7 +22,7 @@ module Hysync
         def extract_location_terms(holdings_marc_records, mapping_ruleset)
           location_terms = []
           case mapping_ruleset
-          when 'carnegie_scrapbooks_and_ledgers', 'annual_reports'
+          when 'carnegie_scrapbooks_and_ledgers', 'annual_reports', 'gumby', 'rbml'
             location_terms << {
               'value' => 'Rare Book & Manuscript Library, Columbia University',
               'authority' => 'marcorg',

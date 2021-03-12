@@ -106,7 +106,7 @@ module Hysync
         end
 
         def add_archival_series_to_first_collection_if_present(marc_record, mapping_ruleset)
-          return unless mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
+          return unless ['carnegie_scrapbooks_and_ledgers', 'gumby'].include?(mapping_ruleset)
 
           # For now, we're only retrieving the archival series from MARC for
           # carnegie_scrapbooks_and_ledgers. For other mapping types, that data
@@ -119,9 +119,10 @@ module Hysync
               {
                 'collection_archival_series_part' => [
                   {
-                    'collection_archival_series_part_type' => 'series',
                     'collection_archival_series_part_title' => field['g']
-                  }
+                  }.tap do |part|
+                    part['collection_archival_series_part_type'] = 'series' if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
+                  end
                 ]
               }
             ]

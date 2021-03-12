@@ -51,13 +51,9 @@ module Hysync
 
         def extract_first_main_entry_name_term(marc_record, mapping_ruleset)
           # Check personal name field (100)
-          field = MarcSelector.first(marc_record, 100, indicator1: 1, a: true)
+          field = MarcSelector.first(marc_record, 100, indicator1: 1, a: true) || MarcSelector.first(marc_record, 100, indicator1: 0, a: true)
           if field
-            val = field['a']
-            val += ' ' + field['b'] if field['b']
-            val += ' ' + field['c'] if field['c']
-            val += ' ' + field['q'] if field['q']
-            val += ' ' + field['d'] if field['d']
+            val = MarcSelector.concat_subfield_values(field, ['a', 'b', 'q', 'd'])
             role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
@@ -127,13 +123,8 @@ module Hysync
 
         def extract_700_personal_names(marc_record, mapping_ruleset)
           names = []
-          MarcSelector.all(marc_record, 700, indicator1: 1, a: true).map do |field|
-            val = field['a']
-            val += ' ' + field['b'] if field['b']
-            val += ' ' + field['c'] if field['c']
-            val += ' ' + field['q'] if field['q']
-            val += ' ' + field['d'] if field['d']
-            val += ' ' + field['g'] if field['g']
+          (MarcSelector.all(marc_record, 700, indicator1: 1, a: true) + MarcSelector.all(marc_record, 700, indicator1: 0, a: true)).map do |field|
+            val = MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'q', 'd', 'g'])
             role_value = field['e'].present? ? field['e'] : ''
             names << {
               'name_term' => {
