@@ -32,6 +32,17 @@ module Hysync
           'Alien labor certification' => 'Foreign worker certification',
           'Women alien labor' => 'Women foreign workers',
           'Officials and employees, Alien' => 'Officials and employees, Noncitizen',
+          'Foreign workers'	=> 'Noncitizen labor',
+          'Alien labor'	=> 'Noncitizen labor',
+          'Children of foreign workers'	=> 'Children of noncitizen laborers',
+          'Children of alien laborers'	=> 'Children of noncitizen laborers',
+          'Foreign worker certification'	=> 'Noncitizen labor certification',
+          'Alien labor certification'	=> 'Noncitizen labor certification',
+          'Women foreign workers'	=> 'Women noncitizen labor',
+          'Women alien labor'	=> 'Women noncitizen labor',
+          "Foreign workers' families"	=> "Noncitizen laborers' families",
+          "Alien laborers' families"	=> "Noncitizen laborers' families",
+          'Officials and employees, Alien'	=> 'Officials and employees, Noncitizen',
         }.freeze
 
         def add_subject_topic(marc_record, holdings_marc_records, mapping_ruleset)
