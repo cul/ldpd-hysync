@@ -33,7 +33,9 @@ module Hysync
           MarcSelector.all(marc_record, 490, indicator1: 0, a: true).map do |field|
             {
               'series_title' => StringCleaner.trailing_punctuation_and_whitespace(field['a'])
-            }
+            }.tap do |series|
+              series['series_is_columbia'] = true if mapping_ruleset == 'ldeotechnical'
+            end
           end
         end
       end
