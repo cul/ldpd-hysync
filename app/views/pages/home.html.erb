@@ -1,2 +1,8 @@
-<h1>Hysync</h1>
-Version <%= APP_VERSION %>
+<h1 style="margin: .5em 0;">Hysync</h1>
+<p>Version <%= APP_VERSION %></p>
+<div style="border: 1px solid #aaa; padding: 1em 1em 0; margin-top: 1em;">
+  <h2 style="margin-top:0; padding-bottom: .55em; border-bottom: 1px solid #aaa;">Currently available project mappings:</h2>
+  <dl>
+    <%= HYSYNC['project_mappings'].sort.map {|key965, project_string_key| %(<dt>#{project_string_key}</dt><dd style="margin-bottom:1em;">- #{key965}</dd>) }.join.html_safe %>
+  </dl>
+</div>
