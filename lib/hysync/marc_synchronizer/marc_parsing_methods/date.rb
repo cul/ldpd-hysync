@@ -13,6 +13,13 @@ module Hysync
           add_appropriate_date_fields(date_type, date1, date2, marc_record, mapping_ruleset)
         end
 
+        # Converts ['u', 'x', '?'] in dates to 'X'
+        # Converts 'XXXX' to '' (because 'XXXX' offers no helpful information).
+        def normalize_date(date_string)
+          normalized = date_string&.tr('ux?', 'X')
+          normalized == 'XXXX' ? '' : normalized
+        end
+
         # Extracts the date1 and date2 values from the MARC 008 field
         # @return [date1, date2]
         def extract_date1_and_date2(marc_record)
@@ -33,8 +40,8 @@ module Hysync
           return if date1.nil? && date2.nil?
           dynamic_field_data['date_created'] ||= []
           dynamic_field_data['date_created'] << {
-            'date_created_start_value' => date1,
-            'date_created_end_value' => date2,
+            'date_created_start_value' => normalize_date(date1),
+            'date_created_end_value' => normalize_date(date2),
             'date_created_key_date' => is_keydate,
             'date_created_type' => date_type == 'q' ? 'questionable' : nil # only 'questionable' is a valid date type in MODS
           }
@@ -44,8 +51,8 @@ module Hysync
           return if date1.nil? && date2.nil?
           dynamic_field_data['date_issued'] ||= []
           dynamic_field_data['date_issued'] << {
-            'date_issued_start_value' => date1,
-            'date_issued_end_value' => date2,
+            'date_issued_start_value' => normalize_date(date1),
+            'date_issued_end_value' => normalize_date(date2),
             'date_issued_key_date' => is_keydate,
             'date_issued_type' => date_type == 'q' ? 'questionable' : nil # only 'questionable' is a valid date type in MODS
           }

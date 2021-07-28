@@ -27,8 +27,6 @@ module Hysync
           'Aliens (Jewish law)' => 'Noncitizens (Jewish law)',
           'Aliens (Islamic law)' => 'Noncitizens (Islamic law)',
           'Aliens (Roman law)' => 'Noncitizens (Roman law)',
-          'Alien labor' => 'Foreign workers',
-          'Children of alien laborers' => 'Children of foreign workers',
           'Alien labor certification' => 'Foreign worker certification',
           'Women alien labor' => 'Women foreign workers',
           'Officials and employees, Alien' => 'Officials and employees, Noncitizen',
