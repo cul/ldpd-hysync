@@ -62,7 +62,7 @@ module Hysync
         end
 
         def extract_subject_topic_terms(marc_record, mapping_ruleset)
-          MarcSelector.all(marc_record, 650, a: true).map do |field|
+          values = MarcSelector.all(marc_record, 650, a: true).map do |field|
             val = replace_term_if_offensive(field['a'])
             val += '--' + replace_term_if_offensive(field['x']) if field['x']
             val += '--' + field['y'] if field['y']
@@ -92,6 +92,18 @@ module Hysync
               term['uri'] = uri if uri
             end
           end.compact
+
+          if mapping_ruleset == 'NPF'
+            values += MarcSelector.all(marc_record, 653, a: true).map do |field|
+              {
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(
+                  replace_term_if_offensive(field['a'])
+                )
+              }
+            end
+          end
+
+          values
         end
 
         # Given a value, replaces that value with a preferred value if it matches a value in our

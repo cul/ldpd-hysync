@@ -59,9 +59,19 @@ module Hysync
         end
 
         def extract_textual_date(marc_record, mapping_ruleset)
-          if ['oral_history'].include?(mapping_ruleset)
+          if mapping_ruleset == 'oral_history'
             field = MarcSelector.first(marc_record, 245, f: true)
             return StringCleaner.trailing_punctuation_and_whitespace(field['f']) unless field.nil?
+            return nil
+          elsif mapping_ruleset == 'NPF'
+            values_to_concatenate = []
+            part1_field = MarcSelector.first(marc_record, 264, indicator2: 1, c: true)
+            part2_field = MarcSelector.first(marc_record, 880, '6': /^264-/, c: true)
+            values_to_concatenate << StringCleaner.trailing_punctuation_and_whitespace(part1_field['c']) unless part1_field.nil?
+            values_to_concatenate << StringCleaner.trailing_punctuation_and_whitespace(part2_field['c']) unless part2_field.nil?
+            # If both fields contain the string 'not identified', then remove the second one (the 880), otherwise the combined value will look redundant
+            arr.pop if values_to_concatenate.length > 1 && values_to_concatenate[1].include?('not identified')
+            return values_to_concatenate.join(' = ') unless values_to_concatenate.blank?
             return nil
           end
 

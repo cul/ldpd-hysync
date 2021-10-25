@@ -17,8 +17,10 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::Location
       include Hysync::MarcSynchronizer::MarcParsingMethods::Marc005LastModified
       include Hysync::MarcSynchronizer::MarcParsingMethods::Name
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::ActionNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::BiographicalNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::FundingInformationNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::LanguageNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::Note
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::NumberingPeculiaritiesNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::ParticipantOrPerformerNote

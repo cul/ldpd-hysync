@@ -17,6 +17,16 @@ module Hysync
         end
 
         def extract_place_of_origin(marc_record, mapping_ruleset)
+          if mapping_ruleset == 'NPF'
+            values_to_concatenate = []
+            part1_field = MarcSelector.first(marc_record, 264, indicator2: 1, a: /^((?!not identified).)*$/) # ignore if 'a' value contains 'not identified'
+            part2_field = MarcSelector.first(marc_record, 880, '6': /^264-/, a: /^((?!not identified).)*$/) # ignore if 'a' value contains 'not identified'
+            values_to_concatenate << StringCleaner.trailing_punctuation_and_whitespace(part1_field['a']) unless part1_field.nil?
+            values_to_concatenate << StringCleaner.trailing_punctuation_and_whitespace(part2_field['a']) unless part2_field.nil?
+            return values_to_concatenate.join(' = ') unless values_to_concatenate.blank?
+            return nil
+          end
+
           field = MarcSelector.first(marc_record, 260, a: true)
           return field['a'] unless field.nil?
           field = MarcSelector.first(marc_record, 264, indicator2: 1, a: true)

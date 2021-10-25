@@ -55,8 +55,11 @@ module MarcSelector
         if filter_value == true
           # check for presence of subfield
           return false if field[filter.to_s].nil?
+        elsif filter_value.is_a?(Regexp)
+          # check for subfield value that matches Regexp
+          return false unless field[filter.to_s] =~ filter_value
         else
-          # check for specific subfield value
+          # check for subfield value that matches string
           return false unless field[filter.to_s] == filter_value.to_s
         end
       end
