@@ -70,7 +70,7 @@ module Hysync
             values_to_concatenate << StringCleaner.trailing_punctuation_and_whitespace(part1_field['c']) unless part1_field.nil?
             values_to_concatenate << StringCleaner.trailing_punctuation_and_whitespace(part2_field['c']) unless part2_field.nil?
             # If both fields contain the string 'not identified', then remove the second one (the 880), otherwise the combined value will look redundant
-            arr.pop if values_to_concatenate.length > 1 && values_to_concatenate[1].include?('not identified')
+            values_to_concatenate.pop if values_to_concatenate.length > 1 && values_to_concatenate[0].include?('not identified') && values_to_concatenate[1].include?('not identified')
             return values_to_concatenate.join(' = ') unless values_to_concatenate.blank?
             return nil
           end

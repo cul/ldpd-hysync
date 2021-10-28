@@ -6,6 +6,7 @@ module Voyager
 
     REQUIRED_Z3950_CONFIG_OPTS = ['host', 'port', 'database_name'].freeze
     REQUIRED_ORACLE_CONFIG_OPTS = ['host', 'port', 'database_name', 'user', 'password'].freeze
+    ORACLE_RETRIEVAL_BATCH_SIZE = 100
 
     def initialize(config)
       @z3950_config = config['z3950']
@@ -88,10 +89,24 @@ module Voyager
             conn.database_name = @z3950_config['database_name']
             conn.preferred_record_syntax = 'USMARC'
             result_set = conn.search("@attr #{query_type}=#{query_field} #{query_value}")
-            for i in 0..(result_set.length - 1) do
-              bib_id = bib_id_for_zoom_record(result_set[i])
-              path_to_file = File.join(cache_path, "#{bib_id}.marc")
-              File.binwrite(path_to_file, result_set[i].raw)
+            last_result_index = result_set.length - 1
+            batch = []
+            for i in 0..(last_result_index) do
+              # We get bib_ids from Z39.50 because Z39.50 supports 965-field lookups, but we
+              # retrieve records directly from Voyager's Oracle DB so that we get UTF-8 records.
+              # This is necessary because Voyager's Z39.50 is not set up to return UTF-8.
+              #
+              # Retrieving records in batches is faster than retrieving them one by one, since
+              # indivudal lookups would require one SQL query per record.
+              batch << bib_id_for_zoom_record(result_set[i])
+              if i === last_result_index || batch.length == ORACLE_RETRIEVAL_BATCH_SIZE
+                bib_records_for_batch = retrieve_multiple_bib_marc_records(batch)
+                bib_records_for_batch.each do |bib_id, marc_record|
+                  path_to_file = File.join(cache_path, "#{bib_id}.marc")
+                  File.binwrite(path_to_file, marc_record)
+                end
+                batch.clear
+              end
             end
           end
         end
@@ -117,16 +132,14 @@ module Voyager
         next unless entry.ends_with?('.marc')
         marc_file = File.join(cache_path, entry)
         begin
-          # Note 1: We need to process the file with MARC-8 external encoding in
-          # order to get correctly formatted utf-8 characters from the Z39.50
-          # interface on port 7090. I read something online that suggests that
-          # voyager hosts a MARC-8 Z39.50 interface on port 7090 and a
-          # UTF-8 Z39.50 interface on port 7091, but I haven't verified this
-          # because I can't currently access anything on port 7091.
+          # Note 1: Need to process oracle-retrieved files with UTF-8 encoding
+          # (the default encoding for the MARC::Reader) in order to get
+          # correctly formatted utf-8 characters. This is different than what
+          # we would do if the records came from MARC-8 encoding Z39.50 responses.
           # Note 2: Marc::Reader is sometimes bad about closing files, and this
           # causes problems with NFS locks on NFS volumes, so we'll
           # read in the file and pass the content in as a StringIO.
-          marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file)), external_encoding: 'MARC-8').first
+          marc_record = MARC::Reader.new(StringIO.new(File.read(marc_file))).first
           yield marc_record, result_counter, num_results, nil
         rescue Encoding::InvalidByteSequenceError => e
           # To troubleshoot this error further, it can be useful to examine the record's text around the

@@ -64,6 +64,18 @@ module Voyager
         end
         bib_marc
       end
+
+      def retrieve_multiple_bib_marc_records(bib_ids)
+        prepared_statement_keys_to_values = bib_ids.map.with_index { |bib_id, i| ["id#{i}", bib_id] }.to_h
+        query = "select RECORD_SEGMENT, BIB_ID from bib_data where BIB_ID IN (~#{prepared_statement_keys_to_values.keys.join("~,~")}~) order by seqnum"
+        results = execute_select_command_with_retry(fill_in_query_placeholders(query, prepared_statement_keys_to_values))
+
+        bib_marc_records = bib_ids.map { |bib_id| [bib_id, ''] }.to_h
+        results.each do |result|
+          bib_marc_records[result['BIB_ID'].to_s] += result['RECORD_SEGMENT']
+        end
+        bib_marc_records
+      end
     end
   end
 end

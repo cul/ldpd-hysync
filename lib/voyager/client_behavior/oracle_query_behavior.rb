@@ -19,7 +19,7 @@ module Voyager
       def execute_select_command_with_retry(query)
         # If the oracle connection takes longer than a certain amount of time,
         # use a Timeout to stop execution so that our code doesn't lock up indefinitely.
-        Retriable.retriable on: [Timeout::Error], tries: 2, base_interval: 1 do
+        Retriable.retriable on: [Timeout::Error], tries: 3, base_interval: 1 do
           begin
             Timeout.timeout(ORACLE_WAIT_TIMEOUT) do
               return execute_select_command(query)
