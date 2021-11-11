@@ -2,10 +2,13 @@ module Hysync
   module MarcSynchronizer
     class MarcHyacinthRecord
       include Hysync::MarcSynchronizer::MarcParsingMethods
+      # Always include clio identifier extraction before other extraction
+      # modules so that errors can be reported with CLIO ID
+      include Hysync::MarcSynchronizer::MarcParsingMethods::ClioIdentifier
+      # Now we'll include all other extraction modules
       include Hysync::MarcSynchronizer::MarcParsingMethods::Abstract
       include Hysync::MarcSynchronizer::MarcParsingMethods::AlternativeTitle
       include Hysync::MarcSynchronizer::MarcParsingMethods::ArchiveOrgIdentifier
-      include Hysync::MarcSynchronizer::MarcParsingMethods::ClioIdentifier
       include Hysync::MarcSynchronizer::MarcParsingMethods::Collection
       include Hysync::MarcSynchronizer::MarcParsingMethods::Date
       include Hysync::MarcSynchronizer::MarcParsingMethods::Extent
