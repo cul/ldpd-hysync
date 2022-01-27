@@ -55,16 +55,17 @@ module Hysync
         def add_fallback_collection(marc_record, holdings_marc_records, mapping_ruleset)
           return unless dynamic_field_data['collection'].nil?
           dynamic_field_data['collection'] ||= []
-          dynamic_field_data['collection'] << {
-            'collection_term' => {
-              'value' => extract_fallback_collection(marc_record, mapping_ruleset)
-            }
-          }
+          dynamic_field_data['collection'].concat(extract_fallback_collections(marc_record, mapping_ruleset))
         end
 
-        def extract_fallback_collection(marc_record, mapping_ruleset)
-          field = MarcSelector.first(marc_record, 710, indicator1: 2, a: true, '5': 'NNC')
-          return field['a'] unless field.nil?
+        def extract_fallback_collections(marc_record, mapping_ruleset)
+          MarcSelector.all(marc_record, 710, indicator1: 2, a: true, '5': 'NNC').map do |field|
+            {
+              'collection_term' => {
+                'value' => StringCleaner.trailing_punctuation_and_whitespace(field['a'])
+              }
+            }
+          end
         end
 
         def collection_terms
