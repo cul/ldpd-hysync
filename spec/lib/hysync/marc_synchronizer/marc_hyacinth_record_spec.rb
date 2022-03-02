@@ -9,14 +9,14 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
     MARC::Record.new_from_marc(marc_fixture.read)
   end
   before(:all) do
-    @project_mappings = HYSYNC['project_mappings']
-    @target_mappings = HYSYNC['publish_target_mappings']
-    HYSYNC['project_mappings'] = { '965carnegiedpf' => 'carnegie_dpf', '965Durst' => 'durst' }
-    HYSYNC['publish_target_mappings'] = { '965carnegiedpf' => 'carnegie_staging', '965Durst' => 'dlc_catalog_staging' }
+    @project_mappings = HYSYNC[:project_mappings]
+    @target_mappings = HYSYNC[:publish_target_mappings]
+    HYSYNC[:project_mappings] = { '965carnegiedpf': 'carnegie_dpf', '965Durst': 'durst' }
+    HYSYNC[:publish_target_mappings] = { '965carnegiedpf': 'carnegie_staging', '965Durst': 'dlc_catalog_staging' }
   end
   after(:all) do
-    HYSYNC['project_mappings'] = @project_mappings
-    HYSYNC['publish_target_mappings'] = @target_mappings
+    HYSYNC[:project_mappings] = @project_mappings
+    HYSYNC[:publish_target_mappings] = @target_mappings
   end
 
 	subject { described_class.new(marc_record) }

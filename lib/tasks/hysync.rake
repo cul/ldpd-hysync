@@ -14,7 +14,7 @@ namespace :hysync do
     success, errors = runner.run(force_update, dry_run)
     if !success
       ApplicationMailer.with(
-        to: HYSYNC['marc_sync_email_addresses'],
+        to: HYSYNC[:marc_sync_email_addresses],
         subject: "Hysync: MARC-to-Hyacinth Sync Errors (#{Date.today})",
         errors: errors
       ).marc_sync_error_email.deliver
@@ -23,7 +23,7 @@ namespace :hysync do
 
   task :email_test => :environment do
     ApplicationMailer.with(
-      to: HYSYNC['marc_sync_email_addresses'],
+      to: HYSYNC[:marc_sync_email_addresses],
       subject: 'Hysync Test Marc Sync Error Email',
       errors: ['Test error 1', 'Test error 2']
     ).marc_sync_error_email.deliver

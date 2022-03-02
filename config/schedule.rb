@@ -14,7 +14,7 @@ set :output, Rails.root.join("log/#{Rails.env}_cron_log.log")
 # This is a CUL provided script. More details can be found here:
 # https://wiki.library.columbia.edu/display/USGSERVICES/Cron+Management
 set :email_subject, 'Hysync Cron Error (via Whenever Gem)'
-set :error_recipient, HYSYNC['developer_email_address']
+set :error_recipient, HYSYNC[:developer_email_address]
 set :job_template, "/usr/local/bin/mailifrc -s 'Error - :email_subject' :error_recipient -- /bin/bash -l -c ':job'"
 
 # Override default rake task job type
