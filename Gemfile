@@ -7,6 +7,8 @@ ruby '2.7.5'
 gem 'rails', '~> 6.0.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+# Or use a null adapter for scenarios that really require no database
+gem 'activerecord-nulldb-adapter'
 # Use Puma as the app server
 gem 'puma', '~> 5.2'
 # Use SCSS for stylesheets
