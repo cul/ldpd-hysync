@@ -39,6 +39,7 @@ gem 'zoom', '0.5.0'
 # For MARC parsing (using fork until PR is merged into main project)
 gem 'marc', '1.0.4'
 # gem 'marc', path: '../ruby-marc'
+gem 'rainbow', '~> 3.0'
 # For oracle connections
 gem 'ruby-oci8', '~> 2.2.7'
 # For HTTP Requests
