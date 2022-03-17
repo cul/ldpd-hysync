@@ -1,12 +1,14 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.4'
+ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.5'
+gem 'rails', '~> 6.0.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+# Or use a null adapter for scenarios that really require no database
+gem 'activerecord-nulldb-adapter'
 # Use Puma as the app server
 gem 'puma', '~> 5.2'
 # Use SCSS for stylesheets
@@ -37,6 +39,7 @@ gem 'zoom', '0.5.0'
 # For MARC parsing (using fork until PR is merged into main project)
 gem 'marc', '1.0.4'
 # gem 'marc', path: '../ruby-marc'
+gem 'rainbow', '~> 3.0'
 # For oracle connections
 gem 'ruby-oci8', '~> 2.2.7'
 # For HTTP Requests

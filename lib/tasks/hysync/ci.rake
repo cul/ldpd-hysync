@@ -8,7 +8,7 @@ namespace :hysync do
   end
 
   desc 'CI build'
-  task ci: [:environment, 'hysync:ci_specs']
+  task ci: ['hysync:setup:config_files', :environment, 'hysync:ci_specs']
 
   desc 'CI build just running specs'
   task ci_specs: :environment do

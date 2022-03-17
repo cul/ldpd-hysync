@@ -4,8 +4,8 @@
   <h2 style="margin:0; padding-bottom: .55em; border-bottom: 1px solid #aaa;">Currently available project mappings:</h2>
   <dl>
     <%
-      if HYSYNC['project_mappings'].present?
-        %><%= HYSYNC['project_mappings'].sort.map {|key965, project_string_key| %(<dt>#{project_string_key}</dt><dd style="margin-bottom:1em;">- #{key965}</dd>) }.join.html_safe %><%
+      if HYSYNC[:project_mappings].present?
+        %><%= HYSYNC[:project_mappings].sort.map {|key965, project_string_key| %(<dt>#{project_string_key}</dt><dd style="margin-bottom:1em;">- #{key965}</dd>) }.join.html_safe %><%
       else
         %>None<%
       end

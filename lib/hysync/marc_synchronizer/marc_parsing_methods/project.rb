@@ -13,7 +13,7 @@ module Hysync
           existing_project = digital_object_data.fetch('project',{})['string_key']
 
           project_string_keys = marc_record.fields('965').map do |field|
-            HYSYNC['project_mappings'][field['a']]
+            HYSYNC[:project_mappings][field['a'].to_sym]
           end.compact
 
           if project_string_keys.empty?
