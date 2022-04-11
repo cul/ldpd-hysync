@@ -5,7 +5,7 @@ module Hyacinth
 
       # Note: Base64.encode64 method can include newline characters, which messes things up.
       # That's why we're using Base64.strict_encode64 instead.
-      @hyacinth_basic_auth_token = Base64.strict_encode64(@config['email'] + ':' + @config['password'])
+      @hyacinth_basic_auth_token = Base64.strict_encode64(@config[:email] + ':' + @config[:password])
     end
 
     def find_by_identifier(identifier, additional_search_params)
@@ -27,7 +27,7 @@ module Hyacinth
 
     def search(search_params = {})
       # Step 1: Get PIDs and CLIO IDs for all publish targets that have CLIO IDs
-      search_url = "#{@config['url']}/digital_objects/search.json"
+      search_url = "#{@config[:url]}/digital_objects/search.json"
       post_params = {
       	search: search_params
       }
@@ -53,7 +53,7 @@ module Hyacinth
       begin
         json_response = JSON.parse(RestClient::Request.execute(
           method: :post,
-          url: "#{@config['url']}/digital_objects.json",
+          url: "#{@config[:url]}/digital_objects.json",
           timeout: 60,
           payload: {'digital_object_data_json' => JSON.generate(digital_object_data.merge({publish: publish}))},
           headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
@@ -75,7 +75,7 @@ module Hyacinth
         Retriable.retriable on: [RestClient::ServerBrokeConnection], tries: 2, base_interval: 1 do
           json_response = JSON.parse(RestClient::Request.execute(
             method: :put,
-            url: "#{@config['url']}/digital_objects/#{pid}.json",
+            url: "#{@config[:url]}/digital_objects/#{pid}.json",
             timeout: 60,
             payload: {'digital_object_data_json' => JSON.generate(digital_object_data.merge({publish: publish.to_s}))},
             headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
@@ -108,7 +108,7 @@ module Hyacinth
             method: :get,
             max_redirects: 0, # Don't automatically follow redirects
             # The 'collection' controlled vocabulary has ID 20. We'll be able to use strings in the next version of URI Service.
-            url: "#{@config['url']}/controlled_vocabularies/20/terms.json?page=#{page}&per_page=#{per_page}",
+            url: "#{@config[:url]}/controlled_vocabularies/20/terms.json?page=#{page}&per_page=#{per_page}",
             timeout: 60,
             headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
           )
@@ -131,7 +131,7 @@ module Hyacinth
       Rails.logger.debug("Creating new controlled term: " + term_data.inspect)
       JSON.parse(RestClient::Request.execute(
         method: :post,
-        url: "#{@config['url']}/terms.json",
+        url: "#{@config[:url]}/terms.json",
         timeout: 60,
         payload: {
           'term' => term_data

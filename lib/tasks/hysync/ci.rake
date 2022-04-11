@@ -7,8 +7,18 @@ namespace :hysync do
     spec.rspec_opts << '--backtrace' if ENV['CI']
   end
 
-  desc 'CI build'
-  task ci: ['hysync:setup:config_files', :environment, 'hysync:ci_specs']
+  require 'rubocop/rake_task'
+  desc 'Run style checker'
+  RuboCop::RakeTask.new(:rubocop) do |task|
+    task.requires << 'rubocop-rspec'
+    task.fail_on_error = true
+  end
+
+  desc 'CI build without rubocop'
+  task ci_nocop: ['hysync:setup:config_files', :environment, 'hysync:ci_specs']
+
+  desc 'CI build with Rubocop validation'
+  task ci: ['hysync:setup:config_files', :environment, 'hysync:rubocop', 'hysync:ci_specs']
 
   desc 'CI build just running specs'
   task ci_specs: :environment do

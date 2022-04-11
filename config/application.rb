@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails/all'
@@ -9,14 +11,13 @@ Bundler.require(*Rails.groups)
 module Hysync
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
 
-    # Custom directories with classes and modules you want to be eager loaded.
-    config.eager_load_paths += %W(#{config.root}/lib)
+    # Rails will use the Eastern time zone
+    config.time_zone = 'Eastern Time (US & Canada)'
+    # Database will store dates in UTC (which is the rails default behavior)
+    config.active_record.default_timezone = :utc
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration can go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded after loading
-    # the framework and any gems in your application.
+    config.eager_load_paths << Rails.root.join('lib')
   end
 end

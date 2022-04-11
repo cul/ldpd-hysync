@@ -1,0 +1,19 @@
+inherit_gem:
+  rubocul: rubocul_default.yml
+
+inherit_from: .rubocop_todo.yml
+
+AllCops:
+  TargetRubyVersion: 2.7.5
+  TargetRailsVersion: 6.1
+  Exclude:
+    - 'app/javascript/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'lib/tasks/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+
+Style/Documentation:
+  Enabled: false

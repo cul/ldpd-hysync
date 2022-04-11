@@ -8,7 +8,7 @@ namespace :hysync do
     # the setting in voyager.yml for the environment.
     if ENV.key?('use_cached_results')
       voyager = runner.instance_variable_get(:@voyager_client)
-      voyager.instance_variable_get(:@z3950_config)['use_cached_results'] = (ENV['use_cached_results'] == 'true')
+      voyager.instance_variable_get(:@z3950_config)[:use_cached_results] = (ENV['use_cached_results'] == 'true')
     end
 
     success, errors = runner.run(force_update, dry_run)
@@ -34,7 +34,7 @@ namespace :hysync do
     force_update = (ENV['force_update'] == 'true')
     dry_run = (ENV['dry_run'] == 'true')
     voyager = runner.instance_variable_get(:@voyager_client)
-    voyager.instance_variable_get(:@z3950_config)['use_cached_results'] = false
+    voyager.instance_variable_get(:@z3950_config)[:use_cached_results] = false
     marc_record = voyager.find_by_bib_id(ENV['bib_id'])
     base_digital_object_data = Hysync::MarcSynchronizer::Runner.default_digital_object_data
     success, errors = runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run)
@@ -51,7 +51,7 @@ namespace :hysync do
     dry_run = (ENV['dry_run'] == 'true')
     use_cached_results = (ENV['use_cached_results'] == 'true')
     voyager = runner.instance_variable_get(:@voyager_client)
-    voyager.instance_variable_get(:@z3950_config)['use_cached_results'] = use_cached_results
+    voyager.instance_variable_get(:@z3950_config)[:use_cached_results] = use_cached_results
     voyager.search_by_965_value(ENV['value965']) do |marc_record, i, num_results, unexpected_error|
       if unexpected_error.present?
         success = false

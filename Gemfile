@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.4'
+gem 'rails', '~> 6.1.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Or use a null adapter for scenarios that really require no database
@@ -53,7 +53,9 @@ gem 'retriable', '~> 3.1'
 gem 'rubyzip', '>= 2.0'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.8'
+  # rubocop + CUL presets
+  gem 'rubocul', '~> 4.0.3'
+  gem 'rspec-rails', '~> 5.0'
   gem 'factory_bot_rails', '~> 6.1.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
