@@ -3,7 +3,7 @@
 This application pulls data from Voyager and transforms it into a Hyacinth digital object JSON update.
 
 ## Ruby version
-This app is designed to run on MRI 2.5.x
+This app is designed to run on Ruby 3.0
 
 ## System dependencies
 
