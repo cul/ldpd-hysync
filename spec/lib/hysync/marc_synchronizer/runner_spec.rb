@@ -38,7 +38,8 @@ describe Hysync::MarcSynchronizer::Runner do
     context 'no marc 005 is recorded' do
       subject { nil }
       pending 'raises an error' do
-        expect { runner.update_indicated?(marc_record, hyacinth_record) }.to raise_error
+        # TODO: In test below, change StandardError to something more specific when test is no longer pending
+        expect { runner.update_indicated?(marc_record, hyacinth_record) }.to raise_error(StandardError)
       end
     end
     context 'hyacinth and marc 005 differ' do

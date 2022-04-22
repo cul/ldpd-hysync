@@ -1,4 +1,5 @@
-lock '3.5.0'
+# config valid for current version and patch releases of Capistrano
+lock "~> 3.17.0"
 
 set :department, 'ldpd'
 set :instance, fetch(:department)

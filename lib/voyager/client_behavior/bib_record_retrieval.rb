@@ -8,7 +8,7 @@ module Voyager
       def find_by_bib_id(bib_id)
 
         # Clear cached results if we don't want to use cached results
-        clear_bib_cache(bib_id) if !@z3950_config['use_cached_results']
+        clear_bib_cache(bib_id) if !@z3950_config[:use_cached_results]
         cache_path = bib_cache_path(bib_id)
 
         if !bib_cache_exists?(bib_id)
@@ -43,13 +43,13 @@ module Voyager
       def clear_bib_cache(bib_id)
         path = bib_cache_path(bib_id)
         FileUtils.rm_rf(path)
-        if File.exists?(path)
+        if File.exist?(path)
           Rails.logger.error "Tried to delete bib cache at #{path}, but it still exists! Maybe an NFS lock issue?"
         end
       end
 
       def bib_cache_exists?(bib_id)
-        File.exists?(bib_cache_path(bib_id))
+        File.exist?(bib_cache_path(bib_id))
       end
 
       def bib_cache_path(bib_id)

@@ -4,33 +4,33 @@ module Voyager
     include Voyager::ClientBehavior::HoldingsRetrieval
     include Voyager::ClientBehavior::BibRecordRetrieval
 
-    REQUIRED_Z3950_CONFIG_OPTS = ['host', 'port', 'database_name'].freeze
-    REQUIRED_ORACLE_CONFIG_OPTS = ['host', 'port', 'database_name', 'user', 'password'].freeze
+    REQUIRED_Z3950_CONFIG_OPTS = [:host, :port, :database_name].freeze
+    REQUIRED_ORACLE_CONFIG_OPTS = [:host, :port, :database_name, :user, :password].freeze
     ORACLE_RETRIEVAL_BATCH_SIZE = 100
 
     def initialize(config)
-      @z3950_config = config['z3950']
+      @z3950_config = config[:z3950]
       # The ZOOM library has a bug where if the supplied host argument is nil,
       # the native, backing yaz library throws an error that can't be caught
-      # by ruby, so we need to ensure that config['host'] is never nil. And as
+      # by ruby, so we need to ensure that config[:host'] is never nil. And as
       # long as we're checking for host, we'll check for other required config
       # options too.
       REQUIRED_Z3950_CONFIG_OPTS.each do |required_config_opt|
-        raise ArgumentError, "Missing z3950 config['#{required_config_opt}'] for #{self.class}" unless @z3950_config[required_config_opt].present?
+        raise ArgumentError, "Missing z3950 config[:#{required_config_opt}] for #{self.class}" unless @z3950_config[required_config_opt].present?
       end
 
-      @oracle_config = config['oracle']
+      @oracle_config = config[:oracle]
       # Make sure oracle config options are present so there aren't any surprises later when queries are run
       REQUIRED_Z3950_CONFIG_OPTS.each do |required_config_opt|
-        raise ArgumentError, "Missing oracle config['#{required_config_opt}'] for #{self.class}" unless @oracle_config[required_config_opt].present?
+        raise ArgumentError, "Missing oracle config[:#{required_config_opt}] for #{self.class}" unless @oracle_config[required_config_opt].present?
       end
     end
 
     def oracle_connection
       @oracle_connection ||= OCI8.new(
-        @oracle_config['user'],
-        @oracle_config['password'],
-        "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=#{@oracle_config['host']})(PORT=#{@oracle_config['port']}))(CONNECT_DATA=(SID=#{@oracle_config['database_name']})))"
+        @oracle_config[:user],
+        @oracle_config[:password],
+        "(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=#{@oracle_config[:host]})(PORT=#{@oracle_config[:port]}))(CONNECT_DATA=(SID=#{@oracle_config[:database_name]})))"
       ).tap do |connection|
         # When a select statement is executed, the OCI library allocates
         # a prefetch buffer to reduce the number of network round trips by
@@ -58,13 +58,13 @@ module Voyager
     def clear_search_cache(query_type, query_field, query_value)
       path = search_cache_path(query_type, query_field, query_value)
       FileUtils.rm_rf(path)
-      if File.exists?(path)
+      if File.exist?(path)
         Rails.logger.error "Tried to delete search cache at #{path}, but it still exists! Maybe an NFS lock issue?"
       end
     end
 
     def search_cache_exists?(query_type, query_field, query_value)
-      File.exists?(search_cache_path(query_type, query_field, query_value))
+      File.exist?(search_cache_path(query_type, query_field, query_value))
     end
 
     def search_cache_path(query_type, query_field, query_value)
@@ -78,15 +78,15 @@ module Voyager
 
     def search(query_type, query_field, query_value)
       # Clear cached results if we don't want to use cached results
-      clear_search_cache(query_type, query_field, query_value) if !@z3950_config['use_cached_results']
+      clear_search_cache(query_type, query_field, query_value) if !@z3950_config[:use_cached_results]
       cache_path = search_cache_path(query_type, query_field, query_value)
 
       if !search_cache_exists?(query_type, query_field, query_value)
         FileUtils.mkdir_p(cache_path)
         Rails.logger.debug("Downloading MARC records to #{cache_path}. This may take a while...")
         duration = Benchmark.realtime do
-          ZOOM::Connection.open(@z3950_config['host'], @z3950_config['port']) do |conn|
-            conn.database_name = @z3950_config['database_name']
+          ZOOM::Connection.open(@z3950_config[:host], @z3950_config[:port]) do |conn|
+            conn.database_name = @z3950_config[:database_name]
             conn.preferred_record_syntax = 'USMARC'
             result_set = conn.search("@attr #{query_type}=#{query_field} #{query_value}")
             last_result_index = result_set.length - 1

@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.5'
-
+# Explicitly including io-wait dependency to match default version of the gem that comes with Ruby 3.0.
+gem 'io-wait', '0.2.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.4'
+gem 'rails', '~> 7.0.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Or use a null adapter for scenarios that really require no database
@@ -40,6 +40,8 @@ gem 'zoom', '0.5.0'
 gem 'marc', '1.0.4'
 # gem 'marc', path: '../ruby-marc'
 gem 'rainbow', '~> 3.0'
+# As of Ruby 3.0, need to explicitly include rexml because it's a bundled gem instead of a default gem
+gem 'rexml', '~> 3.2', '>= 3.2.4'
 # For oracle connections
 gem 'ruby-oci8', '~> 2.2.7'
 # For HTTP Requests
@@ -53,7 +55,11 @@ gem 'retriable', '~> 3.1'
 gem 'rubyzip', '>= 2.0'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.8'
+  # rubocop + CUL presets
+  gem 'rubocul', '~> 4.0.3'
+  # rspec for testing
+  gem 'rspec', '>= 3.11'
+  gem 'rspec-rails', '~> 5.1'
   gem 'factory_bot_rails', '~> 6.1.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -62,23 +68,17 @@ end
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '~> 3.3'
 
-  # Use Capistrano for deployment
-  gem 'capistrano', '~> 3.5.0', require: false
-  # Rails and Bundler integrations were moved out from Capistrano 3
-  gem 'capistrano-rails', '~> 1.1', require: false
-  gem 'capistrano-bundler', '~> 1.1', require: false
-  # "idiomatic support for your preferred ruby version manager"
-  gem 'capistrano-rvm', '~> 0.1', require: false
-  # The `deploy:restart` hook for passenger applications is now in a separate gem
-  # Just add it to your Gemfile and require it in your Capfile.
+  # Capistrano gems for deployment
+  gem 'capistrano', '~> 3.17.0', require: false
+  gem 'capistrano-cul', require: false
   gem 'capistrano-passenger', '~> 0.1', require: false
+  gem 'capistrano-rails', '~> 1.4', require: false
+  gem 'capistrano-rvm', '~> 0.1', require: false
+
   # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
   gem 'net-ssh', '>= 4.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do

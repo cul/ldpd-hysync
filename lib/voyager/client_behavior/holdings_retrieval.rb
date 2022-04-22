@@ -7,7 +7,7 @@ module Voyager
 
       def holdings_for_bib_id(bib_id)
         # Clear cached results if we don't want to use cached results
-        clear_holdings_cache(bib_id) if !@z3950_config['use_cached_results']
+        clear_holdings_cache(bib_id) if !@z3950_config[:use_cached_results]
         cache_path = holdings_cache_path(bib_id)
 
         if !holdings_cache_exists?(bib_id)
@@ -58,13 +58,13 @@ module Voyager
       def clear_holdings_cache(bib_id)
         path = holdings_cache_path(bib_id)
         FileUtils.rm_rf(path)
-        if File.exists?(path)
+        if File.exist?(path)
           Rails.logger.error "Tried to delete holdings cache at #{path}, but it still exists! Maybe an NFS lock issue?"
         end
       end
 
       def holdings_cache_exists?(bib_id)
-        File.exists?(holdings_cache_path(bib_id))
+        File.exist?(holdings_cache_path(bib_id))
       end
 
       def holdings_cache_path(bib_id)

@@ -85,6 +85,6 @@ def deep_blank?(obj)
   when Hash
     return obj.empty? || !obj.detect {|k,v| !deep_blank?(v)}
   else
-    return false
+    false
   end
 end
