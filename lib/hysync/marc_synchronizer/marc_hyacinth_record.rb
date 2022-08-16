@@ -26,9 +26,11 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::LanguageNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::Note
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::NumberingPeculiaritiesNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::OriginalLocationNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::ParticipantOrPerformerNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::ProvenanceNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::RightsNote
+      include Hysync::MarcSynchronizer::MarcParsingMethods::Notes::StatementOfResponsibilityNote
       include Hysync::MarcSynchronizer::MarcParsingMethods::PlaceOfOrigin
       include Hysync::MarcSynchronizer::MarcParsingMethods::Project
       include Hysync::MarcSynchronizer::MarcParsingMethods::Publisher

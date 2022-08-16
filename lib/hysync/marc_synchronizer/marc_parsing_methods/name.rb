@@ -53,7 +53,7 @@ module Hysync
           # Check personal name field (100)
           field = MarcSelector.first(marc_record, 100, indicator1: 1, a: true) || MarcSelector.first(marc_record, 100, indicator1: 0, a: true)
           if field
-            val = MarcSelector.concat_subfield_values(field, ['a', 'b', 'q', 'd'])
+            val = MarcSelector.concat_subfield_values(field, ['a', 'b', 'c', 'q', 'd'])
             role_value = field['e'].present? ? field['e'] : ''
             return {
               'name_term' => {
