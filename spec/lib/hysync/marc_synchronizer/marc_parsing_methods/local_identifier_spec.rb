@@ -3,8 +3,8 @@ require 'rails_helper'
 describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
   let(:marc_record) do
     record = FactoryBot.build(:marc_record)
-    record.append(MARC::DataField.new('024', '',  '8', ['a', 'abc123']))
-    record.append(MARC::DataField.new('024', '',  '8', ['a', 'abc456']))
+    record.append(MARC::DataField.new('024', '8',  '', ['a', 'abc123']))
+    record.append(MARC::DataField.new('024', '8',  '', ['a', 'abc456']))
     record
   end
   let(:marc_hyacinth_record) { Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record) }
