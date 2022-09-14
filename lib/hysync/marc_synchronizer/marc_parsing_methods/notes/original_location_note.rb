@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Hysync
   module MarcSynchronizer
     module MarcParsingMethods
@@ -8,7 +10,7 @@ module Hysync
             register_parsing_method :add_original_location_note
           end
 
-          def add_original_location_note(marc_record, holdings_marc_records, mapping_ruleset)
+          def add_original_location_note(marc_record, _holdings_marc_records, mapping_ruleset)
             return unless mapping_ruleset == 'NPF'
 
             dynamic_field_data['note'] ||= []
