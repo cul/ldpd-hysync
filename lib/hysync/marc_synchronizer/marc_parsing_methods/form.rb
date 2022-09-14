@@ -24,7 +24,7 @@ module Hysync
           form_terms = []
           if mapping_ruleset == 'oral_history'
             form_terms << { 'uri' => 'http://id.loc.gov/authorities/genreForms/gf2011026431' } # oral histories
-          elsif mapping_ruleset == 'gumby'
+          elsif mapping_ruleset == 'gumby_exhibit'
             form_terms << { 'uri' => 'http://vocab.getty.edu/aat/300026690' } # albums
           end
 
