@@ -36,13 +36,13 @@ module Hyacinth
         results = JSON.parse(RestClient::Request.execute(
             method: :post,
             url: search_url,
-            timeout: 60,
+            timeout: 120,
             payload: post_params,
             headers: {Authorization: "Basic #{@hyacinth_basic_auth_token}"}
           )
         )
       rescue RestClient::ExceptionWithResponse => err
-        raise "Error: Received response '#{err.message}' for Hyacinth search request."
+        raise "Error: Received response '#{err.message}' for Hyacinth search request.  Search url was: #{search_url}"
       end
 
       results['results'].map{|result| JSON.parse(result['digital_object_data_ts'])}
