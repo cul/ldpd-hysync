@@ -44,9 +44,14 @@ module Hysync
               }],
               'name_usage_primary' => names.blank? # This name should only be primary if there are no other names
             }
-          else
-            names += extract_710_corporate_names(marc_record, mapping_ruleset) + extract_711_conference_names(marc_record, mapping_ruleset)
           end
+
+          names += extract_710_corporate_names(marc_record, mapping_ruleset) unless
+            ['ldeotechnical', 'gumbymicrofilm'].include?(mapping_ruleset)
+          names += extract_711_conference_names(marc_record, mapping_ruleset) unless
+            ['ldeotechnical'].include?(mapping_ruleset)
+
+          names
         end
 
         def extract_first_main_entry_name_term(marc_record, mapping_ruleset)

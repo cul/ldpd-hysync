@@ -107,11 +107,10 @@ module Hysync
         end
 
         def add_archival_series_to_first_collection_if_present(marc_record, mapping_ruleset)
-          return unless ['carnegie_scrapbooks_and_ledgers', 'gumby_exhibit'].include?(mapping_ruleset)
-
           # For now, we're only retrieving the archival series from MARC for
-          # carnegie_scrapbooks_and_ledgers. For other mapping types, that data
+          # carnegie_scrapbooks_and_ledgers and gumbymicrofilm. For other mapping types, that data
           # will be entered directly into Hyacinth.
+          return unless ['carnegie_scrapbooks_and_ledgers', 'gumbymicrofilm'].include?(mapping_ruleset)
 
           if dynamic_field_data['collection'].length > 0
             field = MarcSelector.first(marc_record, 773, indicator1: 0, g: true)
@@ -120,10 +119,9 @@ module Hysync
               {
                 'collection_archival_series_part' => [
                   {
-                    'collection_archival_series_part_title' => field['g']
-                  }.tap do |part|
-                    part['collection_archival_series_part_type'] = 'series' if mapping_ruleset == 'carnegie_scrapbooks_and_ledgers'
-                  end
+                    'collection_archival_series_part_title' => field['g'],
+                    'collection_archival_series_part_type' => 'series'
+                  }
                 ]
               }
             ]
