@@ -14,9 +14,9 @@ gem 'puma', '~> 5.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
-#gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
+gem 'mini_racer', platforms: :ruby
 
 # Need to pin nokogiri to 1.10.x for now because we can't build 1.11 on our deploy VMs (because of incompatible GLIBC version)
 gem 'nokogiri', '~> 1.10.10'
@@ -32,10 +32,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'mini_magick', '~> 4.8'
 
 # Reduces boot times through caching; required in config/boot.rb
-#gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.1.0', require: false
 
 # For z3950
-#gem 'zoom', '0.5.0'
+# gem 'zoom', '0.5.0'
 gem 'alexandria-zoom', '0.6.0' # Using this gem instead of regular 'zoom' because this PR has not been merged: https://github.com/bricestacey/ruby-zoom/pull/4
 # For MARC parsing (using fork until PR is merged into main project)
 gem 'marc', '1.0.4'
