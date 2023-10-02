@@ -62,6 +62,8 @@ rvm pkg install openssl # Use RVM to install OpenSSL 1
 rvm install ruby-3.0.3 --with-openssl-dir=$HOME/.rvm/usr # Point to RVM-installed OpenSSL 1
 ```
 
+If you have bundle install issues related to bootsnap, you may need to install a JS runtime.  One way to fix this is to install nvm and then install Node 12.
+
 ### NLS_LANG setup
 
 **Important note:** When connecting to the Voyager OPAC, you must set environment variable `NLS_LANG` to `'AMERICAN_AMERICA.US7ASCII'`.  The best way to do this is by adding an export to your `.bashrc`/`.zshrc` file: `export NLS_LANG='AMERICAN_AMERICA.US7ASCII'`
