@@ -16,7 +16,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-gem 'mini_racer', platforms: :ruby
+# gem 'mini_racer', platforms: :ruby
 
 # Need to pin nokogiri to 1.10.x for now because we can't build 1.11 on our deploy VMs (because of incompatible GLIBC version)
 gem 'nokogiri', '~> 1.10.10'
