@@ -29,19 +29,22 @@ namespace :hysync do
     ).marc_sync_error_email.deliver
   end
 
-  task :sync_record => :environment do
+  task :sync_records => :environment do
     runner = Hysync::MarcSynchronizer::Runner.new(HYACINTH_CONFIG, VOYAGER_CONFIG)
     force_update = (ENV['force_update'] == 'true')
     dry_run = (ENV['dry_run'] == 'true')
     voyager = runner.instance_variable_get(:@voyager_client)
     voyager.instance_variable_get(:@z3950_config)[:use_cached_results] = false
-    marc_record = voyager.find_by_bib_id(ENV['bib_id'])
-    base_digital_object_data = Hysync::MarcSynchronizer::Runner.default_digital_object_data
-    success, errors = runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run)
-    if success
-      puts 'Success!'
-    else
-      puts 'Errors: ' + errors.inspect
+
+    (ENV['bib_ids'] || '').split(',').each do |bib_id|
+      marc_record = voyager.find_by_bib_id(bib_id)
+      base_digital_object_data = Hysync::MarcSynchronizer::Runner.default_digital_object_data
+      success, errors = runner.create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run)
+      if success
+        puts "(#{bib_id}) Success!"
+      else
+        raise "Error for record #{bib_id}: " + errors.inspect
+      end
     end
   end
 
