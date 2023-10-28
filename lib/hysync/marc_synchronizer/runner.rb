@@ -104,7 +104,7 @@ module Hysync
           msg = 'Missing CLIO ID for marc_hyacinth_record'
           @errors << msg
           Rails.logger.error msg
-          return
+          return @errors.blank?, @errors
         end
 
         if dry_run
@@ -116,10 +116,10 @@ module Hysync
           @errors << msg
           Rails.logger.error msg
           puts msg if dry_run
-          return false, @errors
+          return @errors.blank?, @errors
         end
 
-        return if dry_run
+        return @errors.blank?, @errors if dry_run
 
         # Add "clio#{bib_id}" identifier (e.g. clio12345).
         marc_hyacinth_record.digital_object_data['identifiers'] << "clio#{marc_hyacinth_record.clio_id}"
@@ -161,6 +161,8 @@ module Hysync
           @errors << msg
           Rails.logger.error msg
         end
+
+        return @errors.blank?, @errors
       end
 
       # If given hyacinth_record marc_005_last_modified value is equal to given marc_record 005
