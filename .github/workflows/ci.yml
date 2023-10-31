@@ -6,7 +6,7 @@ on:
 
 jobs:
   ci-rails-app:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         ruby-version: ['3.0.3']
@@ -16,12 +16,12 @@ jobs:
       NLS_LANG: AMERICAN_AMERICA.US7ASCII
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # Caching the solr download makes a huge difference. It can take up to 10 minutes to download.
       # Note that this action's caches will be evicted if not accessed for more than a week.
       - name: Cache Oracle Downloads
         id: cache-oracle-downloads
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /opt/oracle/downloads
           key: ${{ runner.os }}-oracle-download

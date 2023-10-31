@@ -35,7 +35,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # For z3950
-gem 'zoom', '0.5.0'
+# gem 'zoom', '0.5.0'
+gem 'alexandria-zoom', '0.6.0' # Using this gem instead of regular 'zoom' because this PR has not been merged: https://github.com/bricestacey/ruby-zoom/pull/4
 # For MARC parsing (using fork until PR is merged into main project)
 gem 'marc', '1.0.4'
 # gem 'marc', path: '../ruby-marc'
