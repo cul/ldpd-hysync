@@ -44,7 +44,7 @@ gem 'rainbow', '~> 3.0'
 # As of Ruby 3.0, need to explicitly include rexml because it's a bundled gem instead of a default gem
 gem 'rexml', '~> 3.2', '>= 3.2.4'
 # For oracle connections
-gem 'ruby-oci8', '~> 2.2.7'
+#gem 'ruby-oci8', '~> 2.2.7'
 # For HTTP Requests
 gem 'rest-client', '~> 2.0'
 # For cron tasks
