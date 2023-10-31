@@ -19,7 +19,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 # Need to pin nokogiri to 1.10.x for now because we can't build 1.11 on our deploy VMs (because of incompatible GLIBC version)
-gem 'nokogiri', '~> 1.10.10'
+gem 'nokogiri', '~> 1.15.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
