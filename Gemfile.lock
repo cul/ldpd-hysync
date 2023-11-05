@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/cul/cul-zoom.git
+  revision: ef094e238aac2e6f5759240bd78fdf98b2f3f82b
+  branch: yaz-config-fallback
+  specs:
+    alexandria-zoom (0.6.0)
+      pkg-config (~> 1.5.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -70,8 +78,6 @@ GEM
       tzinfo (~> 2.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    alexandria-zoom (0.6.0)
-      pkg-config (~> 1.5.1)
     ast (2.4.2)
     bcrypt_pbkdf (1.1.0)
     bindex (0.8.1)
@@ -270,6 +276,7 @@ GEM
       rubocop-performance
       rubocop-rails
       rubocop-rspec
+    ruby-oci8 (2.2.12)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.2)
     sass (3.7.4)
@@ -324,7 +331,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-nulldb-adapter
-  alexandria-zoom (= 0.6.0)
+  alexandria-zoom!
   bootsnap (>= 1.1.0)
   byebug
   capistrano (~> 3.17.0)
@@ -348,6 +355,7 @@ DEPENDENCIES
   rspec (>= 3.11)
   rspec-rails (~> 5.1)
   rubocul (~> 4.0.3)
+  ruby-oci8 (~> 2.2.7)
   rubyzip (>= 2.0)
   sass-rails (~> 5.0)
   sqlite3

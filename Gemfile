@@ -36,7 +36,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # For z3950
 # gem 'zoom', '0.5.0'
-gem 'alexandria-zoom', '0.6.0' # Using this gem instead of regular 'zoom' because this PR has not been merged: https://github.com/bricestacey/ruby-zoom/pull/4
+# gem 'alexandria-zoom', '0.6.0' # Using this gem instead of regular 'zoom' because this PR has not been merged: https://github.com/bricestacey/ruby-zoom/pull/4
+gem 'alexandria-zoom', git: 'https://github.com/cul/cul-zoom.git', branch: 'yaz-config-fallback'
+# gem 'alexandria-zoom', path: '../cul-zoom'
 # For MARC parsing (using fork until PR is merged into main project)
 gem 'marc', '1.0.4'
 # gem 'marc', path: '../ruby-marc'
@@ -44,7 +46,7 @@ gem 'rainbow', '~> 3.0'
 # As of Ruby 3.0, need to explicitly include rexml because it's a bundled gem instead of a default gem
 gem 'rexml', '~> 3.2', '>= 3.2.4'
 # For oracle connections
-#gem 'ruby-oci8', '~> 2.2.7'
+gem 'ruby-oci8', '~> 2.2.7'
 # For HTTP Requests
 gem 'rest-client', '~> 2.0'
 # For cron tasks
