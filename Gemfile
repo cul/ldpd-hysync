@@ -74,11 +74,10 @@ group :development do
   gem 'listen', '~> 3.3'
 
   # Capistrano gems for deployment
-  gem 'capistrano', '~> 3.17.0', require: false
+  gem 'capistrano', '~> 3.18.0', require: false
   gem 'capistrano-cul', require: false
   gem 'capistrano-passenger', '~> 0.1', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano-rvm', '~> 0.1', require: false
 
   # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
   gem 'net-ssh', '>= 4.2'

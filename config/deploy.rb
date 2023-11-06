@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.17.0"
+lock "~> 3.18.0"
 
 set :remote_user, "renserv"
 set :application, 'hysync'
@@ -46,6 +46,10 @@ set :linked_files, fetch(:linked_files, []).push(
 
 # Whenever gem
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
+[:rake, :gem, :bundle, :ruby].each do |command_to_prefix_with_rvm|
+  SSHKit.config.command_map.prefix[command_to_prefix_with_rvm].push("~/.rvm/bin/rvm #{fetch(:deploy_name)} do")
+end
 
 namespace :deploy do
   desc "Report the environment"
