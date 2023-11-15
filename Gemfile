@@ -19,7 +19,7 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 
 # Need to pin nokogiri to 1.10.x for now because we can't build 1.11 on our deploy VMs (because of incompatible GLIBC version)
-gem 'nokogiri', '~> 1.10.10'
+gem 'nokogiri', '~> 1.15.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
@@ -35,7 +35,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 # For z3950
-gem 'zoom', '0.5.0'
+# gem 'zoom', '0.5.0'
+# gem 'alexandria-zoom', '0.6.0' # Using this gem instead of regular 'zoom' because this PR has not been merged: https://github.com/bricestacey/ruby-zoom/pull/4
+gem 'alexandria-zoom', git: 'https://github.com/cul/cul-zoom.git', branch: 'yaz-config-fallback'
+# gem 'alexandria-zoom', path: '../cul-zoom'
 # For MARC parsing (using fork until PR is merged into main project)
 gem 'marc', '1.0.4'
 # gem 'marc', path: '../ruby-marc'
@@ -71,11 +74,10 @@ group :development do
   gem 'listen', '~> 3.3'
 
   # Capistrano gems for deployment
-  gem 'capistrano', '~> 3.17.0', require: false
+  gem 'capistrano', '~> 3.18.0', require: false
   gem 'capistrano-cul', require: false
   gem 'capistrano-passenger', '~> 0.1', require: false
   gem 'capistrano-rails', '~> 1.4', require: false
-  gem 'capistrano-rvm', '~> 0.1', require: false
 
   # Use net-ssh >= 4.2 to prevent warnings with Ruby 2.4
   gem 'net-ssh', '>= 4.2'

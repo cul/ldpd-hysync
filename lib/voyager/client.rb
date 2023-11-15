@@ -1,3 +1,5 @@
+require 'zoom'
+
 module Voyager
   class Client
     include Voyager::ClientBehavior::OracleQueryBehavior
