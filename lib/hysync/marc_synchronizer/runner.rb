@@ -162,7 +162,7 @@ module Hysync
           Rails.logger.error msg
         end
 
-        return @errors.blank?, @errors
+        [@errors.blank?, @errors]
       end
 
       # If given hyacinth_record marc_005_last_modified value is equal to given marc_record 005
