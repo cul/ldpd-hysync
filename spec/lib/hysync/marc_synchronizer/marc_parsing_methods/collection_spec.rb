@@ -18,13 +18,6 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
 
   let(:marc_hyacinth_record) { Hysync::MarcSynchronizer::MarcHyacinthRecord.new(marc_record, [], {}, voyager_client) }
 
-  let(:expected) do
-    [
-      {"archive_org_identifier_value"=>"abcdefg"},
-      {"archive_org_identifier_value"=>"hijklmnop"},
-      {"archive_org_identifier_value"=>"qrstuvwxyz"}
-    ]
-  end
   context "has a CLIO 773" do
     let(:w773) { '(NNC)2345678' }
     it "does not look up a value to cache" do

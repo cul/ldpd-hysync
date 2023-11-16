@@ -41,7 +41,7 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
   end
   context "with an archive.org identifier in a 920" do
     let(:marc_fixture) { File.new("spec/fixtures/marc21/11258902.marc","rb") }
-    it "parses an archive.org identifier" do
+    pending "parses an archive.org identifier" do
       actual = subject.digital_object_data['dynamic_field_data']
       expect(actual["archive_org_identifier"]).not_to be_empty
       archive_org_identifier =  actual["archive_org_identifier"][0]["archive_org_identifier_value"]

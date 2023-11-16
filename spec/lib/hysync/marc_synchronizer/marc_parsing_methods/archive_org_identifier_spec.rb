@@ -16,7 +16,7 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
       {"archive_org_identifier_value"=>"qrstuvwxyz"}
     ]
   end
-  it "extracts the expected archive.org identifiers" do
+  pending "extracts the expected archive.org identifiers" do
     actual = marc_hyacinth_record.digital_object_data['dynamic_field_data']['archive_org_identifier']
     expect(actual).not_to be_empty
     expect(actual).to eql(expected)

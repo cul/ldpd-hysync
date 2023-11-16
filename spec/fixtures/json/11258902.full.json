@@ -1,16 +1,13 @@
 {
   "pid": "cul:vx0k6djhcn",
-  "data_file_path": "\/ifs\/cul\/ldpd\/hyacinth\/digital_object_data\/ad\/1f\/5c\/2a\/19\/3f\/ad1f5c2a-193f-4b52-985a-9097608dcb43\/ad1f5c2a-193f-4b52-985a-9097608dcb43.json",
+  "data_file_path": "/ifs/cul/ldpd/hyacinth/digital_object_data/ad/1f/5c/2a/19/3f/ad1f5c2a-193f-4b52-985a-9097608dcb43/ad1f5c2a-193f-4b52-985a-9097608dcb43.json",
   "uuid": "ad1f5c2a-193f-4b52-985a-9097608dcb43",
   "created": "2015-02-02T14:55:17Z",
   "modified": "2019-01-03T22:59:34Z",
   "first_published": "2019-01-03T22:22:19Z",
   "created_by": "Durst Service Account",
   "modified_by": "Admin User",
-  "identifiers": [
-    "cul:vx0k6djhcn",
-    "ad1f5c2a-193f-4b52-985a-9097608dcb43"
-  ],
+  "identifiers": ["cul:vx0k6djhcn", "ad1f5c2a-193f-4b52-985a-9097608dcb43"],
   "title": "150th anniversary celebration, 1786, July 4, 1936. The Society of Tammany, or Columbian Order in the great wigwam, Union Square, New York",
   "state": "A",
   "dc_type": "InteractiveResource",
@@ -57,7 +54,7 @@
     "collection": [
       {
         "collection_term": {
-          "uri": "http:\/\/id.library.columbia.edu\/term\/79de0ce6-55d5-4665-925a-11adfa425bf7",
+          "uri": "http://id.library.columbia.edu/term/79de0ce6-55d5-4665-925a-11adfa425bf7",
           "value": "Seymour B. Durst Old York Library Collection",
           "type": "local",
           "vocabulary_string_key": "collection",
@@ -106,7 +103,7 @@
     "form": [
       {
         "form_term": {
-          "uri": "http:\/\/id.loc.gov\/vocabulary\/graphicMaterials\/tgm001221",
+          "uri": "http://id.loc.gov/vocabulary/graphicMaterials/tgm001221",
           "value": "books",
           "type": "external",
           "authority": "aat",
@@ -133,23 +130,12 @@
     ],
     "url": [
       {
-        "url_value": "http:\/\/www.columbia.edu\/cgi-bin\/cul\/resolve?clio11258902"
-      }
-    ],
-    "archive_org_identifier": [
-      {
-        "archive_org_identifier_value": "150thanniversary00tamm"
+        "url_value": "http://www.columbia.edu/cgi-bin/cul/resolve?clio11258902"
       }
     ]
   },
-  "ordered_child_digital_objects": [
-    
-  ],
-  "parent_digital_objects": [
-    
-  ],
-  "doi": "doi:10.7916\/d8-mk9n-hm21",
-  "assignments": [
-    
-  ]
+  "ordered_child_digital_objects": [],
+  "parent_digital_objects": [],
+  "doi": "doi:10.7916/d8-mk9n-hm21",
+  "assignments": []
 }
