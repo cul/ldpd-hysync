@@ -31,8 +31,7 @@ module Hysync
           leader_bytes_6_and_7 = marc_record.leader[6..7]
           case leader_bytes_6_and_7
           when 'am', # Language material, Monograph/Item
-            'aa', # Language material, Monographic component part
-            'tm' # Manuscript language material, Monograph/Item
+            'aa' # Language material, Monographic component part
             form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm001221' } # books
           when 'as', # Language material, Serial
             'ab' # Language material, Serial component part
@@ -58,7 +57,8 @@ module Hysync
             form_terms << { 'uri' => 'http://vocab.getty.edu/aat/300028881' } # ephemera
           when 'rm' # Three-dimensional artifact or naturally occurring object, Monograph/Item
             form_terms << { 'uri' => 'http://id.loc.gov/vocabulary/graphicMaterials/tgm007159' } # objects
-          when 'tc' # Manuscript language material, Collection
+          when 'tc', # Manuscript language material, Collection
+            'tm' # Manuscript language material, Monograph/Item
             form_terms << { 'uri' => 'http://id.loc.gov/authorities/subjects/sh85080672.html' } # manuscripts
           when 'cm' # Notated music, Monograph/Item
             form_terms << { 'uri' => 'http://id.loc.gov/authorities/genreForms/gf2014026952' } # music
