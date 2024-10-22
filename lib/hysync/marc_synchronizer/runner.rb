@@ -1,7 +1,7 @@
 module Hysync
   module MarcSynchronizer
     class Runner
-      def self.default_digital_object_data
+      def self.generate_default_digital_object_data_for_item
         {
           'digital_object_type' => {'string_key' => 'item' },
           'dynamic_field_data' => {},
@@ -14,6 +14,25 @@ module Hysync
         @voyager_client = Voyager::Client.new(voyager_config)
         @collection_clio_ids_to_uris = @hyacinth_client.generate_collection_clio_ids_to_uris_map
         @errors = []
+      end
+
+      def csv_for_965(value965, csv_out_path)
+        JsonCsv.create_csv_for_json_records(csv_out_path) do |csv_builder|
+          Rails.logger.debug "Generating csv..."
+          @voyager_client.search_by_965_value(value965) do |marc_record, i, num_results, unexpected_error|
+            if unexpected_error.present?
+              Rails.logger.debug "#{i+1} of #{num_results}: ERROR"
+              # This comes up most often when we encounter text encoding errors
+              @errors << unexpected_error
+              next
+            else
+              Rails.logger.debug "#{i+1} of #{num_results}: (clio id = #{marc_record['001'].value}) #{marc_record['245']}"
+            end
+
+            digital_object_data = self.generate_digital_object_data_for_bib_record(marc_record)
+            csv_builder.add(digital_object_data)
+          end
+        end
       end
 
       # Runs the synchronization action.
@@ -31,8 +50,8 @@ module Hysync
             Rails.logger.debug "#{i+1} of #{num_results}: (clio id = #{marc_record['001'].value}) #{marc_record['245']}"
           end
 
-          base_digital_object_data = self.class.default_digital_object_data
-          create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run)
+          digital_object_data = self.generate_digital_object_data_for_bib_record(marc_record)
+          create_or_update_hyacinth_record(digital_object_data, force_update, dry_run)
         end
 
         [@errors.blank?, @errors]
@@ -80,10 +99,10 @@ module Hysync
         @hyacinth_client.find_by_identifier(clio_id, { f: { digital_object_type_display_label_sim: ['Item'] } })
       end
 
-      # @param marc_record [MARC::Reader] ruby-marc record object
-      # @param base_digital_object_data [Hash] Hyacinth digital object properties
-      # @param force_update [Boolean] update records regardless of modification date (005)
-      def create_or_update_hyacinth_record(marc_record, base_digital_object_data, force_update, dry_run = false)
+      # Given a MARC bib record, converts it to a digital object data Hash for submission to Hyacinth
+      # Return [Hash] Digital object data (to be sent to Hyacinth)
+      def generate_digital_object_data_for_bib_record(marc_record)
+        digital_object_data = self.class.generate_default_digital_object_data_for_item
         holdings_marc_records = []
         holdings_marc_record_errors = []
         begin
@@ -94,14 +113,24 @@ module Hysync
           marc_hyacinth_record.errors << "Holdings record issue: #{e.message}"
         end
         marc_hyacinth_record = Hysync::MarcSynchronizer::MarcHyacinthRecord.new(
-          marc_record, holdings_marc_records, base_digital_object_data, @voyager_client
+          marc_record, holdings_marc_records, digital_object_data, @voyager_client
         )
         marc_hyacinth_record.errors.concat(holdings_marc_record_errors)
 
         add_collection_if_collection_clio_id_present!(marc_hyacinth_record)
 
-        if marc_hyacinth_record.clio_id.nil?
-          msg = 'Missing CLIO ID for marc_hyacinth_record'
+        # Add "clio#{bib_id}" identifier (e.g. clio12345).
+        digital_object_data['identifiers'] << "clio#{marc_hyacinth_record.clio_id}"
+
+        digital_object_data
+      end
+
+      # @param marc_record [MARC::Reader] ruby-marc record object
+      # @param digital_object_data [Hash] Hyacinth digital object properties
+      # @param force_update [Boolean] update records regardless of modification date (005)
+      def create_or_update_hyacinth_record(digital_object_data, force_update, dry_run = false)
+        if digital_object_data.dig('dynamic_field_data', 'clio_identifier', 0, 'clio_identifier_value').nil?
+          msg = 'Missing CLIO ID for digital_object_data'
           @errors << msg
           Rails.logger.error msg
           return @errors.blank?, @errors
@@ -120,9 +149,6 @@ module Hysync
         end
 
         return @errors.blank?, @errors if dry_run
-
-        # Add "clio#{bib_id}" identifier (e.g. clio12345).
-        marc_hyacinth_record.digital_object_data['identifiers'] << "clio#{marc_hyacinth_record.clio_id}"
 
         # Use clio identifier to determine whether Item exists
         results = find_items_by_clio_id(marc_hyacinth_record.clio_id)

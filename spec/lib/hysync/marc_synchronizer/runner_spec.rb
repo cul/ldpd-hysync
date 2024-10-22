@@ -24,14 +24,14 @@ describe Hysync::MarcSynchronizer::Runner do
       record
     end
     let(:hyacinth_record) do
-      record = described_class.default_digital_object_data
+      record = described_class.generate_default_digital_object_data_for_item
       record['dynamic_field_data']['marc_005_last_modified'] = [{'marc_005_last_modified_value' => same_005}]
       record
     end
     subject { runner.update_indicated?(marc_record, hyacinth_record) }
     context 'no hyacinth 005 recorded' do
       let(:hyacinth_record) {
-        described_class.default_digital_object_data
+        described_class.generate_default_digital_object_data_for_item
       }
       it { is_expected.to be true }
     end
@@ -44,7 +44,7 @@ describe Hysync::MarcSynchronizer::Runner do
     end
     context 'hyacinth and marc 005 differ' do
       let(:hyacinth_record) do
-        record = described_class.default_digital_object_data
+        record = described_class.generate_default_digital_object_data_for_item
         record['dynamic_field_data']['marc_005_last_modified'] = [{'marc_005_last_modified_value' => different_005}]
         record
       end
@@ -56,7 +56,7 @@ describe Hysync::MarcSynchronizer::Runner do
   end
   describe '#reconcile_identifiers!' do
     let(:runner) { described_class.allocate }
-    let(:default_data) { described_class.default_digital_object_data }
+    let(:default_data) { described_class.generate_default_digital_object_data_for_item }
     let(:marc_record) do
       FactoryBot.build(:marc_record)
     end
@@ -66,7 +66,7 @@ describe Hysync::MarcSynchronizer::Runner do
     end
     let(:hyacinth_ids) { [] }
     let(:existing_hyacinth_record) do
-      record = described_class.default_digital_object_data.merge('identifiers' => hyacinth_ids.dup)
+      record = described_class.generate_default_digital_object_data_for_item.merge('identifiers' => hyacinth_ids.dup)
       record
     end
     before do
@@ -108,7 +108,7 @@ describe Hysync::MarcSynchronizer::Runner do
   describe '#reconcile_projects!' do
     let(:runner) { described_class.allocate }
     let(:hyacinth_project) { 'hyacinth_only' }
-    let(:default_data) { described_class.default_digital_object_data }
+    let(:default_data) { described_class.generate_default_digital_object_data_for_item }
     let(:marc_record) do
       record = FactoryBot.build(:marc_record)
       marc_project_keys.each do |key|
@@ -127,7 +127,7 @@ describe Hysync::MarcSynchronizer::Runner do
     let(:hyc_other_project_string_keys) { [] }
     let(:hyc_other_projects) { hyc_other_project_string_keys.map {|string_key| Hysync::MarcSynchronizer::MarcParsingMethods::Project.hyacinth_2_project_term(string_key) } }
     let(:existing_hyacinth_record) do
-      record = described_class.default_digital_object_data.merge('identifiers' => common_ids.dup)
+      record = described_class.generate_default_digital_object_data_for_item.merge('identifiers' => common_ids.dup)
       record['project'] = {'string_key' => hyacinth_project}
       record['dynamic_field_data']['other_project'] = hyc_other_projects.dup
       record

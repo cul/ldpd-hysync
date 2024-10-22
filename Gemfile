@@ -53,6 +53,8 @@ gem 'rest-client', '~> 2.0'
 gem 'whenever', require: false
 # For retrying after raised errors
 gem 'retriable', '~> 3.1'
+# For csv generation
+gem 'json_csv', '~> 1.1'
 
 # Ensure min versions of certain gems for security reasons only
 gem 'rubyzip', '>= 2.0'
