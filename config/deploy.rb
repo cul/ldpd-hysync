@@ -10,7 +10,7 @@ set :rvm_custom_path, '~/.rvm-alma8'
 
 set :remote_user, 'renserv'
 set :application, 'hysync'
-set :repo_name, fetch(:application)
+set :repo_name, "ldpd-#{fetch(:application)}"
 set :repo_url, "git@github.com:cul/#{fetch(:repo_name)}.git"
 set :deploy_name, "#{fetch(:application)}_#{fetch(:stage)}"
 # used to run rake db:migrate, etc

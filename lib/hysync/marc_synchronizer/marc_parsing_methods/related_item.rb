@@ -91,17 +91,17 @@ module Hysync
 
             MarcSelector.all(marc_record, 920, indicator1: 4, indicator2: 0, u: true).map do |field|
               {
-                'related_item' => {
-                  'related_item_title' => title_245_ab,
-                  'related_item_type' => {
-                    'value' => 'isIdenticalTo',
-                    'authority' => 'datacite'
-                  },
-                  'related_item_identifier' => {
+                'related_item_title' => title_245_ab,
+                'related_item_type' => {
+                  'value' => 'isIdenticalTo',
+                  'authority' => 'datacite'
+                },
+                'related_item_identifier' => [
+                  {
                     'related_item_identifier_type' => 'url',
                     'related_item_identifier_value' => field['u']
                   }
-                }
+                ]
               }
             end
           end
