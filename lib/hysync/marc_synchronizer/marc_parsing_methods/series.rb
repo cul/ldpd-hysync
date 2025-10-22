@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_series
         end
 
-        def add_series(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_series(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['series'] ||= []
 
           extract_series_values(marc_record, mapping_ruleset).each do |series|

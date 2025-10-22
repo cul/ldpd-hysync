@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_related_item
         end
 
-        def add_related_item(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_related_item(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['related_item'] ||= []
 
           extract_related_items(marc_record, mapping_ruleset).each do |related_item|

@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_title
         end
 
-        def add_title(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_title(marc_record, location_codes_from_holdings, mapping_ruleset)
           return if marc_record['245'].blank?
           non_sort_portion_lenth = marc_record['245'].indicator2.nil? ? 0 : marc_record['245'].indicator2.to_i
           title = extract_title(marc_record, mapping_ruleset)

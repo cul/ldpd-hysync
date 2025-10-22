@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_type_of_resource
         end
 
-        def add_type_of_resource(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_type_of_resource(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['type_of_resource'] ||= []
           dynamic_field_data['type_of_resource'] << {
             'type_of_resource_value' => extract_type_of_resource(marc_record, mapping_ruleset),

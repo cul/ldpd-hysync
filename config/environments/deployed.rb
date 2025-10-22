@@ -91,6 +91,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Set host to be used by links generated in mailer templates.
+  # config.action_mailer.default_url_options = { host: "example.com" }
+
+  # Specify outgoing SMTP server.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address: 'smtp.library.columbia.edu',

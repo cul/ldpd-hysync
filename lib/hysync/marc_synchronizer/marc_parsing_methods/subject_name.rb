@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_subject_name
         end
 
-        def add_subject_name(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_subject_name(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['subject_name'] ||= []
 
           subject_names_seen = Set.new

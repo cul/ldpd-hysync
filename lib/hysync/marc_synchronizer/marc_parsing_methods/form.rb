@@ -8,7 +8,7 @@ module Hysync
           register_parsing_method :add_form
         end
 
-        def add_form(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_form(marc_record, location_codes_from_holdings, mapping_ruleset)
           # We skip form for ldeotechnical because that collection uses genre instead of form
           return if mapping_ruleset == 'ldeotechnical'
 

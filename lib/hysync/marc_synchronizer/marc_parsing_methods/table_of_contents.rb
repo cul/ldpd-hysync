@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_table_of_contents
         end
 
-        def add_table_of_contents(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_table_of_contents(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['table_of_contents'] ||= []
           extract_table_of_contents_values(marc_record, mapping_ruleset).each do |value|
             dynamic_field_data['table_of_contents'] << value

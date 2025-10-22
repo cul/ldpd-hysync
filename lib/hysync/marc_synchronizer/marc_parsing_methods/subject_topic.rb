@@ -43,7 +43,7 @@ module Hysync
           'Officials and employees, Alien'	=> 'Officials and employees, Noncitizen',
         }.freeze
 
-        def add_subject_topic(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_subject_topic(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['subject_topic'] ||= []
 
           topics_seen = Set.new

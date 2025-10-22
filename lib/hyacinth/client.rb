@@ -1,5 +1,10 @@
 module Hyacinth
   class Client
+    def self.instance(reload: false)
+      @instance = self.new(Rails.application.config.hyacinth) if @instance.nil? || reload
+      @instance
+    end
+
     def initialize(config)
       @config = config
 

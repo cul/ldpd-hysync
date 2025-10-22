@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_local_identifier
         end
 
-        def add_local_identifier(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_local_identifier(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['local_identifier'] ||= []
 
           MarcSelector.all(marc_record, '024', indicator1: 8, a: true).each do |field|

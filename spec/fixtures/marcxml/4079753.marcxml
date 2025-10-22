@@ -1,0 +1,493 @@
+<?xml version="1.0"?>
+<record xmlns="http://www.loc.gov/MARC21/slim">
+  <leader>16210npcaa2201429 u 4500</leader>
+  <controlfield tag="001">4079753</controlfield>
+  <controlfield tag="008">251002i18722015xxu                 eng d</controlfield>
+  <controlfield tag="005">20251003000310.8</controlfield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(OCoLC)299029241</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(CStRLIN)NYCR91-A6</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(NNC)CULASPC:voyager:4079753</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(NNC)4079753</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">4079753</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="040">
+    <subfield code="a">NNC-RB</subfield>
+    <subfield code="b">eng</subfield>
+    <subfield code="c">NNC-RB</subfield>
+    <subfield code="e">Describing Archives: A Content Standard</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="041">
+    <subfield code="a">eng</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="049">
+    <subfield code="a">NNC-RB</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="099">
+    <subfield code="a">4079753</subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="110">
+    <subfield code="a">Carnegie Corporation of New York,</subfield>
+    <subfield code="e">creator.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n80044775</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="245">
+    <subfield code="a">Carnegie Corporation of New York records,</subfield>
+    <subfield code="f">circa 1872-2015</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="300">
+    <subfield code="a">3000</subfield>
+    <subfield code="f">linear feet (2400 boxes, 400 volumes, 112 microfilm reels)</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="351">
+    <subfield code="a">Arranged into 11 series. When requesting material from this collection please request by Series and subseries as well as box number.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="506">
+    <subfield code="a">The Collection is open for research with the following standard embargoes: Series I.A. Board Meeting materials are embargoed fifteen (15) years from date of creation. Series I.E. Staff and Trustee Files are embargoed fifteen (15) years from date of creation. Series III.A Grants, Series III.B. Reports on Grants are embargoed twenty-five (25) years from the date the grant closed.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="506">
+    <subfield code="a">Please be advised that parts of the collection are housed offsite and we request five (5) days advance notice. For Series III.A. Grants, boxes 1701-2085; Series IV.A CCPDC, Series IV.B CCSTG, IV.C CCAD, Series IV.E TFLPG, Series IV.F TFMNYC, Series IV.G MGSSPI, Series V.A Russell, Series V.B Pifer, Series IV.A Home Trust, Series VIII.C. Grant Books, Series XI.A, Series XI.B and Series XI.C are all offsite.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="506">
+    <subfield code="a">Unique time-based media items have been reformatted and are available onsite via links in the container list. Commercial materials are not routinely digitized.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="506">
+    <subfield code="a">Description for Series III, grants, temporarily moved to separate finding aid:   https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_16647888/ </subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="520">
+    <subfield code="a">Minutes, correspondence, annual reports, press releases, financial records, photographs, memorabilia, audiovisual, digital and printed materials document the philanthropic activities and administration of the Carnegie Corporation of New York. The collection is actively growing, primarily through regular document transfers from the Carnegie Corporation of New York. Andrew Carnegie's biographical information and personal philanthropic activity can be found in Series VII. In addition, his pre-1911 gifts, most notably his donations for libraries and church organs, can be found on microfilm (Series II), in the Home Trust Company Records (VI.A), and Financial Record Books (I.C.1). Grant files (Series III.A), which comprise the bulk of the collection) provide information on projects and institutions founded, endowed or supported by the Corporation. The Special Initiatives series (Series IV) contains the records of task forces, commissions and councils, formed by the Corporation mostly during the 1970s, 1980s, and 1990s to address specific issues. The Corporation's records include those of other Carnegie philanthropic organizations (Series VI), including the Carnegie Foundation for the Advancement of Teaching and the Home Trust Company, both of which shared staff, officers, and office space with the Corporation for a period of time.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="524">
+    <subfield code="a">Carnegie Corporation of New York Records. Rare Book and Manuscript Library. Columbia University Libraries. [Series. Subseries. Box Number].</subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="535">
+    <subfield code="a">Parts of collection are available on microfilm. Please consult the curator or finding aid for details.</subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="535">
+    <subfield code="a">Digitized material is linked in the container list. All of Series II (Microfilm) and Series XI (AV) has been digitized. Parts of Series I, VIII, IX, and X have been digitizied.
+
+A stand-alone website at  dlc.library.columbia.edu/carnegie/  highlights digitized content from this collection, and provides a portal into the Corporation&#x2019;s philanthropy from the 1870s to the 21st century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="540">
+    <subfield code="a">Permission to publish and quote materials must be obtained in writing from the Carnegie Corporation of New York.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="541">
+    <subfield code="a">Date of acquisition--1990. Accession number--M-1990.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="544">
+    <subfield code="d">The Rare Book and Manuscript Library of Columbia University is the repository for the records of four philanthropic organizations founded and endowed by the Scottish steel magnate Andrew Carnegie. In addition to this collection, the records of the Carnegie Corporation of New York (CCNY), the RBML holds the records of the Carnegie Endowment for International Peace (CEIP), the Carnegie Foundation for the Advancement of Teaching (CFAT), and the Carnegie Council on Ethics and International Affairs (CCEIA).
+
+For more information, see  https://library.columbia.edu/locations/rbml/units/carnegie.html .</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="544">
+    <subfield code="d">Other related collections at RBML include the  Frederick P. Keppel Papers  and the  Carnegie Corporation of New York Project: Oral History project .</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="544">
+    <subfield code="d"> Andrew Carnegie Papers , Library of Congress Manuscript Division.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="545">
+    <subfield code="a">Carnegie Corporation of New York, which was established by Andrew Carnegie in 1911 "to promote the advancement and diffusion of knowledge and understanding" is one of the oldest, largest and most influential of American foundations. Since its inception it has provided grants for research and educational studies in the United States and, to a lesser degree, in other parts of the English-speaking world outside of the United Kingdom. Carnegie Corporation has contributed to the expansion of higher education and adult education; the research on learning and cognitive development; the promotion of educational and public interest broadcasting; and the advancement of minorities. It has funded the writing of books and studies, as well as the organization of conferences and international exchanges, radio shows, legal proceedings and other activities. Over the century of its existence, the Corporation has helped establish or endowed a variety of institutions, including thousands of Carnegie libraries, TIAA-CREF, the National Research Council, National Bureau of Economic Research, Brookings Institution, American Law Institute, American Association for Adult Education, Russian Research Center and other research institutes in Harvard University, Children's Defense Fund, National Assessment of Educational Progress, National Board for Professional Teaching Standards, the Children's Television Workshop, and many others. In the 1980s and 1990s, it helped heighten public understanding of the education and health needs of children and adolescents, as well as brought to public attention the risks of superpower confrontation, nuclear war, and ethnic and civil strife. For many years Carnegie Corporation provided financial support to Carnegie's other philanthropic organizations. Through its activities the Corporation has had a significant influence on public discourse and policy.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="545">
+    <subfield code="a">In the Corporation's early years, Carnegie himself was president and a trustee. James Bertram, his private secretary, and Robert A. Franks, his financial agent, were also trustees and, respectively, secretary and treasurer of the Corporation. These three comprised the first executive committee and made most of the funding decisions. The other seats on the board were held ex-officio by the presidents of the five previously established Carnegie organizations in the United States-Carnegie Institute (of Pittsburgh) (est. 1896), Carnegie Institution of Washington (est. 1902), Carnegie Hero Fund Commission (est. 1904), Carnegie Foundation for the Advancement of Teaching (est. 1905), and Carnegie Endowment for International Peace (est. 1910). Shortly after Carnegie's death in 1919, the trustees elected a full-time, salaried president as chief executive officer of the Corporation and made him an ex officio member of the board. The presidents since Andrew Carnegie have been: Elihu Root (1919-1920), James R. Angell (1920-1921), Henry S. Pritchett (1921-1923, acting), Frederick P. Keppel (1923-1941), Walter A. Jessup (1941-1944), Devereux C. Josephs (1945-1948), Charles Dollard (1948-1955), John W. Gardner (1955-1967), Alan Pifer (1967-1982, acting 1965-1967), David A. Hamburg (1982-1997), Vartan Gregorian (1997-2022), and Dame Louise Richardson (2023-present).</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="561">
+    <subfield code="a">Gift of the Corporation of New York, 1990. Part of Home Trust Company files were purchased from private collectors in 1998 and 2003.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="583">
+    <subfield code="a">Entered in AMC 01/30/91.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="583">
+    <subfield code="a">Processed WS 2000.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="583">
+    <subfield code="a">Finding aid encoded spring 2019 from legacy HTML, Word, and Excel finding documents.</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Angell, James Rowland,</subfield>
+    <subfield code="d">1869-1949.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/no97001042</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Butler, Nicholas Murray,</subfield>
+    <subfield code="d">1862-1947.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n50032600</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Carnegie, Andrew,</subfield>
+    <subfield code="d">1835-1919.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n50032468</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Conant, James Bryant,</subfield>
+    <subfield code="d">1893-1978.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n50030042</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Dollard, Charles,</subfield>
+    <subfield code="d">1907-1977.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n99028621</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Gardner, John W,</subfield>
+    <subfield code="d">1912-2002</subfield>
+    <subfield code="q">(John William)</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n79060119</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Gregorian, Vartan.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n89104405</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Hamburg, David A.,</subfield>
+    <subfield code="d">1925-.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n50019980</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Jessup, Walter A.,</subfield>
+    <subfield code="d">1877-1944</subfield>
+    <subfield code="q">(Walter Albert)</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n2012013244</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Josephs, D. C.,</subfield>
+    <subfield code="d">1893-1977</subfield>
+    <subfield code="q">(Devereux Colt)</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n99028742</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Keppel, Frederick P,</subfield>
+    <subfield code="d">1875-1943</subfield>
+    <subfield code="q">(Frederick Paul)</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n88025992</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Myrdal, Gunnar,</subfield>
+    <subfield code="d">1898-1987.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n80044766</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Pifer, Alan J.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n82108028</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Pritchett, Henry S,</subfield>
+    <subfield code="d">1857-1939</subfield>
+    <subfield code="q">(Henry Smith)</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/nr89001420</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="600">
+    <subfield code="a">Root, Elihu, 1845-1937.</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n50048409</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">American Association for Adult Education</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n82047454</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">American Law Institute</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n79054644</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">American Library Association</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n79062941</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Brookings Institution</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n81067841</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Carnegie Commission on Educational Television</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n97123311</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Carnegie Commission on Preventing Deadly Conflict</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/no96025147</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Carnegie Commission on Science, Technology, and Government</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n90706120</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Carnegie Council on Children</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n77000717</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Carnegie Endowment for International Peace</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n79145348</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Carnegie Foundation for the Advancement of Teaching</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n50055969</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Children's Television Workshop</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n79022814</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Educational Testing Service</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n79004074</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Harvard University.</subfield>
+    <subfield code="b">Russian Research Center</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n80087594</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">National Bureau of Economic Research</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n79139286</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">National Research Council (U.S.)</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n79036113</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="0" tag="610">
+    <subfield code="a">Teachers Insurance and Annuity Association</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/names/n84032508</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Philanthropists</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85100740</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Endowment of research</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85043106</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Charitable uses, trusts, and foundations</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85022656</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Endowments</subfield>
+    <subfield code="z">United States</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh2008102775</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Adult education</subfield>
+    <subfield code="z">United States</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh2007100668</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Professional education</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85107250</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">African Americans</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85001932</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">African Americans</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85001955</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Education, Higher</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85041065</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Arts</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85008324</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">International relations</subfield>
+    <subfield code="x">Research</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh2008104851</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Women</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85147304</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Psychology</subfield>
+    <subfield code="x">Research</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85108467</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Gifted children</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85054887</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Economics</subfield>
+    <subfield code="x">Research</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh2008102636</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Child development</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85023357</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Libraries</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85076502</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Political science</subfield>
+    <subfield code="x">Research</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh2008109589</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Education</subfield>
+    <subfield code="z">Africa, Sub-Saharan</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh2008118734</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Education</subfield>
+    <subfield code="z">United States</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85041047</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Education</subfield>
+    <subfield code="z">Canada</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh2008102724</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Social sciences</subfield>
+    <subfield code="x">Research</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85124014</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Minorities</subfield>
+    <subfield code="x">Education</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85085794</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Anthropology</subfield>
+    <subfield code="x">Research</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85005584</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">English language</subfield>
+    <subfield code="x">Study and teaching</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85043705</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Graduate Record Examination</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85056175</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Languages, Modern</subfield>
+    <subfield code="x">Study and teaching</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85074599</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Humanities</subfield>
+    <subfield code="x">Research</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Mathematics</subfield>
+    <subfield code="x">Study and teaching</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85082157</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Science</subfield>
+    <subfield code="x">Study and teaching</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85118587</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Public television</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85108820</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Universities and colleges</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85141086</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Scrapbooks</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85118923</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="651">
+    <subfield code="a">United States</subfield>
+    <subfield code="x">Social policy</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85140547</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="651">
+    <subfield code="a">South Africa</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85125452</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Account books</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300027483</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Annual reports</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300027292</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Memorandums</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300026906</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Microforms</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300028589</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">minutes (administrative records)</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300027440</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Photographs</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300046300</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Reports</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300027267</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Audiocassettes</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300028661</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">CD-Rs</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300266409</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">DVDs</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300264677</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Videotapes</subfield>
+    <subfield code="2">aat</subfield>
+    <subfield code="0">http://vocab.getty.edu/page/aat/300028689</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="656">
+    <subfield code="a">Endowments</subfield>
+    <subfield code="x">Officials and employees</subfield>
+    <subfield code="2">lcsh</subfield>
+    <subfield code="0">http://id.loc.gov/authorities/subjects/sh85043108</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="852">
+    <subfield code="a">Columbia University Libraries</subfield>
+    <subfield code="b">Rare Book and Manuscript Library</subfield>
+    <subfield code="c">4079753</subfield>
+    <subfield code="j">CC#0001</subfield>
+  </datafield>
+  <datafield ind1="4" ind2="2" tag="856">
+    <subfield code="u">https://findingaids.library.columbia.edu/ead/nnc-rb/ldpd_4079753/</subfield>
+    <subfield code="3">Finding aid</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="965">
+    <subfield code="a">965noexportAUTH</subfield>
+  </datafield>
+  <datafield ind1="f" ind2="f" tag="999">
+    <subfield code="i">356f82c2-f0d4-5c08-9587-fb542c5a02a6</subfield>
+    <subfield code="s">5f65f95b-72d5-4217-92c0-10757af1e37d</subfield>
+  </datafield>
+</record>

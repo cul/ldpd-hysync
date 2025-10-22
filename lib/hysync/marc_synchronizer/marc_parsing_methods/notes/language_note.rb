@@ -8,7 +8,7 @@ module Hysync
             register_parsing_method :add_language_note
           end
 
-          def add_language_note(marc_record, holdings_marc_records, mapping_ruleset)
+          def add_language_note(marc_record, location_codes_from_holdings, mapping_ruleset)
             dynamic_field_data['note'] ||= []
             extract_language_notes(marc_record, mapping_ruleset).each do |language_note|
               dynamic_field_data['note'] << {
