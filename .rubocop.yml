@@ -19,7 +19,7 @@ Style/Documentation:
   Enabled: false
 
 RSpec/Focus:
-  SafeAutoCorrect: false
+  AutoCorrect: false
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
