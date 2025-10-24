@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_archive_org_identifier
         end
 
-        def add_archive_org_identifier(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_archive_org_identifier(marc_record, location_codes_from_holdings, mapping_ruleset)
           ############################################################################
           # NOTE: This sync rule implementation is commented out for now because the #
           # source data in 920 and 856 fields does not reliably sync up.             #

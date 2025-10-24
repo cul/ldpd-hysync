@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_place_of_origin
         end
 
-        def add_place_of_origin(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_place_of_origin(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['place_of_origin'] ||= []
           dynamic_field_data['place_of_origin'] << {
             'place_of_origin_value' => StringCleaner.trailing_punctuation_and_whitespace(

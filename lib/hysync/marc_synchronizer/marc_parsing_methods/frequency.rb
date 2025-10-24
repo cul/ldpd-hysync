@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_frequency
         end
 
-        def add_frequency(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_frequency(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['frequency'] ||= []
           extract_frequency_terms(marc_record, mapping_ruleset).each do |frequency_term|
             dynamic_field_data['frequency'] << {

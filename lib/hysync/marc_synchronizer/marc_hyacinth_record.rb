@@ -52,7 +52,7 @@ module Hysync
       attr_reader :mapping_ruleset
       attr_reader :errors
 
-      def initialize(marc_record = nil, holdings_marc_records = [], default_digital_object_data = {}, voyager_client = nil)
+      def initialize(marc_record = nil, location_codes_from_holdings = [], default_digital_object_data = {}, folio_client = nil)
         @errors = []
         @digital_object_data = default_digital_object_data
         hyacinth_flag = MarcSelector.first(marc_record, 965, {a: '965hyacinth'})
@@ -61,7 +61,7 @@ module Hysync
         @digital_object_data['dynamic_field_data'] ||= {}
 
         # parse marc and add data to digital_object_data
-        add_marc_data(marc_record, holdings_marc_records, voyager_client) unless marc_record.nil?
+        add_marc_data(marc_record, location_codes_from_holdings, folio_client) unless marc_record.nil?
       end
 
       def dynamic_field_data
@@ -77,12 +77,12 @@ module Hysync
       end
 
       # Merges data from this marc record into the underlying digital_object_data fields
-      def add_marc_data(marc_record, holdings_marc_records, voyager_client = nil)
+      def add_marc_data(marc_record, location_codes_from_holdings, folio_client = nil)
         begin
           self.class.registered_parsing_methods.each do |method_name|
-            args = [method_name, marc_record, holdings_marc_records, @mapping_ruleset]
+            args = [method_name, marc_record, location_codes_from_holdings, @mapping_ruleset]
             if self.method(method_name).arity == -4 # optional voyager client arg
-              args << voyager_client
+              args << folio_client
             end
             self.send(*args)
           end

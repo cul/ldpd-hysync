@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_publish_targets
         end
 
-        def add_publish_targets(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_publish_targets(marc_record, location_codes_from_holdings, mapping_ruleset)
           # TODO: Use publish_to for Hyacinth 3
 
           publish_target_string_keys = []

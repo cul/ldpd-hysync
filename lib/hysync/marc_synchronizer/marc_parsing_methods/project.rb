@@ -9,7 +9,7 @@ module Hysync
           register_parsing_method :add_project
         end
 
-        def add_project(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_project(marc_record, location_codes_from_holdings, mapping_ruleset)
           existing_project = digital_object_data.fetch('project',{})['string_key']
 
           project_string_keys = marc_record.fields('965').map do |field|

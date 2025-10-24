@@ -6,7 +6,7 @@ gem 'io-wait', '0.2.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 7.0.2'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'sqlite3', '1.7.0'
 # Or use a null adapter for scenarios that really require no database
 gem 'activerecord-nulldb-adapter'
 # Use Puma as the app server
@@ -34,19 +34,17 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-# For z3950
-# gem 'zoom', '0.5.0'
-# gem 'alexandria-zoom', '0.6.0' # Using this gem instead of regular 'zoom' because this PR has not been merged: https://github.com/bricestacey/ruby-zoom/pull/4
-gem 'alexandria-zoom', git: 'https://github.com/cul/cul-zoom.git', branch: 'yaz-config-fallback'
-# gem 'alexandria-zoom', path: '../cul-zoom'
+# FOLIO Client
+gem 'folio_api_client', '~> 0.5.0'
+# gem "folio_api_client", path: "../folio_api_client"
+
 # For MARC parsing (using fork until PR is merged into main project)
-gem 'marc', '1.0.4'
+gem 'marc', '~> 1.3'
 # gem 'marc', path: '../ruby-marc'
 gem 'rainbow', '~> 3.0'
 # As of Ruby 3.0, need to explicitly include rexml because it's a bundled gem instead of a default gem
 gem 'rexml', '~> 3.2', '>= 3.2.4'
-# For oracle connections
-gem 'ruby-oci8', '~> 2.2.7'
+
 # For HTTP Requests
 gem 'rest-client', '~> 2.0'
 # For cron tasks
@@ -74,7 +72,7 @@ group :development do
   gem 'listen', '~> 3.3'
 
   # Capistrano gems for deployment
-  gem 'capistrano', '~> 3.18.0', require: false
+  gem 'capistrano', '~> 3.19.0', require: false
   gem 'capistrano-cul', require: false
   gem 'capistrano-passenger', '~> 0.1', require: false
   gem 'capistrano-rails', '~> 1.4', require: false

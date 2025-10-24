@@ -8,7 +8,7 @@ module Hysync
             register_parsing_method :add_rights_note
           end
 
-          def add_rights_note(marc_record, holdings_marc_records, mapping_ruleset)
+          def add_rights_note(marc_record, location_codes_from_holdings, mapping_ruleset)
             return unless mapping_ruleset == 'video'
 
             dynamic_field_data['note'] ||= []

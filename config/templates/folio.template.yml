@@ -1,0 +1,13 @@
+development:
+  url: https://development.example.com
+  username: username
+  password: password
+  tenant: abc123
+  timeout: 10
+
+test:
+  url: https://test.example.com
+  username: username
+  password: password
+  tenant: abc123
+  timeout: 10

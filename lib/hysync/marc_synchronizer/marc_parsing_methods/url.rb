@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_url
         end
 
-        def add_url(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_url(marc_record, location_codes_from_holdings, mapping_ruleset)
           return if mapping_ruleset == 'ldeotechnical'
 
           dynamic_field_data['url'] ||= []

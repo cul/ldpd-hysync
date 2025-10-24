@@ -2,11 +2,22 @@ require 'rails_helper'
 
 describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
   let(:marc_fixture) { File.new("spec/fixtures/marc21/12584148.marc","rb") }
-  # this json is just the expected strucutre of a parsed voyager record
+  let(:marc_fixture_4079753_collection_record) { File.new("spec/fixtures/marcxml/4079753.marcxml","rb") }
+  let(:location_codes_from_holdings) { [] }
+  # this json is just the expected strucutre of a parsed marc record
   let(:json_fixture) { "spec/fixtures/json/12584148.import.json" }
   let(:json_record) { JSON.load(File.read(json_fixture)) }
 	let(:marc_record) do
-    MARC::Record.new_from_marc(marc_fixture.read)
+    MARC::Reader.new(marc_fixture.path).first
+  end
+  let(:marc_record_4079753_collection_record) do
+    MARC::XMLReader.new(marc_fixture_4079753_collection_record.path, parser: "nokogiri").first
+  end
+  let(:folio_client) do
+    client = instance_double(Hysync::FolioApiClient)
+    allow(client).to receive(:find_by_bib_id).with('12584148').and_return(marc_record)
+    allow(client).to receive(:find_by_bib_id).with('4079753').and_return(marc_record_4079753_collection_record)
+    client
   end
   before(:all) do
     @project_mappings = HYSYNC[:project_mappings]
@@ -19,7 +30,15 @@ describe Hysync::MarcSynchronizer::MarcHyacinthRecord do
     HYSYNC[:publish_target_mappings] = @target_mappings
   end
 
-	subject { described_class.new(marc_record) }
+	subject do
+    described_class.new(
+      marc_record,
+      location_codes_from_holdings,
+      Hysync::MarcSynchronizer::Runner.default_digital_object_data,
+      folio_client
+    )
+  end
+
   it "produces the expected dynamic field data" do
     actual = subject.digital_object_data['dynamic_field_data']
     deep_compact!(actual)

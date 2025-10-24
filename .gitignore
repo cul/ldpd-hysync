@@ -36,3 +36,7 @@
 /config/hysync.yml
 /config/hyacinth.yml
 /config/voyager.yml
+/config/folio.yml
+
+# Ignore local rake files
+local.rake

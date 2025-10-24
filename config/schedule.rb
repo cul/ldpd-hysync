@@ -22,6 +22,6 @@ job_type :rake, "cd :path && :environment_variable=:environment bundle exec rake
 
 if Rails.env == 'hysync_prod'
   every 1.day, at: '3:30 am' do
-    rake "hysync:marc_sync"
+    rake "hysync:sync:all modified_since_hours_ago=25"
   end
 end

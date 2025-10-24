@@ -15,10 +15,10 @@ namespace :hysync do
   end
 
   desc 'CI build without rubocop'
-  task ci_nocop: ['hysync:setup:config_files', :environment, 'hysync:ci_specs']
+  task ci_nocop: [:environment, 'hysync:ci_specs']
 
   desc 'CI build with Rubocop validation'
-  task ci: ['hysync:setup:config_files', :environment, 'hysync:rubocop', 'hysync:ci_specs']
+  task ci: [:environment, 'hysync:rubocop', 'hysync:ci_specs']
 
   desc 'CI build just running specs'
   task ci_specs: :environment do

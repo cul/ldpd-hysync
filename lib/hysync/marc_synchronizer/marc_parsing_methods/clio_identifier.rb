@@ -7,7 +7,7 @@ module Hysync
           register_parsing_method :add_clio_identifier
         end
 
-        def add_clio_identifier(marc_record, holdings_marc_records, mapping_ruleset)
+        def add_clio_identifier(marc_record, location_codes_from_holdings, mapping_ruleset)
           dynamic_field_data['clio_identifier'] ||= []
           dynamic_field_data['clio_identifier'] << {
             'clio_identifier_value' => marc_record['001'].value

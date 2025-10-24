@@ -18,5 +18,9 @@ module Hysync
     config.active_record.default_timezone = :utc
 
     config.eager_load_paths << Rails.root.join('lib')
+
+    # Load custom configs
+    config.folio = config_for(:folio)
+    config.hyacinth = config_for(:hyacinth)
   end
 end
