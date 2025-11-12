@@ -13,16 +13,17 @@ module Hysync
           existing_project = digital_object_data.fetch('project',{})['string_key']
 
           # First check for projects in the 965 $a 965hyacinth $p values
-          project_string_keys = MarcSelector.first(marc_record, 965, a: '965hyacinth')&.select { |subfield|
-            subfield.code == 'p'
-          }.map { |subfield|
-            subfield.value
-          }
+          all_965hyacinth_p_project_string_keys = MarcSelector.first(
+            marc_record, 965, a: '965hyacinth'
+          )&.select { |subfield| subfield.code == 'p' }&.map(&:value) || []
 
-          # Then check for projects from other 965 values
-          project_string_keys.concat(marc_record.fields('965').map do |field|
+          all_965_project_mapping_project_string_keys = marc_record.fields('965').map do |field|
             HYSYNC[:project_mappings][field['a'].to_sym]
-          end.compact)
+          end.compact
+
+          project_string_keys = all_965hyacinth_p_project_string_keys + all_965_project_mapping_project_string_keys
+
+          project_string_keys.uniq! # Remove any duplicates
 
           if project_string_keys.empty?
             self.errors << "Could not resolve 965 values to a project for: #{self.clio_id}"
