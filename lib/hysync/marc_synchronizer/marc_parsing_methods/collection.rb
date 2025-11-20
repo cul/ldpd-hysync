@@ -65,7 +65,7 @@ module Hysync
 
           return nil if field.nil?
 
-          collection_folio_hrid = field['w'].sub(/^\(NNC\)/, '').sub(/^in/, '')
+          collection_folio_hrid = field['w'].sub(/^\(NNC\)/, '')
 
           # # Check cache for this value and return if found
           # return Collection::CACHE[collection_folio_hrid] if Collection::CACHE.key?(collection_folio_hrid)

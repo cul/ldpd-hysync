@@ -55,6 +55,7 @@ module Hysync
         marc_hyacinth_record.digital_object_data['dynamic_field_data'].fetch("collection", []).each do |collection_term|
           collection_term = collection_term['collection_term']
           collection_clio_id = collection_term['clio_id']
+
           next unless collection_clio_id
           unless @collection_clio_ids_to_uris.key?(collection_clio_id)
             begin
