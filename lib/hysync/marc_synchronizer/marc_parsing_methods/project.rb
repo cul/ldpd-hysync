@@ -12,9 +12,18 @@ module Hysync
         def add_project(marc_record, location_codes_from_holdings, mapping_ruleset)
           existing_project = digital_object_data.fetch('project',{})['string_key']
 
-          project_string_keys = marc_record.fields('965').map do |field|
+          # First check for projects in the 965 $a 965hyacinth $p values
+          all_965hyacinth_p_project_string_keys = MarcSelector.first(
+            marc_record, 965, a: '965hyacinth'
+          )&.select { |subfield| subfield.code == 'p' }&.map(&:value) || []
+
+          all_965_project_mapping_project_string_keys = marc_record.fields('965').map do |field|
             HYSYNC[:project_mappings][field['a'].to_sym]
           end.compact
+
+          project_string_keys = all_965hyacinth_p_project_string_keys + all_965_project_mapping_project_string_keys
+
+          project_string_keys.uniq! # Remove any duplicates
 
           if project_string_keys.empty?
             self.errors << "Could not resolve 965 values to a project for: #{self.clio_id}"
