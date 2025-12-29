@@ -1,19 +1,5 @@
 shared: &shared
-  project_mappings:
-    965carnegiedpf: carnegie_dpf
-    965TBM: TBM
-    965tibetan: tibetan
-    965greene_and_greene: greene_and_greene
-    965bnf: france_in_the_americas
-    965CPEMC: cpemc
-    965academiccommons: academic_commons
-    965rbml: rbml_general
-    965gumby: alexander_gumby
-    965oh_general: oh_general
-    965NPF: npf_vietnamese
-    965gumbymicrofilm: gumby_microfilm
-    965anticaste: anticaste
-  # Map projects to publish targets
+  # Map project string keys to publish targets
   publish_target_mappings:
     carnegie_dpf:
     - dlc_catalog
