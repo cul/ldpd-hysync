@@ -4,22 +4,16 @@ module Hysync
       module PublishTargets
         extend ActiveSupport::Concern
         included do
-          register_parsing_method :add_publish_targets
+          register_parsing_method :add_publish_targets_based_on_project
         end
 
-        def add_publish_targets(marc_record, location_codes_from_holdings, mapping_ruleset)
-          # TODO: Use publish_to for Hyacinth 3
+        def add_publish_targets_based_on_project(marc_record, location_codes_from_holdings, mapping_ruleset)
+          project_string_key = digital_object_data.fetch('project', nil)&.fetch('string_key', nil)&.to_sym
+          return if project_string_key.nil?
 
-          publish_target_string_keys = []
-          marc_record.fields('965').each do |field|
-            publish_target_mappings = Array.wrap(HYSYNC[:publish_target_mappings][field['a'].to_sym])
-            next if publish_target_mappings.blank?
-            publish_target_mappings.each do |publish_target_string_key|
-              publish_target_string_keys << publish_target_string_key
-            end
-          end
-
+          publish_target_string_keys = Array.wrap(HYSYNC[:publish_target_mappings][project_string_key])
           return if publish_target_string_keys.blank?
+
           digital_object_data['publish_targets'] ||= []
           publish_target_string_keys.each do |publish_target_string_key|
             digital_object_data['publish_targets'] << {
