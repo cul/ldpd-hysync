@@ -56,6 +56,18 @@
         "name_usage_primary": true
       }
     ],
+    "other_project": [
+      {
+        "other_project_term": {
+          "uri": "info:hyacinth.library.columbia.edu/projects/other_project1"
+        }
+      },
+      {
+        "other_project_term": {
+          "uri": "info:hyacinth.library.columbia.edu/projects/other_project2"
+        }
+      }
+    ],
     "type_of_resource": [
       {
         "type_of_resource_value": "text",

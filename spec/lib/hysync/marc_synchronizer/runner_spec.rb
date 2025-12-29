@@ -111,9 +111,7 @@ describe Hysync::MarcSynchronizer::Runner do
     let(:default_data) { described_class.default_digital_object_data }
     let(:marc_record) do
       record = FactoryBot.build(:marc_record)
-      marc_project_keys.each do |key|
-        record.append(MARC::DataField.new('965', ' ',  ' ', ['a', "965#{key}"]))
-      end
+      record.append(MARC::DataField.new('965', ' ',  ' ', ['a', '965hyacinth'], *marc_project_keys.map {|key| ['p', key]}))
       record
     end
     let(:common_ids) { ['abc123', 'abc456'] }

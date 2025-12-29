@@ -1,104 +1,104 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <record xmlns="http://www.loc.gov/MARC21/slim">
-    <leader>01489cam a2200325   4500</leader>
-    <controlfield tag="001">11258902</controlfield>
-    <controlfield tag="005">20150713190008.0</controlfield>
-    <controlfield tag="006">m|||| |||d| ||||||</controlfield>
-    <controlfield tag="007">cr|cn|---macda</controlfield>
-    <controlfield tag="007">cr|cn|008aaaap</controlfield>
-    <controlfield tag="008">961111s1936    nyuach  s     000 0 eng d</controlfield>
-    <datafield ind1=" " ind2=" " tag="035">
-        <subfield code="a">(OCoLC)904393455</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="035">
-        <subfield code="a">(OCoLC)ocn904393455</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="035">
-        <subfield code="a">(NNC)11258902</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="040">
-        <subfield code="a">NNC</subfield>
-        <subfield code="c">NNC</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="042">
-        <subfield code="a">dlr</subfield>
-    </datafield>
-    <datafield ind1="2" ind2=" " tag="110">
-        <subfield code="a">Tammany Society, or Columbian Order (New York, N.Y.)</subfield>
-    </datafield>
-    <datafield ind1="1" ind2="0" tag="245">
-        <subfield code="a">150th anniversary celebration, 1786, July 4, 1936</subfield>
-        <subfield code="h">[electronic resource].</subfield>
-        <subfield code="b">The Society of Tammany, or Columbian Order in the great wigwam, Union Square, New York.</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="260">
-        <subfield code="a">[New York,</subfield>
-        <subfield code="c">1936]</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="300">
-        <subfield code="a">137 p.</subfield>
-        <subfield code="b">front., ill. (incl. facsims., ports.)</subfield>
-        <subfield code="c">24 cm.</subfield>
-    </datafield>
-    <datafield ind1="0" ind2=" " tag="506">
-        <subfield code="a">Digital version available with no restrictions</subfield>
-        <subfield code="f">Unrestricted online access</subfield>
-        <subfield code="2">star</subfield>
-        <subfield code="5">NNC</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="533">
-        <subfield code="a">Electronic reproduction.</subfield>
-        <subfield code="b">New York, N.Y.:</subfield>
-        <subfield code="c">Columbia University Libraries,</subfield>
-        <subfield code="d">2014.</subfield>
-        <subfield code="n">Digitized by the Internet Archive.</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="538">
-        <subfield code="a">Benchmark for Faithful Digital Reproductions of Monographs and Serials. Version 1. December 2002.</subfield>
-        <subfield code="i">Digital version conforms to:</subfield>
-        <subfield code="u">http://purl.oclc.org/DLF/benchrepro0212</subfield>
-    </datafield>
-    <datafield ind1="1" ind2=" " tag="583">
-        <subfield code="a">Digitized.</subfield>
-        <subfield code="c">2014</subfield>
-        <subfield code="h">Columbia University Libraries</subfield>
-        <subfield code="l">committed to preserve</subfield>
-        <subfield code="2">pda</subfield>
-        <subfield code="5">NNC</subfield>
-    </datafield>
-    <datafield ind1="2" ind2="4" tag="610">
-        <subfield code="a">Tammany Hall.</subfield>
-    </datafield>
-    <datafield ind1="0" ind2=" " tag="776">
-        <subfield code="c">Original</subfield>
-        <subfield code="w">(OCoLC)ocm35896431</subfield>
-    </datafield>
-    <datafield ind1="4" ind2="0" tag="856">
-        <subfield code="u">http://www.columbia.edu/cgi-bin/cul/resolve?clio11258902</subfield>
-    </datafield>
-    <datafield ind1="4" ind2="0" tag="920">
-        <subfield code="u">https://archive.org/details/150thanniversary00tamm</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="965">
-        <subfield code="a">965eDurst</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="900">
-        <subfield code="a">AUTH</subfield>
-    </datafield>
-    <datafield ind1="8" ind2=" " tag="852">
-        <subfield code="0">14295001</subfield>
-        <subfield code="a">Online</subfield>
-        <subfield code="b">lweb</subfield>
-        <subfield code="h">EBOOKS</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="992">
-        <subfield code="a">Online</subfield>
-        <subfield code="b">Online &gt;&gt; EBOOKS|DELIM|14295001</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="995">
-        <subfield code="a">catalog</subfield>
-    </datafield>
-    <datafield ind1=" " ind2=" " tag="997">
-        <subfield code="a">2015-02-17T00:00:00.000Z</subfield>
-    </datafield>
+  <leader>01657cam a2200373   4500</leader>
+  <controlfield tag="001">11258902</controlfield>
+  <controlfield tag="005">20150713190008.0</controlfield>
+  <controlfield tag="006">m|||| |||d| ||||||</controlfield>
+  <controlfield tag="007">cr|cn|---macda</controlfield>
+  <controlfield tag="007">cr|cn|008aaaap</controlfield>
+  <controlfield tag="008">961111s1936    nyuach  s     000 0 eng d</controlfield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(OCoLC)904393455</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(OCoLC)ocn904393455</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="035">
+    <subfield code="a">(NNC)11258902</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="040">
+    <subfield code="a">NNC</subfield>
+    <subfield code="c">NNC</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="042">
+    <subfield code="a">dlr</subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="110">
+    <subfield code="a">Tammany Society, or Columbian Order (New York, N.Y.)</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="245">
+    <subfield code="a">150th anniversary celebration, 1786, July 4, 1936</subfield>
+    <subfield code="h">[electronic resource].</subfield>
+    <subfield code="b">The Society of Tammany, or Columbian Order in the great wigwam, Union Square, New York.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="260">
+    <subfield code="a">[New York,</subfield>
+    <subfield code="c">1936]</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="300">
+    <subfield code="a">137 p.</subfield>
+    <subfield code="b">front., ill. (incl. facsims., ports.)</subfield>
+    <subfield code="c">24 cm.</subfield>
+  </datafield>
+  <datafield ind1="0" ind2=" " tag="506">
+    <subfield code="a">Digital version available with no restrictions</subfield>
+    <subfield code="f">Unrestricted online access</subfield>
+    <subfield code="2">star</subfield>
+    <subfield code="5">NNC</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="533">
+    <subfield code="a">Electronic reproduction.</subfield>
+    <subfield code="b">New York, N.Y.:</subfield>
+    <subfield code="c">Columbia University Libraries,</subfield>
+    <subfield code="d">2014.</subfield>
+    <subfield code="n">Digitized by the Internet Archive.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="538">
+    <subfield code="a">Benchmark for Faithful Digital Reproductions of Monographs and Serials. Version 1. December 2002.</subfield>
+    <subfield code="i">Digital version conforms to:</subfield>
+    <subfield code="u">http://purl.oclc.org/DLF/benchrepro0212</subfield>
+  </datafield>
+  <datafield ind1="1" ind2=" " tag="583">
+    <subfield code="a">Digitized.</subfield>
+    <subfield code="c">2014</subfield>
+    <subfield code="h">Columbia University Libraries</subfield>
+    <subfield code="l">committed to preserve</subfield>
+    <subfield code="2">pda</subfield>
+    <subfield code="5">NNC</subfield>
+  </datafield>
+  <datafield ind1="2" ind2="4" tag="610">
+    <subfield code="a">Tammany Hall.</subfield>
+  </datafield>
+  <datafield ind1="0" ind2=" " tag="776">
+    <subfield code="c">Original</subfield>
+    <subfield code="w">(OCoLC)ocm35896431</subfield>
+  </datafield>
+  <datafield ind1="4" ind2="0" tag="856">
+    <subfield code="u">http://www.columbia.edu/cgi-bin/cul/resolve?clio11258902</subfield>
+  </datafield>
+  <datafield ind1="4" ind2="0" tag="920">
+    <subfield code="u">https://archive.org/details/150thanniversary00tamm</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="965">
+    <subfield code="a">965eDurst</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="900">
+    <subfield code="a">AUTH</subfield>
+  </datafield>
+  <datafield ind1="8" ind2=" " tag="852">
+    <subfield code="0">14295001</subfield>
+    <subfield code="a">Online</subfield>
+    <subfield code="b">lweb</subfield>
+    <subfield code="h">EBOOKS</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="992">
+    <subfield code="a">Online</subfield>
+    <subfield code="b">Online &gt;&gt; EBOOKS|DELIM|14295001</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="995">
+    <subfield code="a">catalog</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="997">
+    <subfield code="a">2015-02-17T00:00:00.000Z</subfield>
+  </datafield>
 </record>

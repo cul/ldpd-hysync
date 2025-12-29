@@ -34,7 +34,7 @@ module Hysync
       include Hysync::MarcSynchronizer::MarcParsingMethods::PlaceOfOrigin
       include Hysync::MarcSynchronizer::MarcParsingMethods::Project
       include Hysync::MarcSynchronizer::MarcParsingMethods::Publisher
-      include Hysync::MarcSynchronizer::MarcParsingMethods::PublishTargets
+      include Hysync::MarcSynchronizer::MarcParsingMethods::PublishTargets # Must be included AFTER the Project module
       include Hysync::MarcSynchronizer::MarcParsingMethods::RelatedItem
       include Hysync::MarcSynchronizer::MarcParsingMethods::Series
       include Hysync::MarcSynchronizer::MarcParsingMethods::SubjectGeographic
