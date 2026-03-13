@@ -19,6 +19,9 @@ module Hysync
             }]
           end
 
+          # Check for collection URI in 965 $c
+          extract_965c_collection_uri(marc_record) if dynamic_field_data['collection'].blank?
+
           # Check for collection in 773 $w
           extract_773w_collection_term(marc_record, folio_client) if dynamic_field_data['collection'].blank?
 
@@ -41,6 +44,18 @@ module Hysync
 
         def collection_terms
           dynamic_field_data['collection']
+        end
+
+        def extract_965c_collection_uri(marc_record)
+          field_965 = MarcSelector.first(marc_record, 965, c: true)
+          return if field_965.blank?
+
+          dynamic_field_data['collection'] ||= []
+          dynamic_field_data['collection'] << {
+            'collection_term' => {
+              'uri' => StringCleaner.trailing_punctuation_and_whitespace(field_965['c'])
+            }
+          }
         end
 
         def extract_773w_collection_term(marc_record, folio_client)

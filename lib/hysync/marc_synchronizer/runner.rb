@@ -89,7 +89,7 @@ module Hysync
 
       # @param clio_id [String]
       def find_items_by_clio_id(clio_id)
-        @hyacinth_client.find_by_identifier(clio_id, { f: { digital_object_type_display_label_sim: ['Item'] } })
+        @hyacinth_client.find_by_identifier(clio_id, {})
       end
 
       # @param marc_record [MARC::Reader] ruby-marc record object
@@ -168,8 +168,9 @@ module Hysync
             Rails.logger.debug "Skipping update. Record has not changed. (clio id = #{marc_hyacinth_record.clio_id})"
           end
         else
-          msg = "Skipped record due to errors (clio id = #{marc_hyacinth_record.clio_id})." +
-            "Found more than one Hyacinth record with identifier #{hyacinth_record_identifier}, but only expected to find one. This needs to be corrected."
+          msg = "Skipped record due to errors (clio id = #{marc_hyacinth_record.clio_id}). "\
+            "Found more than one Hyacinth record with clio id #{marc_hyacinth_record.clio_id}, but only expected to find one. This needs to be corrected. "\
+            "Problematic records: #{results.map { |record| record['pid'] }.join(', ')}"
           @errors << msg
           Rails.logger.error msg
         end
